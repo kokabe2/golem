@@ -1,0 +1,73 @@
+﻿@startuml sensor_class_diagram
+skinparam {
+    defaultFontName Ricty Diminished
+    monochrome true
+}
+
+package Golem {
+    folder sensors {
+        interface Sensor {
+            + Id(): int
+            + Tag(): const char*
+            + State(): const char*
+            + IsDefaultState(): bool
+        }
+        interface SensorFactory {
+            Make(int): Sensor
+        }
+        class NullSensor
+        folder microswitches {
+            interface Microswitch {
+                + Id(): int
+                + Tag(): const char*
+                + State(): const char*
+                + IsOff(): bool
+                + IsOn(): bool
+            }
+            interface MicroswitchFactory {
+                Make(int): Microswitch
+            }
+            class NullMicroswitch
+            Microswitch <|-- NullMicroswitch
+            Microswitch <- MicroswitchFactory
+        }
+        folder photosensors {
+            interface Photosensor {
+                + Id(): int
+                + Tag(): const char*
+                + State(): const char*
+                + IsLight(): bool
+                + IsDark(): bool
+            }
+            interface PhotosensorFactory {
+                Make(int): Photosensor
+            }
+            class NullPhotosensor
+            Photosensor <|-- NullPhotosensor
+            Photosensor <- PhotosensorFactory
+        }
+        folder temperature_sensors {
+            interface TemperatureSensor {
+                + Id(): int
+                + Tag(): const char*
+                + State(): const char*
+                + IsNormal(): bool
+            }
+            interface TemperatureSensorFactory {
+                Make(int): TemperatureSensor
+            }
+            class NullTemperatureSensor
+            TemperatureSensor <|-- NullTemperatureSensor
+            TemperatureSensor <- TemperatureSensorFactory
+        }
+        Sensor <|-- NullSensor
+        Sensor <- SensorFactory
+        Sensor <|.. Microswitch
+        SensorFactory <|.. MicroswitchFactory
+        Sensor <|.. Photosensor
+        SensorFactory <|.. PhotosensorFactory
+        Sensor <|.. TemperatureSensor
+        SensorFactory <|.. TemperatureSensorFactory
+    }
+}
+@enduml
