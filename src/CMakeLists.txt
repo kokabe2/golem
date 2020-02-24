@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    actuators/null_actuator_transaction.c
     actuators/null_actuator.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
@@ -19,6 +20,7 @@ add_library(
 add_executable(
     gtests
     actuators/null_actuator_test.cpp
+    actuators/null_actuator_transaction_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
     sensors/photosensors/null_photosensor_test.cpp
     sensors/temperature_sensors/null_temperature_sensor_test.cpp
