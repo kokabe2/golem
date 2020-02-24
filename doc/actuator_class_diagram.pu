@@ -1,0 +1,133 @@
+﻿@startuml actuator_class_diagram
+skinparam {
+    defaultFontName Ricty Diminished
+    monochrome true
+}
+
+package Golem {
+    folder actuators {
+        interface Actuator {
+            + Id(): int
+            + Tag(): const char*
+            + State(): const char*
+            + Activate()
+            + Deactivate()
+            + IsActive(): bool
+        }
+        interface ActuatorFactory {
+            + Make(int): Actuator
+        }
+        interface ActuatorTransaction {
+            + Execute(): bool
+        }
+        interface ActuatorTransactionFactory {
+            + MakeTimerTransaction(Actuator, int): ActuatorTransaction
+            + MakeWatchSensorTransaction(Actuator, Sensor, int): ActuatorTransaction
+        }
+        class NullActuator
+        class NullActuatorTransaction
+        folder motors {
+            interface Motor {
+                + Id(): int
+                + Tag(): const char*
+                + State(): const char*
+                + Run()
+                + Stop()
+                + IsRunning(): bool
+                + SetToCw(): bool
+                + SetToAcw(): bool
+                + IsCw(): bool
+                + SetSpeed(int)
+                + GetSpeed(): int
+            }
+            interface MotorFactory {
+                + Make(int): Motor
+            }
+            class NullMotor
+            folder dc_motors {
+                interface DcMotor {
+                    + Id(): int
+                    + Tag(): const char*
+                    + State(): const char*
+                    + Run()
+                    + Stop()
+                    + IsRunning(): bool
+                    + SetToCw(): bool
+                    + SetToAcw(): bool
+                    + IsCw(): bool
+                    + SetSpeed(int)
+                    + GetSpeed(): int
+                }
+                interface DcMotorFactory {
+                    + Make(int): DcMotor
+                }
+                class NullDcMotor
+                DcMotor <|-- NullDcMotor
+                DcMotor <- DcMotorFactory
+            }
+            folder pulse_motors {
+                interface PulseMotor {
+                    + Id(): int
+                    + Tag(): const char*
+                    + State(): const char*
+                    + Run()
+                    + Stop()
+                    + IsRunning(): bool
+                    + SetToCw(): bool
+                    + SetToAcw(): bool
+                    + IsCw(): bool
+                    + SetSpeed(int)
+                    + GetSpeed(): int
+                    + Excite()
+                    + Unexcite()
+                    + Move(int)
+                    + ForceStop()
+                    + GetSteps(): int
+                }
+                interface PulseMotorFactory {
+                    + Make(int): PulseMotor
+                }
+                class NullPulseMotor
+                PulseMotor <|-- NullPulseMotor
+                PulseMotor <- PulseMotorFactory
+            }
+            Motor <|-- NullMotor
+            Motor <- MotorFactory
+            Motor <|.. DcMotor
+            MotorFactory <|.. DcMotorFactory
+            Motor <|.. PulseMotor
+            MotorFactory <|.. PulseMotorFactory
+        }
+        folder solenoids {
+            interface Solenoid {
+                + Id(): int
+                + Tag(): const char*
+                + State(): const char*
+                + Lock()
+                + Unlock()
+                + IsLocked(): bool
+            }
+            interface SolenoidFactory {
+                + Make(int): Solenoid
+            }
+            class NullSolenoid
+            Solenoid <|-- NullSolenoid
+            Solenoid <- SolenoidFactory
+        }
+        Actuator <|-- NullActuator
+        Actuator <- ActuatorFactory
+        ActuatorTransaction <|-- NullActuatorTransaction
+        ActuatorTransaction <- ActuatorTransactionFactory
+        Actuator <-- ActuatorTransactionFactory
+        ActuatorTransactionFactory -[hidden]r-> NullActuator
+        Actuator <|.. Solenoid
+        ActuatorFactory <|.. SolenoidFactory
+        Actuator <|.. Motor
+        ActuatorFactory <|.. MotorFactory
+    }
+    folder sensors {
+        interface Sensor
+    }
+    Sensor <-- ActuatorTransactionFactory
+}
+@enduml
