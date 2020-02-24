@@ -7,14 +7,16 @@ include_directories(
 
 add_library(
     golem
+    sensors/null_sensor.c
     golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     )
 
 add_executable(
     gtests
-    main.cpp
+    sensors/null_sensor_test.cpp
     golem_test.cpp
+    main.cpp
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
     )
 
