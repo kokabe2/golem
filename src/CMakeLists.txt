@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    sensors/microswitches/null_microswitch.c
     sensors/null_sensor.c
     golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
@@ -14,6 +15,7 @@ add_library(
 
 add_executable(
     gtests
+    sensors/microswitches/null_microswitch_test.cpp
     sensors/null_sensor_test.cpp
     golem_test.cpp
     main.cpp
