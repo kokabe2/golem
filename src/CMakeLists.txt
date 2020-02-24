@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    sensors/photosensors/null_photosensor.c
     sensors/microswitches/null_microswitch.c
     sensors/null_sensor.c
     golem.c
@@ -15,6 +16,7 @@ add_library(
 
 add_executable(
     gtests
+    sensors/photosensors/null_photosensor_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
     sensors/null_sensor_test.cpp
     golem_test.cpp
