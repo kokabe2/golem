@@ -34,11 +34,12 @@ package Golem {
                 + Run()
                 + Stop()
                 + IsRunning(): bool
-                + SetToCw(): bool
-                + SetToAcw(): bool
+                + ForceStop()
+                + SetToCw()
+                + SetToAcw()
                 + IsCw(): bool
-                + SetSpeed(int)
                 + GetSpeed(): int
+                + SetSpeed(int)
             }
             interface MotorFactory {
                 + Make(int): Motor
@@ -52,11 +53,12 @@ package Golem {
                     + Run()
                     + Stop()
                     + IsRunning(): bool
-                    + SetToCw(): bool
-                    + SetToAcw(): bool
+                    + ForceStop()
+                    + SetToCw()
+                    + SetToAcw()
                     + IsCw(): bool
-                    + SetSpeed(int)
                     + GetSpeed(): int
+                    + SetSpeed(int)
                 }
                 interface DcMotorFactory {
                     + Make(int): DcMotor
@@ -73,15 +75,17 @@ package Golem {
                     + Run()
                     + Stop()
                     + IsRunning(): bool
-                    + SetToCw(): bool
-                    + SetToAcw(): bool
+                    + ForceStop()
+                    + SetToCw()
+                    + SetToAcw()
                     + IsCw(): bool
-                    + SetSpeed(int)
                     + GetSpeed(): int
+                    + SetSpeed(int)
                     + Excite()
                     + Unexcite()
                     + Move(int)
-                    + ForceStop()
+                    + GetPulseRate(): int
+                    + SetPulseRate(int)
                     + GetSteps(): int
                 }
                 interface PulseMotorFactory {
