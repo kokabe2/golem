@@ -17,6 +17,7 @@ add_library(
     sensors/photosensors/null_photosensor.c
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/null_sensor.c
+    util/delay_command.c
     golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     )
@@ -33,6 +34,7 @@ add_executable(
     sensors/photosensors/null_photosensor_test.cpp
     sensors/temperature_sensors/null_temperature_sensor_test.cpp
     sensors/null_sensor_test.cpp
+    util/delay_command_test.cpp
     golem_test.cpp
     main.cpp
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
