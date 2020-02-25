@@ -83,10 +83,11 @@ package Golem {
                     + SetSpeed(int)
                     + Excite()
                     + Unexcite()
+                    + IsExciting(): bool
                     + Move(int)
                     + GetPulseRate(): int
                     + SetPulseRate(int)
-                    + GetSteps(): int
+                    + GetPosition(): int
                 }
                 interface PulseMotorFactory {
                     + Make(int): PulseMotor
