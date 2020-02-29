@@ -2,43 +2,33 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_motor.h"
 
-static int Id(void) { return ~0; }
+#include "null_actuator.h"
 
-static const char* Tag(void) { return ""; }
+static int NonsenseValue(void) { return ~0; }
 
-static const char* State(void) { return ""; }
+static const char* EmptyString(void) { return ""; }
 
-static void Run(void) {}
+static void NoEffect(void) {}
 
-static void Stop(void) {}
+static bool False(void) { return false; }
 
-static bool IsRunning(void) { return false; }
+static int Zero(void) { return 0; }
 
-static void ForceStop(void) {}
-
-static void SetToCw(void) {}
-
-static void SetToAcw(void) {}
-
-static bool IsCw(void) { return false; }
-
-static int GetSpeed(void) { return 0; }
-
-static void SetSpeed(int speed_in_rpm) {}
+static void NoEffectWithInt(int rmp) {}
 
 static const MotorInterfaceStruct kTheMethod = {
-    .Id = Id,
-    .Tag = Tag,
-    .State = State,
-    .Run = Run,
-    .Stop = Stop,
-    .IsRunning = IsRunning,
-    .ForceStop = ForceStop,
-    .SetToCw = SetToCw,
-    .SetToAcw = SetToAcw,
-    .IsCw = IsCw,
-    .GetSpeed = GetSpeed,
-    .SetSpeed = SetSpeed,
+    .Id = NonsenseValue,
+    .Tag = EmptyString,
+    .State = EmptyString,
+    .Run = NoEffect,
+    .Stop = NoEffect,
+    .IsRunning = False,
+    .ForceStop = NoEffect,
+    .SetToCw = NoEffect,
+    .SetToAcw = NoEffect,
+    .IsCw = False,
+    .GetSpeed = Zero,
+    .SetSpeed = NoEffectWithInt,
 };
 
 const MotorInterface nullMotor = &kTheMethod;

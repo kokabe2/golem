@@ -17,7 +17,7 @@ typedef struct {
   void (*SetToAcw)(void);
   bool (*IsCw)(void);
   int (*GetSpeed)(void);
-  void (*SetSpeed)(int speed_in_rpm);
+  void (*SetSpeed)(int rpm);
 } MotorInterfaceStruct;
 typedef const MotorInterfaceStruct* MotorInterface;
 
