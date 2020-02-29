@@ -3,7 +3,9 @@
 #include "null_actuator_transaction.h"
 
 static bool Execute(void) { return false; }
+
 static const ActuatorTransactionInterfaceStruct kTheMethod = {
     .Execute = Execute,
 };
+
 const ActuatorTransactionInterface nullActuatorTransaction = &kTheMethod;
