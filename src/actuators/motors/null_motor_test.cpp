@@ -6,25 +6,38 @@ extern "C" {
 #include "null_motor.h"
 }
 
-TEST(NullMotorTest, NullObject) {
-  EXPECT_EQ(~0, nullMotor->Id());
-  EXPECT_STREQ("", nullMotor->Tag());
-  EXPECT_STREQ("", nullMotor->State());
+TEST(NullMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullMotor->Id()); }
 
-  EXPECT_FALSE(nullMotor->IsRunning());
+TEST(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullMotor->Tag()); }
+
+TEST(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullMotor->State()); }
+
+TEST(NullMotorTest, RunHasNoEffect) {
   nullMotor->Run();
-  EXPECT_FALSE(nullMotor->IsRunning());
-  nullMotor->Stop();
-  nullMotor->ForceStop();
-  EXPECT_FALSE(nullMotor->IsRunning());
 
-  EXPECT_FALSE(nullMotor->IsCw());
+  EXPECT_FALSE(nullMotor->IsRunning());
+}
+
+TEST(NullMotorTest, StopHasNoEffect) { nullMotor->Stop(); }
+
+TEST(NullMotorTest, IsRunningReturnsFalse) { EXPECT_FALSE(nullMotor->IsRunning()); }
+
+TEST(NullMotorTest, ForceStopHasNoEffect) { nullMotor->ForceStop(); }
+
+TEST(NullMotorTest, SetToCwpHasNoEffect) {
   nullMotor->SetToCw();
-  EXPECT_FALSE(nullMotor->IsCw());
-  nullMotor->SetToAcw();
-  EXPECT_FALSE(nullMotor->IsCw());
 
-  EXPECT_EQ(0, nullMotor->GetSpeed());
+  EXPECT_FALSE(nullMotor->IsCw());
+}
+
+TEST(NullMotorTest, SetToAcwpHasNoEffect) { nullMotor->SetToAcw(); }
+
+TEST(NullMotorTest, IsCwReturnsFalse) { EXPECT_FALSE(nullMotor->IsCw()); }
+
+TEST(NullMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, nullMotor->GetSpeed()); }
+
+TEST(NullMotorTest, SetSpeedHasNoEffect) {
   nullMotor->SetSpeed(100);
+
   EXPECT_EQ(0, nullMotor->GetSpeed());
 }
