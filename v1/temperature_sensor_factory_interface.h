@@ -6,9 +6,8 @@
 #include "temperature_sensor_interface.h"
 
 typedef struct {
-  TemperatureSensorInterface (*Make)(int id);
+  TemperatureSensorInterface (*Make)(int id);  //
 } TemperatureSensorFactoryInterfaceStruct;
-typedef const TemperatureSensorFactoryInterfaceStruct*
-    TemperatureSensorFactoryInterface;
+typedef const TemperatureSensorFactoryInterfaceStruct* TemperatureSensorFactoryInterface;
 
 #endif  // V1_TEMPERATURE_SENSOR_FACTORY_INTERFACE_H_

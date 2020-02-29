@@ -7,8 +7,7 @@
 
 typedef bool (*WatchDelegate)(void);
 typedef struct {
-  bool (*Do)(WatchDelegate watch, int delay_in_milliseconds,
-             int period_in_milliseconds, int timeout_in_milliseconds);
+  bool (*Do)(WatchDelegate watch, int delay_in_milliseconds, int period_in_milliseconds, int timeout_in_milliseconds);
 } WatchCommandMethodStruct;
 typedef const WatchCommandMethodStruct* WatchCommandMethod;
 
