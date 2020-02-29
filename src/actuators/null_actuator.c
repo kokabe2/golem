@@ -2,20 +2,21 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_actuator.h"
 
-static int Id(void) { return ~0; }
+static int NonsenseValue(void) { return ~0; }
 
-static const char* Tag(void) { return ""; }
+static const char* EmptyString(void) { return ""; }
 
-static const char* State(void) { return ""; }
+static void NoEffect(void) {}
 
-static void Activate(void) {}
-
-static void Deactivate(void) {}
-
-static bool IsActive(void) { return false; }
+static bool False(void) { return false; }
 
 static const ActuatorInterfaceStruct kTheMethod = {
-    .Id = Id, .Tag = Tag, .State = State, .Activate = Activate, .Deactivate = Deactivate, .IsActive = IsActive,
+    .Id = NonsenseValue,
+    .Tag = EmptyString,
+    .State = EmptyString,
+    .Activate = NoEffect,
+    .Deactivate = NoEffect,
+    .IsActive = False,
 };
 
 const ActuatorInterface nullActuator = &kTheMethod;
