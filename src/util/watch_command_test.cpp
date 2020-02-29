@@ -10,6 +10,7 @@ extern "C" {
 namespace {
 int watch_count;
 int count_for_true;
+
 bool WatchSpy(void) {
   ++watch_count;
   return watch_count >= count_for_true;
@@ -23,6 +24,7 @@ class WatchCommandTest : public ::testing::Test {
     count_for_true = 0;
     taskSpy->Reset();
   }
+
   virtual void TearDown() {}
 };
 
