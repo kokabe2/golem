@@ -6,9 +6,10 @@ extern "C" {
 #include "null_temperature_sensor.h"
 }
 
-TEST(NullTemperatureSensorTest, NullObject) {
-  EXPECT_EQ(~0, nullTemperatureSensor->Id());
-  EXPECT_STREQ("", nullTemperatureSensor->Tag());
-  EXPECT_STREQ("", nullTemperatureSensor->State());
-  EXPECT_FALSE(nullTemperatureSensor->IsNormal());
-}
+TEST(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullTemperatureSensor->Id()); }
+
+TEST(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullTemperatureSensor->Tag()); }
+
+TEST(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullTemperatureSensor->State()); }
+
+TEST(NullTemperatureSensorTest, IsNormalStateReturnsFalse) { EXPECT_FALSE(nullTemperatureSensor->IsNormal()); }

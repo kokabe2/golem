@@ -2,18 +2,14 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_microswitch.h"
 
-static int Id(void) { return ~0; }
+static int NonsenseValue(void) { return ~0; }
 
-static const char* Tag(void) { return ""; }
+static const char* EmptyString(void) { return ""; }
 
-static const char* State(void) { return ""; }
-
-static bool IsOff(void) { return false; }
-
-static bool IsOn(void) { return false; }
+static bool False(void) { return false; }
 
 static const MicroswitchInterfaceStruct kTheMethod = {
-    .Id = Id, .Tag = Tag, .State = State, .IsOff = IsOff, .IsOn = IsOn,
+    .Id = NonsenseValue, .Tag = EmptyString, .State = EmptyString, .IsOff = False, .IsOn = False,
 };
 
 const MicroswitchInterface nullMicroswitch = &kTheMethod;

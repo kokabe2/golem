@@ -6,9 +6,10 @@ extern "C" {
 #include "null_sensor.h"
 }
 
-TEST(NullSensorTest, NullObject) {
-  EXPECT_EQ(~0, nullSensor->Id());
-  EXPECT_STREQ("", nullSensor->Tag());
-  EXPECT_STREQ("", nullSensor->State());
-  EXPECT_FALSE(nullSensor->IsDefaultState());
-}
+TEST(NullSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullSensor->Id()); }
+
+TEST(NullSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullSensor->Tag()); }
+
+TEST(NullSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullSensor->State()); }
+
+TEST(NullSensorTest, IsDefaultStateReturnsFalse) { EXPECT_FALSE(nullSensor->IsDefaultState()); }
