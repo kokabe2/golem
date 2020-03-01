@@ -6,10 +6,12 @@ extern "C" {
 #include "null_microswitch.h"
 }
 
-TEST(NullMicroswitchTest, NullObject) {
-  EXPECT_EQ(~0, nullMicroswitch->Id());
-  EXPECT_STREQ("", nullMicroswitch->Tag());
-  EXPECT_STREQ("", nullMicroswitch->State());
-  EXPECT_FALSE(nullMicroswitch->IsOff());
-  EXPECT_FALSE(nullMicroswitch->IsOn());
-}
+TEST(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullMicroswitch->Id()); }
+
+TEST(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullMicroswitch->Tag()); }
+
+TEST(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullMicroswitch->State()); }
+
+TEST(NullMicroswitchTest, IsOffStateReturnsFalse) { EXPECT_FALSE(nullMicroswitch->IsOff()); }
+
+TEST(NullMicroswitchTest, IsOnStateReturnsFalse) { EXPECT_FALSE(nullMicroswitch->IsOn()); }
