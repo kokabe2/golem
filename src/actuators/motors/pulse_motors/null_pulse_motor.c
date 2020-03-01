@@ -14,8 +14,6 @@ static int Zero(void) { return 0; }
 
 static void NoEffectWithInt(int unused) {}
 
-static int GetPulseRate(void) { return 0; }
-
 static const PulseMotorInterfaceStruct kTheMethod = {
     .Id = NonsenseValue,
     .Tag = EmptyString,
