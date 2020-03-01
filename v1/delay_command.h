@@ -4,7 +4,7 @@
 #define V1_DELAY_COMMAND_H_
 
 typedef struct {
-  void (*Do)(int time_in_milliseconds);
+  void (*Do)(int milliseconds);  //
 } DelayCommandMethodStruct;
 typedef const DelayCommandMethodStruct* DelayCommandMethod;
 

@@ -4,7 +4,7 @@
 #define V1_BLOCK_COMMAND_H_
 
 typedef struct {
-  void (*Do)(int time_in_microseconds);
+  void (*Do)(int microseconds);  //
 } BlockCommandMethodStruct;
 typedef const BlockCommandMethodStruct* BlockCommandMethod;
 

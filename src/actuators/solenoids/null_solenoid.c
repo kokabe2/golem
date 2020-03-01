@@ -2,20 +2,21 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_solenoid.h"
 
-static int Id(void) { return ~0; }
+static int NonsenseValue(void) { return ~0; }
 
-static const char* Tag(void) { return ""; }
+static const char* EmptyString(void) { return ""; }
 
-static const char* State(void) { return ""; }
+static void NoEffect(void) {}
 
-static void Lock(void) {}
-
-static void Unlock(void) {}
-
-static bool IsLocked(void) { return false; }
+static bool False(void) { return false; }
 
 static const SolenoidInterfaceStruct kTheMethod = {
-    .Id = Id, .Tag = Tag, .State = State, .Lock = Lock, .Unlock = Unlock, .IsLocked = IsLocked,
+    .Id = NonsenseValue,
+    .Tag = EmptyString,
+    .State = EmptyString,
+    .Lock = NoEffect,
+    .Unlock = NoEffect,
+    .IsLocked = False,
 };
 
 const SolenoidInterface nullSolenoid = &kTheMethod;

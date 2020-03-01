@@ -6,40 +6,62 @@ extern "C" {
 #include "null_pulse_motor.h"
 }
 
-TEST(NullPulseMotorTest, NullObject) {
-  EXPECT_EQ(~0, nullPulseMotor->Id());
-  EXPECT_STREQ("", nullPulseMotor->Tag());
-  EXPECT_STREQ("", nullPulseMotor->State());
+TEST(NullPulseMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullPulseMotor->Id()); }
 
-  EXPECT_FALSE(nullPulseMotor->IsRunning());
+TEST(NullPulseMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullPulseMotor->Tag()); }
+
+TEST(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullPulseMotor->State()); }
+
+TEST(NullPulseMotorTest, RunHasNoEffect) {
   nullPulseMotor->Run();
-  EXPECT_FALSE(nullPulseMotor->IsRunning());
-  nullPulseMotor->Stop();
-  nullPulseMotor->ForceStop();
-  EXPECT_FALSE(nullPulseMotor->IsRunning());
 
-  EXPECT_FALSE(nullPulseMotor->IsCw());
+  EXPECT_FALSE(nullPulseMotor->IsRunning());
+}
+
+TEST(NullPulseMotorTest, StopHasNoEffect) { nullPulseMotor->Stop(); }
+
+TEST(NullPulseMotorTest, IsRunningReturnsFalse) { EXPECT_FALSE(nullPulseMotor->IsRunning()); }
+
+TEST(NullPulseMotorTest, ForceStopHasNoEffect) { nullPulseMotor->ForceStop(); }
+
+TEST(NullPulseMotorTest, SetToCwpHasNoEffect) {
   nullPulseMotor->SetToCw();
-  EXPECT_FALSE(nullPulseMotor->IsCw());
-  nullPulseMotor->SetToAcw();
-  EXPECT_FALSE(nullPulseMotor->IsCw());
 
-  EXPECT_EQ(0, nullPulseMotor->GetSpeed());
+  EXPECT_FALSE(nullPulseMotor->IsCw());
+}
+
+TEST(NullPulseMotorTest, SetToAcwpHasNoEffect) { nullPulseMotor->SetToAcw(); }
+
+TEST(NullPulseMotorTest, IsCwReturnsFalse) { EXPECT_FALSE(nullPulseMotor->IsCw()); }
+
+TEST(NullPulseMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, nullPulseMotor->GetSpeed()); }
+
+TEST(NullPulseMotorTest, SetSpeedHasNoEffect) {
   nullPulseMotor->SetSpeed(100);
+
   EXPECT_EQ(0, nullPulseMotor->GetSpeed());
+}
 
-  EXPECT_FALSE(nullPulseMotor->IsExciting());
+TEST(NullPulseMotorTest, ExciteHasNoEffect) {
   nullPulseMotor->Excite();
+
   EXPECT_FALSE(nullPulseMotor->IsExciting());
-  nullPulseMotor->Unexcite();
-  nullPulseMotor->ForceStop();
-  EXPECT_FALSE(nullPulseMotor->IsExciting());
+}
+
+TEST(NullPulseMotorTest, UnexciteHasNoEffect) { nullPulseMotor->Unexcite(); }
+
+TEST(NullPulseMotorTest, GetPulseRateReturnsZero) { EXPECT_EQ(0, nullPulseMotor->GetPulseRate()); }
+
+TEST(NullPulseMotorTest, SetPulseRateHasNoEffect) {
+  nullPulseMotor->SetSpeed(100);
 
   EXPECT_EQ(0, nullPulseMotor->GetPulseRate());
-  nullPulseMotor->SetPulseRate(100);
-  EXPECT_EQ(0, nullPulseMotor->GetPulseRate());
+}
 
-  EXPECT_EQ(0, nullPulseMotor->GetPosition());
+TEST(NullPulseMotorTest, GetPositionReturnsZero) { EXPECT_EQ(0, nullPulseMotor->GetPosition()); }
+
+TEST(NullPulseMotorTest, MoveHasNoEffect) {
   nullPulseMotor->Move(100);
+
   EXPECT_EQ(0, nullPulseMotor->GetPosition());
 }

@@ -2,10 +2,10 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_actuator_transaction.h"
 
-static bool Execute(void) { return false; }
+static bool False(void) { return false; }
 
 static const ActuatorTransactionInterfaceStruct kTheMethod = {
-    .Execute = Execute,
+    .Execute = False,
 };
 
 const ActuatorTransactionInterface nullActuatorTransaction = &kTheMethod;

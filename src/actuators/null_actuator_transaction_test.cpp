@@ -6,6 +6,4 @@ extern "C" {
 #include "null_actuator_transaction.h"
 }
 
-TEST(NullActuatorTransactionTest, NullObject) {
-  EXPECT_FALSE(nullActuatorTransaction->Execute());
-}
+TEST(NullActuatorTransactionTest, ExecuteReturnsFalse) { EXPECT_FALSE(nullActuatorTransaction->Execute()); }
