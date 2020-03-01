@@ -12,7 +12,7 @@ static bool False(void) { return false; }
 
 static int Zero(void) { return 0; }
 
-static void NoEffectWithInt(int rmp) {}
+static void NoEffectWithInt(int rpm) {}
 
 static const DcMotorInterfaceStruct kTheMethod = {
     .Id = NonsenseValue,
