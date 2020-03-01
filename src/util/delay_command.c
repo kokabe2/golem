@@ -4,7 +4,7 @@
 
 #include "malkt/v1/task.h"
 
-static void Do(int time_in_milliseconds) { task->Delay(time_in_milliseconds); }
+static void Do(int milliseconds) { task->Delay(milliseconds); }
 
 static const DelayCommandMethodStruct kTheMethod = {
     .Do = Do,
