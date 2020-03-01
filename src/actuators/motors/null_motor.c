@@ -2,8 +2,6 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_motor.h"
 
-#include "null_actuator.h"
-
 static int NonsenseValue(void) { return ~0; }
 
 static const char* EmptyString(void) { return ""; }
