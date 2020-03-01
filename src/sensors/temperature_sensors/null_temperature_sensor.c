@@ -2,16 +2,14 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_temperature_sensor.h"
 
-static int Id(void) { return ~0; }
+static int NonsenseValue(void) { return ~0; }
 
-static const char* Tag(void) { return ""; }
+static const char* EmptyString(void) { return ""; }
 
-static const char* State(void) { return ""; }
-
-static bool IsNormal(void) { return false; }
+static bool False(void) { return false; }
 
 static const TemperatureSensorInterfaceStruct kTheMethod = {
-    .Id = Id, .Tag = Tag, .State = State, .IsNormal = IsNormal,
+    .Id = NonsenseValue, .Tag = EmptyString, .State = EmptyString, .IsNormal = False,
 };
 
 const TemperatureSensorInterface nullTemperatureSensor = &kTheMethod;
