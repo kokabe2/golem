@@ -6,10 +6,12 @@ extern "C" {
 #include "null_photosensor.h"
 }
 
-TEST(NullPhotosensorTest, NullObject) {
-  EXPECT_EQ(~0, nullPhotosensor->Id());
-  EXPECT_STREQ("", nullPhotosensor->Tag());
-  EXPECT_STREQ("", nullPhotosensor->State());
-  EXPECT_FALSE(nullPhotosensor->IsLight());
-  EXPECT_FALSE(nullPhotosensor->IsDark());
-}
+TEST(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullPhotosensor->Id()); }
+
+TEST(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullPhotosensor->Tag()); }
+
+TEST(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullPhotosensor->State()); }
+
+TEST(NullPhotosensorTest, IsLightStateReturnsFalse) { EXPECT_FALSE(nullPhotosensor->IsLight()); }
+
+TEST(NullPhotosensorTest, IsDarkStateReturnsFalse) { EXPECT_FALSE(nullPhotosensor->IsDark()); }
