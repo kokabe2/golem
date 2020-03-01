@@ -6,13 +6,18 @@ extern "C" {
 #include "null_solenoid.h"
 }
 
-TEST(NullSolenoidTest, NullObject) {
-  EXPECT_EQ(~0, nullSolenoid->Id());
-  EXPECT_STREQ("", nullSolenoid->Tag());
-  EXPECT_STREQ("", nullSolenoid->State());
-  EXPECT_FALSE(nullSolenoid->IsLocked());
+TEST(NullSolenoidTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullSolenoid->Id()); }
+
+TEST(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullSolenoid->Tag()); }
+
+TEST(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullSolenoid->State()); }
+
+TEST(NullSolenoidTest, LockHasNoEffect) {
   nullSolenoid->Lock();
-  EXPECT_FALSE(nullSolenoid->IsLocked());
-  nullSolenoid->Unlock();
+
   EXPECT_FALSE(nullSolenoid->IsLocked());
 }
+
+TEST(NullSolenoidTest, UnlockHasNoEffect) { nullSolenoid->Unlock(); }
+
+TEST(NullSolenoidTest, IsLockedReturnsFalse) { EXPECT_FALSE(nullSolenoid->IsLocked()); }
