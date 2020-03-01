@@ -8,9 +8,9 @@
 #include "sensor_interface.h"
 
 typedef struct {
-  ActuatorTransactionInterface (*MakeTimerTransaction)(ActuatorInterface ai, int time_in_milliseconds);
+  ActuatorTransactionInterface (*MakeTimerTransaction)(ActuatorInterface ai, int milliseconds);
   ActuatorTransactionInterface (*MakeWatchSensorTransaction)(ActuatorInterface ai, SensorInterface si,
-                                                             int timeout_in_milliseconds);
+                                                             int milliseconds);
 } ActuatorTransactionFactoryInterfaceStruct;
 typedef const ActuatorTransactionFactoryInterfaceStruct* ActuatorTransactionFactoryInterface;
 
