@@ -65,11 +65,3 @@ TEST_F(WatchCommandTest, DoThenTimeout) {
   EXPECT_EQ(51, taskSpy->DelayCalledCount());
   EXPECT_EQ(51, watch_count);
 }
-
-TEST_F(WatchCommandTest, DoWithInvalidArgument) {
-  EXPECT_FALSE(watchCommand->Do(WatchSpy, 10, 0, 10));
-  EXPECT_FALSE(watchCommand->Do(WatchSpy, 10, -1, 10));
-  EXPECT_FALSE(watchCommand->Do(WatchSpy, 10, 10, -1));
-  EXPECT_EQ(0, taskSpy->DelayCalledCount());
-  EXPECT_EQ(0, watch_count);
-}

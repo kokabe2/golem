@@ -4,10 +4,6 @@
 
 #include "malkt/v1/task.h"
 
-inline static bool Validate(int period_in_milliseconds, int timeout_in_milliseconds) {
-  return (period_in_milliseconds > 0 && timeout_in_milliseconds > 0) || timeout_in_milliseconds == 0;
-}
-
 inline static void DelayBeforeWatch(int delay_in_milliseconds) { task->Delay(delay_in_milliseconds); }
 
 static bool Watch(WatchDelegate watch, int period_in_milliseconds, int timeout_in_milliseconds) {
@@ -18,7 +14,6 @@ static bool Watch(WatchDelegate watch, int period_in_milliseconds, int timeout_i
 
 static bool Do(WatchDelegate watch, int delay_in_milliseconds, int period_in_milliseconds,
                int timeout_in_milliseconds) {
-  if (!Validate(period_in_milliseconds, timeout_in_milliseconds)) return false;
   DelayBeforeWatch(delay_in_milliseconds);
   return Watch(watch, period_in_milliseconds, timeout_in_milliseconds);
 }
