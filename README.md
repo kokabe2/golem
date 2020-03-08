@@ -12,6 +12,19 @@ Golem is an open source library for electromechanical components.
 
 ## Features
 
+- Actuator
+
+  - Motor
+    - DC motor
+    - Pluse motor
+  - Solenoid
+
+- Display
+
+  - Led
+    - Led array
+  - Seven-segment display
+
 - Sensor
   - Microswitch
   - Photosensor
@@ -20,6 +33,14 @@ Golem is an open source library for electromechanical components.
 ## Implementation
 
 ### Class diagram
+
+#### Actuator class
+
+![actuator class diagram](doc/actuator_class_diagram.svg)
+
+#### Display class
+
+![display class diagram](doc/display_class_diagram.svg)
 
 #### Sensor class
 
