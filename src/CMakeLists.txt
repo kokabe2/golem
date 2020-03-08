@@ -13,6 +13,10 @@ add_library(
     actuators/solenoids/null_solenoid.c
     actuators/null_actuator_transaction.c
     actuators/null_actuator.c
+    displays/seven_segment_display/null_seven_segment_display.c
+    displays/leds/led_array/null_led_array.c
+    displays/leds/null_led.c
+    displays/null_display.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
     sensors/temperature_sensors/null_temperature_sensor.c
@@ -31,6 +35,10 @@ add_executable(
     actuators/solenoids/null_solenoid_test.cpp
     actuators/null_actuator_test.cpp
     actuators/null_actuator_transaction_test.cpp
+    displays/seven_segment_display/null_seven_segment_display_test.cpp
+    displays/leds/led_array/null_led_array_test.cpp
+    displays/leds/null_led_test.cpp
+    displays/null_display_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
     sensors/photosensors/null_photosensor_test.cpp
     sensors/temperature_sensors/null_temperature_sensor_test.cpp

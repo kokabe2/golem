@@ -1,0 +1,79 @@
+﻿@startuml display_class_diagram
+skinparam {
+    defaultFontName Ricty Diminished
+    monochrome true
+}
+
+package Golem {
+    folder displays {
+        interface Display {
+            + Id(): int
+            + Tag(): const char*
+            + Reset()
+        }
+        interface DisplayFactory {
+            Make(int): Display
+        }
+        class NullDisplay
+        folder leds {
+            interface Led {
+                + Id(): int
+                + Tag(): const char*
+                + TurnOff()
+                + TurnOn()
+                + IsOff(): bool
+                + IsOn(): bool
+            }
+            interface LedFactory {
+                Make(int): Led
+            }
+            class NullLed
+            folder led_array {
+                interface LedArray {
+                + Id(): int
+                + Tag(): const char*
+                + TurnAllOff()
+                + TurnAllOn()
+                + IsAllOff(): bool
+                + IsAllOn(): bool
+                + TurnOff(int)
+                + TurnOn(int)
+                + IsOff(int): bool
+                + IsOn(int): bool
+                }
+                interface LedArrayFactory {
+                    Make(int): LedArray
+                }
+                class NullLedArray
+                LedArray <- LedArrayFactory
+                LedArray <|-- NullLedArray
+                Led <|.. LedArray
+                LedFactory <|.. LedArrayFactory
+            }
+            Led <- LedFactory
+            Led <|-- NullLed
+        }
+        folder seven_segment_display {
+            interface SevenSegmentDisplay {
+                + Id(): int
+                + Tag(): const char*
+                + Clear()
+                + Get(): uint8_t
+                + Set(uint8_t)
+            }
+            interface SevenSegmentDisplayFactory {
+                Make(int): SevenSegmentDisplay
+            }
+            class NullSevenSegmentDisplay
+            SevenSegmentDisplay <- SevenSegmentDisplayFactory
+            SevenSegmentDisplay <|-- NullSevenSegmentDisplay
+        }
+        Display <- DisplayFactory
+        Display <|-- NullDisplay
+        Display <|.. Led
+        DisplayFactory <|.. LedFactory
+        Display <|.. SevenSegmentDisplay
+        DisplayFactory <|.. SevenSegmentDisplayFactory
+    }
+}
+@enduml
