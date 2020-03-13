@@ -10,18 +10,11 @@ extern "C" {
 class GolemTest : public ::testing::Test {
  protected:
   virtual void SetUp() { taskSpy->Reset(); }
+
   virtual void TearDown() { golem->Destroy(); }
 };
 
 TEST_F(GolemTest, Create) {
-  golem->Create();
-
-  EXPECT_EQ(1, taskSpy->NewCalledCount());
-  EXPECT_EQ(1, taskSpy->RunCalledCount());
-}
-
-TEST_F(GolemTest, CreateMultipleTimes) {
-  golem->Create();
   golem->Create();
 
   EXPECT_EQ(1, taskSpy->NewCalledCount());
