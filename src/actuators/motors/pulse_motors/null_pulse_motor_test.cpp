@@ -65,3 +65,5 @@ TEST(NullPulseMotorTest, MoveHasNoEffect) {
 
   EXPECT_EQ(0, nullPulseMotor->GetPosition());
 }
+
+TEST(NullPulseMotorTest, StopAfterHasNoEffect) { nullPulseMotor->StopAfter(100); }
