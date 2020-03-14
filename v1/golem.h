@@ -6,6 +6,7 @@
 typedef struct {
   void (*Create)(void);
   void (*Destroy)(void);
+  void (*SetWakeUpInterval)(int milliseconds);
 } GolemMethodStruct;
 typedef const GolemMethodStruct* GolemMethod;
 

@@ -5,9 +5,10 @@
 #include "malkt/v1/task.h"
 
 static Task the_task;
+static int interval_in_milliseconds = 10;
 
 static void GolemAction(void) {
-  for (;; task->Delay(10)) continue;
+  for (;; task->Delay(interval_in_milliseconds)) continue;
 }
 
 static void Create(void) {
@@ -17,9 +18,12 @@ static void Create(void) {
 
 static void Destroy(void) { task->Delete(&the_task); }
 
+static void SetWakeUpInterval(int milliseconds) { interval_in_milliseconds = milliseconds; }
+
 static const GolemMethodStruct kTheMethod = {
     .Create = Create,
     .Destroy = Destroy,
+    .SetWakeUpInterval = SetWakeUpInterval,
 };
 
 const GolemMethod golem = &kTheMethod;
