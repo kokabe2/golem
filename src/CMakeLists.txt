@@ -22,9 +22,17 @@ add_library(
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/null_sensor.c
     util/delay_command.c
+    util/one_shot_timer_manager.c
+    util/scheduled_process_manager.c
+    util/time_command.c
     util/watch_command.c
     golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list_node.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/util/null_comparer.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/util/null_deleter.c
     )
 
 add_executable(
@@ -44,10 +52,15 @@ add_executable(
     sensors/temperature_sensors/null_temperature_sensor_test.cpp
     sensors/null_sensor_test.cpp
     util/delay_command_test.cpp
+    util/one_shot_timer_manager_test.cpp
+    util/scheduled_process_manager_test.cpp
     util/watch_command_test.cpp
     golem_test.cpp
     main.cpp
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
+    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/one_shot_timer_spy.c
+    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/timer_spy.c
+    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/uptime/uptime_stub.c
     )
 
 add_dependencies(gtests googletest)

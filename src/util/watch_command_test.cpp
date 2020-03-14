@@ -11,7 +11,7 @@ namespace {
 int watch_count;
 int count_for_true;
 
-bool WatchSpy(void) {
+bool ObserverSpy(void) {
   ++watch_count;
   return watch_count >= count_for_true;
 }
@@ -29,7 +29,7 @@ class WatchCommandTest : public ::testing::Test {
 };
 
 TEST_F(WatchCommandTest, DoOnce) {
-  EXPECT_TRUE(watchCommand->Do(WatchSpy, 0, 0, 0));  // Period doesn't matter.
+  EXPECT_TRUE(watchCommand->Do(ObserverSpy, 0, 0, 0));  // Period doesn't matter.
   EXPECT_EQ(1, taskSpy->DelayCalledCount());
   EXPECT_EQ(1, watch_count);
 }
@@ -37,7 +37,7 @@ TEST_F(WatchCommandTest, DoOnce) {
 TEST_F(WatchCommandTest, DoInSimpleCase) {
   count_for_true = 2;
 
-  EXPECT_TRUE(watchCommand->Do(WatchSpy, 1, 1, 1));
+  EXPECT_TRUE(watchCommand->Do(ObserverSpy, 1, 1, 1));
   EXPECT_EQ(2, taskSpy->DelayCalledCount());
   EXPECT_EQ(2, watch_count);
 }
@@ -45,7 +45,7 @@ TEST_F(WatchCommandTest, DoInSimpleCase) {
 TEST_F(WatchCommandTest, DoInSimpleTimeout) {
   count_for_true = 3;
 
-  EXPECT_FALSE(watchCommand->Do(WatchSpy, 1, 1, 1));
+  EXPECT_FALSE(watchCommand->Do(ObserverSpy, 1, 1, 1));
   EXPECT_EQ(2, taskSpy->DelayCalledCount());
   EXPECT_EQ(2, watch_count);
 }
@@ -53,7 +53,7 @@ TEST_F(WatchCommandTest, DoInSimpleTimeout) {
 TEST_F(WatchCommandTest, Do) {
   count_for_true = 101;
 
-  EXPECT_TRUE(watchCommand->Do(WatchSpy, 10, 1, 100));
+  EXPECT_TRUE(watchCommand->Do(ObserverSpy, 10, 1, 100));
   EXPECT_EQ(101, taskSpy->DelayCalledCount());
   EXPECT_EQ(101, watch_count);
 }
@@ -61,7 +61,7 @@ TEST_F(WatchCommandTest, Do) {
 TEST_F(WatchCommandTest, DoThenTimeout) {
   count_for_true = 52;
 
-  EXPECT_FALSE(watchCommand->Do(WatchSpy, 1, 2, 100));
+  EXPECT_FALSE(watchCommand->Do(ObserverSpy, 1, 2, 100));
   EXPECT_EQ(51, taskSpy->DelayCalledCount());
   EXPECT_EQ(51, watch_count);
 }
