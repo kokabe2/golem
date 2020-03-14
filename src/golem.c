@@ -4,6 +4,7 @@
 
 #include "malkt/v1/task.h"
 #include "util/scheduled_process_manager.h"
+#include "util/one_shot_timer_manager.h"
 
 static Task the_task;
 static int interval_in_milliseconds;
@@ -13,7 +14,10 @@ static void GolemAction(void) {
 }
 
 static void Create(void) {
+  oneShotTimerManager->Create();
   scheduledProcessManager->Create();
+  scheduledProcessManager->Add(oneShotTimerManager->Clean, 10);
+
   the_task = task->New(GolemAction, 4, 1024);
   task->Run(the_task);
   interval_in_milliseconds = 10;
