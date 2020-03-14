@@ -31,6 +31,7 @@ static const PulseMotorInterfaceStruct kTheMethod = {
     .Unexcite = NoEffect,
     .IsExciting = False,
     .Move = NoEffectWithInt,
+    .StopAfter = NoEffectWithInt,
     .GetPulseRate = Zero,
     .SetPulseRate = NoEffectWithInt,
     .GetPosition = Zero,

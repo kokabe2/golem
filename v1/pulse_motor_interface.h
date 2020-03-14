@@ -22,6 +22,7 @@ typedef struct {
   void (*Unexcite)(void);
   bool (*IsExciting)(void);
   void (*Move)(int pulse);
+  void (*StopAfter)(int pulse);
   int (*GetPulseRate)(void);
   void (*SetPulseRate)(int rate_in_pps);
   int (*GetPosition)(void);
