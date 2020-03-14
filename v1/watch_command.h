@@ -5,9 +5,10 @@
 
 #include <stdbool.h>
 
-typedef bool (*WatchDelegate)(void);
+typedef bool (*WatchCommandObserverDelegate)(void);
 typedef struct {
-  bool (*Do)(WatchDelegate watch, int delay_in_milliseconds, int period_in_milliseconds, int timeout_in_milliseconds);
+  bool (*Do)(WatchCommandObserverDelegate observer, int delay_in_milliseconds, int period_in_milliseconds,
+             int timeout_in_milliseconds);
 } WatchCommandMethodStruct;
 typedef const WatchCommandMethodStruct* WatchCommandMethod;
 

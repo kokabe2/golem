@@ -2,7 +2,7 @@
 // This software is released under the MIT License, see LICENSE.
 #include "watch_command.h"
 
-static bool Do(WatchDelegate watch, int delay_in_milliseconds, int period_in_milliseconds,
+static bool Do(WatchCommandObserverDelegate observer, int delay_in_milliseconds, int period_in_milliseconds,
                int timeout_in_milliseconds) {
   return true;
 }
