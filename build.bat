@@ -25,6 +25,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/temperature_sensors/null_temperature_sensor.c ^
            src/sensors/null_sensor.c ^
            src/util/delay_command.c ^
+           src/util/scheduled_process_manager.c ^
            src/util/watch_command.c ^
            src/golem.c
 if %errorlevel% neq 0 exit /b
