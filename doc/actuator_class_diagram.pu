@@ -92,6 +92,9 @@ package Golem {
                 interface PulseMotorFactory {
                     + Make(int): PulseMotor
                 }
+                interface PulseMotorTransactionFactory {
+                    + MakePulseTransaction(PulseMotor, int): ActuatorTransaction
+                }
                 class NullPulseMotor
                 PulseMotor <|-- NullPulseMotor
                 PulseMotor <- PulseMotorFactory
@@ -129,6 +132,7 @@ package Golem {
         ActuatorFactory <|.. SolenoidFactory
         Actuator <|.. Motor
         ActuatorFactory <|.. MotorFactory
+        ActuatorTransaction <|-- PulseMotorTransactionFactory
     }
     folder sensors {
         interface Sensor
