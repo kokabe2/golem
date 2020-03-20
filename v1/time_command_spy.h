@@ -4,9 +4,9 @@
 #define V1_TIME_COMMAND_SPY_H_
 
 typedef struct {
-  void Reset(void);
-  int Time(void);
-  void Execute(void);
+  void (*Reset)(void);
+  int (*Time)(void);
+  void (*Execute)(void);
 } TimeCommandSpyMethodStruct;
 typedef const TimeCommandSpyMethodStruct* TimeCommandSpyMethod;
 
