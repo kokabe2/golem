@@ -19,7 +19,9 @@ static int Time(void) { return its_time; }
 static void Execute(void) { its_action(); }
 
 static const TimeCommandSpyMethodStruct kSpyMethod = {
-    .Time = Time, .Execute = Execute,
+    .Reset = Reset,
+    .Time = Time,
+    .Execute = Execute,
 };
 
 const TimeCommandSpyMethod timeCommandSpy = &kSpyMethod;
