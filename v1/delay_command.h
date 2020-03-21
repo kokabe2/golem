@@ -3,8 +3,12 @@
 #ifndef V1_DELAY_COMMAND_H_
 #define V1_DELAY_COMMAND_H_
 
+#include "command.h"
+
 typedef struct {
-  void (*Do)(int milliseconds);  //
+  Command (*New)(int milliseconds);
+  int (*GetDelayTime)(Command self);
+  void (*SetDelayTime)(Command self, int milliseconds);
 } DelayCommandMethodStruct;
 typedef const DelayCommandMethodStruct* DelayCommandMethod;
 
