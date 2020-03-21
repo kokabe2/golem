@@ -5,13 +5,11 @@
 
 static void DummyDelete(Command *self) {}
 
-static void DummyDo(Command self) {}
+static void Dummy(Command self) {}
 
 static const CommandAbstractMethodStruct kConcreteMethod = {
     .Delete = DummyDelete,
-    .Do = DummyDo,
-    .Undo = DummyDo,
-    .Redo = DummyDo,
+    .Do = Dummy,
 };
 
 static const CommandStruct kDummyInstance = {

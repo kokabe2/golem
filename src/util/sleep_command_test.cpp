@@ -76,7 +76,7 @@ TEST_F(SleepCommandTest, DoThenRunAfterSleepTimeElapsed) {
   EXPECT_TRUE(command_executed);
 }
 
-TEST_F(SleepCommandTest, DoAfterWakeup) {
+TEST_F(SleepCommandTest, DoAfterSleepTimeElapsed) {
   command->Do(c);
   RunEngine(1000);
   RunEngine(1000);
@@ -85,59 +85,6 @@ TEST_F(SleepCommandTest, DoAfterWakeup) {
   command->Do(c);
 
   RunEngine(1000);
-
-  EXPECT_TRUE(command_executed);
-}
-
-TEST_F(SleepCommandTest, Undo) {
-  command->Do(c);
-
-  command->Undo(c);
-
-  RunEngine(1000);
-  RunEngine(1000);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, UndoThenDo) {
-  command->Do(c);
-
-  RunEngine(1000);
-
-  command->Undo(c);
-  command->Do(c);
-
-  RunEngine(1000);
-  RunEngine(1000);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, RedoThenRunBeforeSleepTimeElapsed) {
-  command->Do(c);
-  RunEngine(1000);
-  RunEngine(1000);
-  command_executed = false;
-
-  command->Redo(c);
-
-  RunEngine(1999);
-  RunEngine(2000);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, RedoThenRunAfterSleepTimeElapsed) {
-  command->Do(c);
-  RunEngine(1000);
-  RunEngine(1000);
-  command_executed = false;
-
-  command->Redo(c);
-
-  RunEngine(2000);
-  RunEngine(2000);
 
   EXPECT_TRUE(command_executed);
 }

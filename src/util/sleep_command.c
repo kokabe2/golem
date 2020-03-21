@@ -39,18 +39,9 @@ inline static void Do(Command self) {
   }
 }
 
-inline static void Undo(Command self) { Downcast(self)->started = false; }
-
-static void Redo(Command self) {
-  Undo(self);
-  Do(self);
-}
-
 static const CommandAbstractMethodStruct kConcreteMethod = {
     .Delete = Delete,
     .Do = Do,
-    .Undo = Undo,
-    .Redo = Redo,
 };
 
 static Command New(int milliseconds, ActiveObjectEngine engine, Command wakeup_command) {

@@ -7,8 +7,6 @@ typedef struct CommandStruct* Command;
 typedef struct {
   void (*Delete)(Command* self);  // Abstract method
   void (*Do)(Command self);       // Abstract method
-  void (*Undo)(Command self);     // Abstract method
-  void (*Redo)(Command self);     // Abstract method
 } CommandAbstractMethodStruct;
 typedef const CommandAbstractMethodStruct* CommandAbstractMethod;
 
