@@ -27,7 +27,6 @@ add_library(
     util/one_shot_timer_manager.c
     util/scheduled_process_manager.c
     util/sleep_command.c
-    util/time_command.c
     util/watch_command.c
     golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
