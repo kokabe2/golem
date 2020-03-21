@@ -1,11 +1,27 @@
 ﻿// Copyright(c) 2020 Ken Okabe
 // This software is released under the MIT License, see LICENSE.
 #include "block_command.h"
+#include "command_protected.h"
 
-static void Do(int microseconds) {}
+static void DummyDelete(Command *self) {}
+
+static void DummyDo(Command self) {}
+
+static const CommandAbstractMethodStruct kConcreteMethod = {
+    .Delete = DummyDelete,
+    .Do = DummyDo,
+    .Undo = DummyDo,
+    .Redo = DummyDo,
+};
+
+static const CommandStruct kDummyInstance = {
+    .impl = (CommandAbstractMethod)&kConcreteMethod,
+};
+
+static Command New(int microseconds) { return &kDummyInstance; }
 
 static const BlockCommandMethodStruct kTheMethod = {
-    .Do = Do,
+    .New = New,
 };
 
 const BlockCommandMethod blockCommand = &kTheMethod;
