@@ -21,6 +21,7 @@ add_library(
     sensors/photosensors/null_photosensor.c
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/null_sensor.c
+    util/active_object_engine.c
     util/delay_command.c
     util/one_shot_timer_manager.c
     util/scheduled_process_manager.c
@@ -60,6 +61,7 @@ add_executable(
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/one_shot_timer_spy.c
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/timer_spy.c
+    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/inbox/inbox_stub.c
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/uptime/uptime_stub.c
     )
 
