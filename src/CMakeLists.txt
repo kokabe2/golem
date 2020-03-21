@@ -26,6 +26,7 @@ add_library(
     util/delay_command.c
     util/one_shot_timer_manager.c
     util/scheduled_process_manager.c
+    util/sleep_command.c
     util/time_command.c
     util/watch_command.c
     golem.c
@@ -57,6 +58,7 @@ add_executable(
     util/delay_command_test.cpp
     util/one_shot_timer_manager_test.cpp
     util/scheduled_process_manager_test.cpp
+    util/sleep_command_test.cpp
     util/watch_command_test.cpp
     golem_test.cpp
     main.cpp
