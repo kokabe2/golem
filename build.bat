@@ -25,6 +25,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/temperature_sensors/null_temperature_sensor.c ^
            src/sensors/null_sensor.c ^
            src/util/active_object_engine.c ^
+           src/util/command.c ^
            src/util/delay_command.c ^
            src/util/one_shot_timer_manager.c ^
            src/util/scheduled_process_manager.c ^

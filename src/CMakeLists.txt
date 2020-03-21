@@ -22,6 +22,7 @@ add_library(
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/null_sensor.c
     util/active_object_engine.c
+    util/command.c
     util/delay_command.c
     util/one_shot_timer_manager.c
     util/scheduled_process_manager.c
