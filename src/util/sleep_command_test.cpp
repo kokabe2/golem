@@ -40,51 +40,58 @@ class SleepCommandTest : public ::testing::Test {
 
   void RunEngine(uint64_t current_time) {
     uptime->Set(current_time);
-    _activeObjectEngine->DoCommand(e);  // Use DoCommand() instead of Run() for test.
+    for (int i = 0; i < 10; ++i) _activeObjectEngine->DoCommand(e);  // Use DoCommand() instead of Run() for test.
   }
 };
 
-TEST_F(SleepCommandTest, Do) {
-  command->Do(c);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, DoThenRunFirstTime) {
-  command->Do(c);
-
-  RunEngine(1500);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, DoThenRunBeforeSleepTimeElapsed) {
+TEST_F(SleepCommandTest, DoWhenSleepTimeNotElapsed) {
   command->Do(c);
 
   RunEngine(999);
-  RunEngine(1000);
 
   EXPECT_FALSE(command_executed);
 }
 
-TEST_F(SleepCommandTest, DoThenRunAfterSleepTimeElapsed) {
+TEST_F(SleepCommandTest, DoWhenSleepTimeElapsed) {
   command->Do(c);
 
-  RunEngine(1000);
   RunEngine(1000);
 
   EXPECT_TRUE(command_executed);
 }
 
-TEST_F(SleepCommandTest, DoAfterSleepTimeElapsed) {
+TEST_F(SleepCommandTest, Cancel) {
   command->Do(c);
+
+  command->Cancel(c);
+
   RunEngine(1000);
-  RunEngine(1000);
-  command_executed = false;
+
+  EXPECT_FALSE(command_executed);
+}
+
+TEST_F(SleepCommandTest, DoAfterCancelWhenSleepTimeNotElapsed) {
+  command->Do(c);
+  RunEngine(500);
+  command->Cancel(c);
+  RunEngine(500);
 
   command->Do(c);
 
   RunEngine(1000);
+
+  EXPECT_FALSE(command_executed);
+}
+
+TEST_F(SleepCommandTest, DoAfterCancelWhenSleepTimeElapsed) {
+  command->Do(c);
+  RunEngine(500);
+  command->Cancel(c);
+  RunEngine(500);
+
+  command->Do(c);
+
+  RunEngine(1500);
 
   EXPECT_TRUE(command_executed);
 }

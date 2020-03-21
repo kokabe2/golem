@@ -8,9 +8,12 @@ static void Delete(Command *self) { (*self)->impl->Delete(self); }
 
 static void Do(Command self) { self->impl->Do(self); }
 
+static void Cancel(Command self) { self->impl->Cancel(self); }
+
 static const CommandAbstractMethodStruct kTheMethod = {
     .Delete = Delete,
     .Do = Do,
+    .Cancel = Cancel,
 };
 
 const CommandAbstractMethod command = &kTheMethod;

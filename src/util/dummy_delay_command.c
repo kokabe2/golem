@@ -10,6 +10,7 @@ static void Dummy(Command self) {}
 static const CommandAbstractMethodStruct kConcreteMethod = {
     .Delete = DummyDelete,
     .Do = Dummy,
+    .Cancel = Dummy,
 };
 
 static const CommandStruct kDummyInstance = {

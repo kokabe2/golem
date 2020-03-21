@@ -17,9 +17,12 @@ static void Delete(Command *self) { heap->Delete((void **)self); }
 
 static void Do(Command self) { task->Delay(Downcast(self)->delay_time); }
 
+static void Cancel(Command self) {}
+
 static const CommandAbstractMethodStruct kConcreteMethod = {
     .Delete = Delete,
     .Do = Do,
+    .Cancel = Cancel,
 };
 
 static Command New(int milliseconds) {

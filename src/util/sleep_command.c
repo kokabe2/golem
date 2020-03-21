@@ -13,6 +13,7 @@ typedef struct {
   int sleep_time;
   uint64_t start_time;
   bool started;
+  bool canceled;
   ActiveObjectEngine engine;
   Command wakeup_command;
 } SleepCommandStruct, *SleepCommand;
@@ -25,13 +26,16 @@ inline static bool ShouldWakeUp(SleepCommand self, uint64_t current_time) {
   return (current_time - self->start_time) >= self->sleep_time;
 }
 
-inline static void Do(Command self) {
+static void Do(Command self) {
   uint64_t current_time = uptime->Get();
   SleepCommand sc = Downcast(self);
   if (!sc->started) {
     sc->started = true;
     sc->start_time = current_time;
     activeObjectEngine->AddCommand(sc->engine, self);
+  } else if (sc->canceled) {
+    sc->started = false;
+    sc->canceled = false;
   } else if (ShouldWakeUp(sc, current_time)) {
     activeObjectEngine->AddCommand(sc->engine, sc->wakeup_command);
   } else {
@@ -39,9 +43,12 @@ inline static void Do(Command self) {
   }
 }
 
+static void Cancel(Command self) { Downcast(self)->canceled = true; }
+
 static const CommandAbstractMethodStruct kConcreteMethod = {
     .Delete = Delete,
     .Do = Do,
+    .Cancel = Cancel,
 };
 
 static Command New(int milliseconds, ActiveObjectEngine engine, Command wakeup_command) {
