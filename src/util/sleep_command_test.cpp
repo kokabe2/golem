@@ -18,6 +18,7 @@ void Do(Command self) { command_executed = true; }
 CommandAbstractMethodStruct kWakeupCommand = {
     NULL, Do,
 };
+
 CommandStruct wakeup_command = {&kWakeupCommand};
 }  // namespace
 
@@ -102,4 +103,14 @@ TEST_F(SleepCommandTest, Set) {
   sleepCommand->SetSleepTime(c, 100);
 
   EXPECT_EQ(100, sleepCommand->GetSleepTime(c));
+}
+
+TEST_F(SleepCommandTest, DeleteAfterDoAndBeforeWakeUp) {
+  command->Do(c);
+
+  command->Delete(&c);
+
+  RunEngine(1000);
+
+  EXPECT_FALSE(command_executed);
 }
