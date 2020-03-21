@@ -3,11 +3,14 @@
 #ifndef V1_ACTIVE_OBJECT_ENGINE_H_
 #define V1_ACTIVE_OBJECT_ENGINE_H_
 
-typedef void (*CommandDelegate)(void* instance);
+#include "command.h"
+
+typedef struct ActiveObjectEngineStruct* ActiveObjectEngine;
 typedef struct {
-  void (*Create)(void);
-  void (*Destroy)(void);
-  void (*AddCommand)(void* instance, CommandDelegate delegate);
+  ActiveObjectEngine (*GetInstance)(void);
+  void (*Delete)(ActiveObjectEngine* self);
+  void (*Run)(ActiveObjectEngine self);
+  void (*AddCommand)(ActiveObjectEngine self, Command c);
 } ActiveObjectEngineMethodStruct;
 typedef const ActiveObjectEngineMethodStruct* ActiveObjectEngineMethod;
 

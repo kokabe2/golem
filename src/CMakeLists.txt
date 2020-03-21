@@ -53,6 +53,7 @@ add_executable(
     sensors/photosensors/null_photosensor_test.cpp
     sensors/temperature_sensors/null_temperature_sensor_test.cpp
     sensors/null_sensor_test.cpp
+    util/active_object_engine_test.cpp
     util/delay_command_test.cpp
     util/one_shot_timer_manager_test.cpp
     util/scheduled_process_manager_test.cpp
