@@ -5,10 +5,12 @@
 
 #include <stdbool.h>
 
+#include "active_object_engine.h"
+
 typedef bool (*WatchCommandObserverDelegate)(void);
 typedef struct {
-  bool (*Do)(WatchCommandObserverDelegate observer, int delay_in_milliseconds, int period_in_milliseconds,
-             int timeout_in_milliseconds);
+  Command (*New)(WatchCommandObserverDelegate observer, ActiveObjectEngine engine, Command notification_command);
+  void (*SetTimeout)(Command self, int milliseconds, Command timeout_command);
 } WatchCommandMethodStruct;
 typedef const WatchCommandMethodStruct* WatchCommandMethod;
 
