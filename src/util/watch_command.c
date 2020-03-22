@@ -3,6 +3,7 @@
 #include "watch_command.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 
 #include "bleu/v1/heap.h"
 #include "command_protected.h"
@@ -29,10 +30,12 @@ typedef struct {
 inline static WatchCommand Downcast(Command self) { return (WatchCommand)self; }
 
 static void Delete(Command *self) {
-  if (Downcast(*self)->started)
+  if (Downcast(*self)->started) {
     Downcast(*self)->request = kDelete;
-  else
+    *self = NULL;
+  } else {
     heap->Delete((void **)self);
+  }
 }
 
 inline static bool HasRequest(WatchCommand self) { return self->request != kNone; }
