@@ -35,7 +35,7 @@ class SleepCommandTest : public ::testing::Test {
   }
 
   virtual void TearDown() {
-    command->Delete(&c);
+    if (c != NULL) command->Delete(&c);
     activeObjectEngine->Delete(&e);
   }
 
