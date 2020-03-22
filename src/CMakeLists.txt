@@ -22,10 +22,11 @@ add_library(
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/null_sensor.c
     util/active_object_engine.c
+    util/command.c
     util/delay_command.c
     util/one_shot_timer_manager.c
     util/scheduled_process_manager.c
-    util/time_command.c
+    util/sleep_command.c
     util/watch_command.c
     golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
@@ -52,9 +53,11 @@ add_executable(
     sensors/photosensors/null_photosensor_test.cpp
     sensors/temperature_sensors/null_temperature_sensor_test.cpp
     sensors/null_sensor_test.cpp
+    util/active_object_engine_test.cpp
     util/delay_command_test.cpp
     util/one_shot_timer_manager_test.cpp
     util/scheduled_process_manager_test.cpp
+    util/sleep_command_test.cpp
     util/watch_command_test.cpp
     golem_test.cpp
     main.cpp

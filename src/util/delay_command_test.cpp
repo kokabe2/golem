@@ -7,12 +7,30 @@ extern "C" {
 #include "malkt/v1/task_spy.h"
 }
 
-TEST(DelayCommandTest, Do) {
-  taskSpy->Reset();
+class DelayCommandTest : public ::testing::Test {
+ protected:
+  Command c;
 
-  delayCommand->Do(10);
-  delayCommand->Do(100);
-  delayCommand->Do(1000);
+  virtual void SetUp() {
+    taskSpy->Reset();
+    c = delayCommand->New(10);
+  }
+
+  virtual void TearDown() { command->Delete(&c); }
+};
+
+TEST_F(DelayCommandTest, DoExecuteTaskDelay) {
+  command->Do(c);
+  command->Do(c);
+  command->Do(c);
 
   EXPECT_EQ(3, taskSpy->DelayCalledCount());
+}
+
+TEST_F(DelayCommandTest, Get) { EXPECT_EQ(10, delayCommand->GetDelayTime(c)); }
+
+TEST_F(DelayCommandTest, Set) {
+  delayCommand->SetDelayTime(c, 100);
+
+  EXPECT_EQ(100, delayCommand->GetDelayTime(c));
 }

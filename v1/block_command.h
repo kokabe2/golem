@@ -3,8 +3,10 @@
 #ifndef V1_BLOCK_COMMAND_H_
 #define V1_BLOCK_COMMAND_H_
 
+#include "command.h"
+
 typedef struct {
-  void (*Do)(int microseconds);  //
+  Command (*New)(int microseconds);  //
 } BlockCommandMethodStruct;
 typedef const BlockCommandMethodStruct* BlockCommandMethod;
 
