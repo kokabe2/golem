@@ -30,7 +30,6 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/util/one_shot_timer_manager.c ^
            src/util/scheduled_process_manager.c ^
            src/util/sleep_command.c ^
-           src/util/watch_command.c ^
            src/golem.c
 if %errorlevel% neq 0 exit /b
 

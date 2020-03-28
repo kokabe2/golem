@@ -58,7 +58,6 @@ add_executable(
     util/one_shot_timer_manager_test.cpp
     util/scheduled_process_manager_test.cpp
     util/sleep_command_test.cpp
-    util/watch_command_test.cpp
     golem_test.cpp
     main.cpp
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
