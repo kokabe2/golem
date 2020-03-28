@@ -12,6 +12,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            -include=v1/,external/ ^
            src/util/active_object_engine_task.c ^
            src/util/active_object_engine.c ^
+           src/util/error_command.c ^
            src/util/simple_active_object_engine.c ^
            src/util/sleep_command.c ^
            src/command.c

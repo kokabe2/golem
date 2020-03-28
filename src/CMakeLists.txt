@@ -9,6 +9,7 @@ add_library(
     golem
     util/active_object_engine_task.c
     util/active_object_engine.c
+    util/error_command.c
     util/simple_active_object_engine.c
     util/sleep_command.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
@@ -21,6 +22,7 @@ add_library(
 add_executable(
     gtests
     util/simple_active_object_engine_test.cpp
+    util/error_command_test.cpp
     util/sleep_command_test.cpp
     util/time_unit_stub.c
     main.cpp
