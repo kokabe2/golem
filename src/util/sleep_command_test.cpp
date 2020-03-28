@@ -3,23 +3,22 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "active_object_engine.h"
-#include "active_object_engine_protected.h"
-#include "command_protected.h"
-#include "malkt/v1/uptime.h"
+#include "command_private.h"
+#include "simple_active_object_engine.h"
 #include "sleep_command.h"
+#include "time_unit_stub.h"
 }
 
 namespace {
-bool command_executed;
+bool was_ran;
 
-void Do(Command self) { command_executed = true; }
+void Do(Command self) { was_ran = true; }
 
-CommandAbstractMethodStruct kWakeupCommand = {
+CommandInterfaceStruct kSpyInterface = {
     NULL, Do,
 };
 
-CommandStruct wakeup_command = {&kWakeupCommand};
+CommandStruct command_spy = {&kSpyInterface};
 }  // namespace
 
 class SleepCommandTest : public ::testing::Test {
@@ -28,89 +27,25 @@ class SleepCommandTest : public ::testing::Test {
   Command c;
 
   virtual void SetUp() {
-    command_executed = false;
-    uptime->Set(0);
-    e = activeObjectEngine->GetInstance();
-    c = sleepCommand->New(1000, e, &wakeup_command);
+    was_ran = false;
+    timeUnitStub->Reset(0, 20);
+    e = simpleActiveObjectEngine->New();
+    c = sleepCommand->New(100, e, &command_spy);
   }
 
   virtual void TearDown() {
-    if (c != NULL) command->Delete(&c);
+    command->Delete(&c);
     activeObjectEngine->Delete(&e);
-  }
-
-  void RunEngine(uint64_t current_time) {
-    uptime->Set(current_time);
-    for (int i = 0; i < 10; ++i) _activeObjectEngine->DoCommand(e);  // Use DoCommand() instead of Run() for test.
   }
 };
 
-TEST_F(SleepCommandTest, DoWhenSleepTimeNotElapsed) {
+TEST_F(SleepCommandTest, Do) {
   command->Do(c);
 
-  RunEngine(999);
+  activeObjectEngine->Run(e);
 
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, DoWhenSleepTimeElapsed) {
-  command->Do(c);
-
-  RunEngine(1000);
-
-  EXPECT_TRUE(command_executed);
-}
-
-TEST_F(SleepCommandTest, Cancel) {
-  command->Do(c);
-
-  command->Cancel(c);
-
-  RunEngine(1000);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, DoAfterCancelWhenSleepTimeNotElapsed) {
-  command->Do(c);
-  RunEngine(500);
-  command->Cancel(c);
-  RunEngine(500);
-
-  command->Do(c);
-
-  RunEngine(1000);
-
-  EXPECT_FALSE(command_executed);
-}
-
-TEST_F(SleepCommandTest, DoAfterCancelWhenSleepTimeElapsed) {
-  command->Do(c);
-  RunEngine(500);
-  command->Cancel(c);
-  RunEngine(500);
-
-  command->Do(c);
-
-  RunEngine(1500);
-
-  EXPECT_TRUE(command_executed);
-}
-
-TEST_F(SleepCommandTest, Get) { EXPECT_EQ(1000, sleepCommand->GetSleepTime(c)); }
-
-TEST_F(SleepCommandTest, Set) {
-  sleepCommand->SetSleepTime(c, 100);
-
-  EXPECT_EQ(100, sleepCommand->GetSleepTime(c));
-}
-
-TEST_F(SleepCommandTest, DeleteAfterDoAndBeforeWakeUp) {
-  command->Do(c);
-
-  command->Delete(&c);
-
-  RunEngine(1000);
-
-  EXPECT_FALSE(command_executed);
+  EXPECT_TRUE(was_ran);
+  int64_t t = timeUnit->Now(timeUnit->Millisecond);
+  EXPECT_GE(t, 100);
+  EXPECT_LE(t, 120);
 }

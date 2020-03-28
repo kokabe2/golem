@@ -10,16 +10,19 @@ add_library(
     util/active_object_engine_task.c
     util/active_object_engine.c
     util/simple_active_object_engine.c
+    util/sleep_command.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list_node.c
+    ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list.c
     command.c
     )
 
 add_executable(
     gtests
     util/simple_active_object_engine_test.cpp
-    ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
-    ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
-    ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list_node.c
-    ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list.c
+    util/sleep_command_test.cpp
+    util/time_unit_stub.c
     main.cpp
     )
 
