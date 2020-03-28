@@ -11,9 +11,9 @@ typedef struct SensorStruct* Sensor;
 typedef struct {
   void (*Delete)(Sensor* self);
   Command (*SensorWatchCommand)(Sensor self, const char* expected_state, Command notification_command);
-  int (*GetId)(Sensor self);
-  const char* (*GetTag)(Sensor self);
-  const char* (*GetState)(Sensor self);
+  int (*Id)(Sensor self);
+  const char* (*Tag)(Sensor self);
+  const char* (*State)(Sensor self);
   bool (*IsDefaultState)(Sensor self);
 } SensorInterfaceStruct;
 typedef const SensorInterfaceStruct* SensorInterface;

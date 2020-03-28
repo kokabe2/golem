@@ -2,14 +2,47 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_sensor.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "null_command.h"
+#include "sensor_private.h"
 
-static bool False(void) { return false; }
+static SensorStruct the_singleton;
+static Sensor the_instance = NULL;
 
-static const SensorInterfaceStruct kTheMethod = {
-    .Id = NonsenseValue, .Tag = EmptyString, .State = EmptyString, .IsDefaultState = False,
+static void Delete(Sensor* self) {}
+
+static Command NullCommand(Sensor self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
+
+static int NonsenseId(Sensor self) { return ~0; }
+
+static const char* EmptyString(Sensor self) { return ""; }
+
+static bool False(Sensor self) { return false; }
+
+static const SensorInterfaceStruct kTheInterface = {
+    .Delete = Delete,
+    .SensorWatchCommand = NullCommand,
+    .Id = NonsenseId,
+    .Tag = EmptyString,
+    .State = EmptyString,
+    .IsDefaultState = False,
 };
 
-const SensorInterface nullSensor = &kTheMethod;
+inline static Sensor New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static Sensor GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullSensorMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullSensorMethod nullSensor = &kTheMethod;

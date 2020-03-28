@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    sensors/null_sensor.c
     sensors/sensor.c
     util/active_object_engine_task.c
     util/active_object_engine.c
@@ -23,6 +24,7 @@ add_library(
 
 add_executable(
     gtests
+    sensors/null_sensor_test.cpp
     util/null_command_test.cpp
     util/simple_active_object_engine_test.cpp
     util/error_command_test.cpp

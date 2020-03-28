@@ -3,13 +3,27 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_sensor.h"
 }
 
-TEST(NullSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullSensor->Id()); }
+class NullSensorTest : public ::testing::Test {
+ protected:
+  Sensor s;
 
-TEST(NullSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullSensor->Tag()); }
+  virtual void SetUp() { s = nullSensor->GetInstance(); }
 
-TEST(NullSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullSensor->State()); }
+  virtual void TearDown() { sensor->Delete(&s); }
+};
 
-TEST(NullSensorTest, IsDefaultStateReturnsFalse) { EXPECT_FALSE(nullSensor->IsDefaultState()); }
+TEST_F(NullSensorTest, SensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), sensor->SensorWatchCommand(s, "", NULL));
+}
+
+TEST_F(NullSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, sensor->Id(s)); }
+
+TEST_F(NullSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", sensor->Tag(s)); }
+
+TEST_F(NullSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", sensor->State(s)); }
+
+TEST_F(NullSensorTest, IsDefaultStateReturnsFalse) { EXPECT_FALSE(sensor->IsDefaultState(s)); }

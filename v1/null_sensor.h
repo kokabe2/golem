@@ -3,8 +3,13 @@
 #ifndef V1_NULL_SENSOR_H_
 #define V1_NULL_SENSOR_H_
 
-#include "sensor_interface.h"
+#include "sensor.h"
 
-extern const SensorInterface nullSensor;
+typedef struct {
+  Sensor (*GetInstance)(void);  //
+} NullSensorMethodStruct;
+typedef const NullSensorMethodStruct* NullSensorMethod;
+
+extern const NullSensorMethod nullSensor;
 
 #endif  // V1_NULL_SENSOR_H_
