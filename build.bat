@@ -29,8 +29,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/util/delay_command.c ^
            src/util/one_shot_timer_manager.c ^
            src/util/scheduled_process_manager.c ^
-           src/util/sleep_command.c ^
-           src/golem.c
+           src/util/sleep_command.c
 if %errorlevel% neq 0 exit /b
 
 rlink -form=lib -output=%OUTPUT_DIR%/%PROJECT_NAME%.lib *.obj

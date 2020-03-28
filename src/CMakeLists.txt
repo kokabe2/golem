@@ -28,7 +28,6 @@ add_library(
     util/scheduled_process_manager.c
     util/sleep_command.c
     util/watch_command.c
-    golem.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list_node.c
@@ -58,7 +57,6 @@ add_executable(
     util/one_shot_timer_manager_test.cpp
     util/scheduled_process_manager_test.cpp
     util/sleep_command_test.cpp
-    golem_test.cpp
     main.cpp
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
     ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/one_shot_timer_spy.c
