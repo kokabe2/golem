@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    util/active_object_engine.c
     command.c
     )
 

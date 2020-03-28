@@ -10,6 +10,7 @@ set OUTPUT_DIR=bin\%COMPILER%@%PROJECT_VER%
 mkdir %OUTPUT_DIR% > NUL 2>&1
 %COMPILER% -output=obj -lang=c99 -nostuff -isa=rxv3 -debug -signed_char ^
            -include=v1/,external/ ^
+           src/util/active_object_engine.c ^
            src/command.c
 if %errorlevel% neq 0 exit /b
 
