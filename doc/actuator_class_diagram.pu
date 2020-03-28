@@ -5,138 +5,109 @@ skinparam {
 }
 
 package Golem {
+    interface Command {
+        + Delete(Command*)
+        + Do()
+    }
+
     folder actuators {
         interface Actuator {
-            + Id(): int
-            + Tag(): const char*
-            + State(): const char*
-            + Activate()
-            + Deactivate()
-            + IsActive(): bool
+            + Delete(Actuator*)
+            + ActuatorOnCommand(Actuator): Command
+            + ActuatorOffCommand(Actuator): Command
+            + ActuatorForceOffCommand(Actuator): Command
+            + GetId(Actuator): int
+            + GetTag(Actuator): const char*
+            + GetState(Actuator): const char*
+            + IsOn(Actuator): bool
         }
+
         interface ActuatorFactory {
-            + Make(int): Actuator
+            + Delete(ActuatorFactory*)
+            + Make(ActuatorFactory, int): Actuator
         }
-        interface ActuatorTransaction {
-            + Execute(): bool
-        }
-        interface ActuatorTransactionFactory {
-            + MakeTimerTransaction(Actuator, int): ActuatorTransaction
-            + MakeWatchSensorTransaction(Actuator, Sensor, int): ActuatorTransaction
-        }
-        class NullActuator
-        class NullActuatorTransaction
+
         folder motors {
             interface Motor {
-                + Id(): int
-                + Tag(): const char*
-                + State(): const char*
-                + Run()
-                + Stop()
-                + IsRunning(): bool
-                + ForceStop()
-                + SetToCw()
-                + SetToAcw()
-                + IsCw(): bool
-                + GetSpeed(): int
-                + SetSpeed(int)
+                + Delete(Motor*)
+                + MotorOnCommand(Motor): Command
+                + MotorOffCommand(Motor): Command
+                + MotorForceOffCommand(Motor): Command
+                + GetId(Motor): int
+                + GetTag(Motor): const char*
+                + GetState(Motor): const char*
+                + IsOn(Motor): bool
+                + GetDirection(Motor): const char*
+                + SetDirection(Motor, const char*)
+                + GetSpeed(Motor): int
+                + SetSpeed(Motor, int)
             }
+
             interface MotorFactory {
-                + Make(int): Motor
+                + Delete(MotorFactory*)
+                + Make(MotorFactory, int): Motor
             }
-            class NullMotor
-            folder dc_motors {
-                interface DcMotor {
-                    + Id(): int
-                    + Tag(): const char*
-                    + State(): const char*
-                    + Run()
-                    + Stop()
-                    + IsRunning(): bool
-                    + ForceStop()
-                    + SetToCw()
-                    + SetToAcw()
-                    + IsCw(): bool
-                    + GetSpeed(): int
-                    + SetSpeed(int)
-                }
-                interface DcMotorFactory {
-                    + Make(int): DcMotor
-                }
-                class NullDcMotor
-                DcMotor <|-- NullDcMotor
-                DcMotor <- DcMotorFactory
-            }
+
             folder pulse_motors {
                 interface PulseMotor {
-                    + Id(): int
-                    + Tag(): const char*
-                    + State(): const char*
-                    + Run()
-                    + Stop()
-                    + IsRunning(): bool
-                    + ForceStop()
-                    + SetToCw()
-                    + SetToAcw()
-                    + IsCw(): bool
-                    + GetSpeed(): int
-                    + SetSpeed(int)
-                    + Excite()
-                    + Unexcite()
-                    + IsExciting(): bool
-                    + Move(int)
-                    + GetPulseRate(): int
-                    + SetPulseRate(int)
-                    + GetPosition(): int
+                    + Delete(PulseMotor*)
+                    + PulseMotorOnCommand(PulseMotor): Command
+                    + PulseMotorOffCommand(PulseMotor): Command
+                    + PulseMotorForceOffCommand(PulseMotor): Command
+                    + GetId(PulseMotor): int
+                    + GetTag(PulseMotor): const char*
+                    + GetState(PulseMotor): const char*
+                    + IsOn(PulseMotor): bool
+                    + GetDirection(PulseMotor): const char*
+                    + SetDirection(PulseMotor, const char*)
+                    + GetSpeed(PulseMotor): int
+                    + SetSpeed(PulseMotor, int)
+                    + GetMode(PulseMotor): const char*
+                    + SelectMode(PulseMotor, const char*)
+                    + GetPulseRate(PulseMotor): int
+                    + SetPulseRate(PulseMotor, int)
+                    + GetPosition(PulseMotor): int
+                    + PulseMotorStopCommand(PulseMotor, int): Command
+                    + PulseMotorWatchCommand(PulseMotor, int, Command): Command
                 }
+
                 interface PulseMotorFactory {
-                    + Make(int): PulseMotor
+                    + Delete(PulseMotorFactory*)
+                    + Make(PulseMotorFactory, int): PulseMotor
                 }
-                interface PulseMotorTransactionFactory {
-                    + MakePulseTransaction(PulseMotor, int): ActuatorTransaction
-                }
-                class NullPulseMotor
-                PulseMotor <|-- NullPulseMotor
+
                 PulseMotor <- PulseMotorFactory
             }
-            Motor <|-- NullMotor
+
             Motor <- MotorFactory
-            Motor <|.. DcMotor
-            MotorFactory <|.. DcMotorFactory
             Motor <|.. PulseMotor
-            MotorFactory <|.. PulseMotorFactory
         }
-        folder solenoids {
+
+        folder solenids {
             interface Solenoid {
-                + Id(): int
-                + Tag(): const char*
-                + State(): const char*
-                + Lock()
-                + Unlock()
-                + IsLocked(): bool
+                + Delete(Solenoid*)
+                + SolenoidOnCommand(Solenoid): Command
+                + SolenoidOffCommand(Solenoid): Command
+                + SolenoidForceOffCommand(Solenoid): Command
+                + GetId(Solenoid): int
+                + GetTag(Solenoid): const char*
+                + GetState(Solenoid): const char*
+                + IsOn(Solenoid): bool
             }
+
             interface SolenoidFactory {
-                + Make(int): Solenoid
+                + Delete(SolenoidFactory*)
+                + Make(SolenoidFactory, int): Solenoid
             }
-            class NullSolenoid
-            Solenoid <|-- NullSolenoid
+
             Solenoid <- SolenoidFactory
         }
-        Actuator <|-- NullActuator
-        Actuator <- ActuatorFactory
-        ActuatorTransaction <|-- NullActuatorTransaction
-        ActuatorTransaction <- ActuatorTransactionFactory
-        Actuator <-- ActuatorTransactionFactory
-        ActuatorTransactionFactory -[hidden]r-> NullActuator
-        Actuator <|.. Solenoid
-        ActuatorFactory <|.. SolenoidFactory
+
         Actuator <|.. Motor
-        ActuatorFactory <|.. MotorFactory
-        ActuatorTransaction <|-- PulseMotorTransactionFactory
+        Actuator <|.. Solenoid
     }
-    folder sensors {
-        interface Sensor
-    }
-    Sensor <-- ActuatorTransactionFactory
+
+    Command <|-- Actuator
+    Actuator <- ActuatorFactory
 }
 @enduml

@@ -7,73 +7,87 @@ skinparam {
 package Golem {
     folder displays {
         interface Display {
-            + Id(): int
-            + Tag(): const char*
-            + Reset()
+            + Delete(Display*)
+            + GetId(Display): int
+            + GetTag(Display): const char*
+            + GetState(Display): const char*
+            + Reset(Display)
         }
+
         interface DisplayFactory {
-            Make(int): Display
+            + Delete(DisplayFactory*)
+            + Make(DisplayFactory, int): Display
         }
-        class NullDisplay
+
         folder leds {
             interface Led {
-                + Id(): int
-                + Tag(): const char*
-                + TurnOff()
-                + TurnOn()
-                + IsOff(): bool
-                + IsOn(): bool
+                + Delete(Led*)
+                + GetId(Led): int
+                + GetTag(Led): const char*
+                + GetState(Led): const char*
+                + TurnOff(Led)
+                + TurnOn(Led)
+                + IsOff(Led): bool
+                + IsOn(Led): bool
             }
+
             interface LedFactory {
-                Make(int): Led
+                + Delete(LedFactory*)
+                + Make(LedFactory, int): Led
             }
-            class NullLed
-            folder led_array {
+
+            folder led_arrays {
                 interface LedArray {
-                + Id(): int
-                + Tag(): const char*
-                + TurnAllOff()
-                + TurnAllOn()
-                + IsAllOff(): bool
-                + IsAllOn(): bool
-                + TurnOff(int)
-                + TurnOn(int)
-                + IsOff(int): bool
-                + IsOn(int): bool
+                    + Delete(LedArray*)
+                    + GetId(LedArray): int
+                    + GetTag(LedArray): const char*
+                    + GetState(LedArray): const char*
+                    + TurnAllOff(LedArray)
+                    + TurnAllOn(LedArray)
+                    + IsAllOff(LedArray): bool
+                    + IsAllOn(LedArray): bool
+                    + TurnOff(LedArray, int)
+                    + TurnOn(LedArray, int)
+                    + IsOff(LedArray, int): bool
+                    + IsOn(LedArray, int): bool
                 }
+
                 interface LedArrayFactory {
-                    Make(int): LedArray
+                    + Delete(LedArrayFactory*)
+                    + Make(LedArrayFactory, int): LedArray
                 }
-                class NullLedArray
+
                 LedArray <- LedArrayFactory
-                LedArray <|-- NullLedArray
-                Led <|.. LedArray
-                LedFactory <|.. LedArrayFactory
             }
+
             Led <- LedFactory
-            Led <|-- NullLed
+            Led <|.. LedArray
         }
-        folder seven_segment_display {
+
+        folder seven_segment_displays {
             interface SevenSegmentDisplay {
-                + Id(): int
-                + Tag(): const char*
-                + Clear()
-                + Get(): uint8_t
-                + Set(uint8_t)
+                + Delete(SevenSegmentDisplay*)
+                + GetId(SevenSegmentDisplay): int
+                + GetTag(SevenSegmentDisplay): const char*
+                + GetState(SevenSegmentDisplay): const char*
+                + Clear(SevenSegmentDisplay)
+                + Get(SevenSegmentDisplay): uint8_t
+                + Set(SevenSegmentDisplay, uint8_t)
             }
+
             interface SevenSegmentDisplayFactory {
-                Make(int): SevenSegmentDisplay
+                + Delete(SevenSegmentDisplayFactory*)
+                + Make(SevenSegmentDisplayFactory, int): SevenSegmentDisplay
             }
-            class NullSevenSegmentDisplay
+
             SevenSegmentDisplay <- SevenSegmentDisplayFactory
-            SevenSegmentDisplay <|-- NullSevenSegmentDisplay
         }
+
         Display <- DisplayFactory
-        Display <|-- NullDisplay
         Display <|.. Led
-        DisplayFactory <|.. LedFactory
         Display <|.. SevenSegmentDisplay
-        DisplayFactory <|.. SevenSegmentDisplayFactory
     }
+
+    Command <|-- Display
 }
 @enduml
