@@ -15,7 +15,6 @@ Golem is an open source library for electromechanical components.
 - Actuator
 
   - Motor
-    - DC motor
     - Pluse motor
   - Solenoid
 
@@ -45,3 +44,7 @@ Golem is an open source library for electromechanical components.
 #### Sensor class
 
 ![sensor class diagram](doc/sensor_class_diagram.svg)
+
+#### Utility class
+
+![util class diagram](doc/util_class_diagram.svg)
