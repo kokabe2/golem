@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    util/active_object_engine_task.c
     util/active_object_engine.c
     util/simple_active_object_engine.c
     command.c
