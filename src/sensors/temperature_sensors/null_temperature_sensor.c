@@ -26,7 +26,7 @@ static const TemperatureSensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
-    .SensorWatchCommand = NullCommand,
+    .TemperatureSensorWatchCommand = NullCommand,
     .State = EmptyString,
     .IsNormal = False,
 };

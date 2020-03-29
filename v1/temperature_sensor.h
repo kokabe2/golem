@@ -12,7 +12,8 @@ typedef struct {
   void (*Delete)(TemperatureSensor* self);
   int (*Id)(TemperatureSensor self);
   const char* (*Tag)(TemperatureSensor self);
-  Command (*SensorWatchCommand)(TemperatureSensor self, const char* expected_state, Command notification_command);
+  Command (*TemperatureSensorWatchCommand)(TemperatureSensor self, const char* expected_state,
+                                           Command notification_command);
   const char* (*State)(TemperatureSensor self);
   bool (*IsNormal)(TemperatureSensor self);
 } TemperatureSensorInterfaceStruct;
