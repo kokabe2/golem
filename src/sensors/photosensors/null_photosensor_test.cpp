@@ -20,8 +20,8 @@ TEST_F(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, photosensor-
 
 TEST_F(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", photosensor->Tag(p)); }
 
-TEST_F(NullPhotosensorTest, SensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), photosensor->SensorWatchCommand(p, "", NULL));
+TEST_F(NullPhotosensorTest, PhotosensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), photosensor->PhotosensorWatchCommand(p, "", NULL));
 }
 
 TEST_F(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", photosensor->State(p)); }
