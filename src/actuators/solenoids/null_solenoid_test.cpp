@@ -3,21 +3,35 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_solenoid.h"
 }
 
-TEST(NullSolenoidTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullSolenoid->Id()); }
+class NullSolenoidTest : public ::testing::Test {
+ protected:
+  Solenoid s;
 
-TEST(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullSolenoid->Tag()); }
+  virtual void SetUp() { s = nullSolenoid->GetInstance(); }
 
-TEST(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullSolenoid->State()); }
+  virtual void TearDown() { solenoid->Delete(&s); }
+};
 
-TEST(NullSolenoidTest, LockHasNoEffect) {
-  nullSolenoid->Lock();
+TEST_F(NullSolenoidTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, solenoid->Id(s)); }
 
-  EXPECT_FALSE(nullSolenoid->IsLocked());
+TEST_F(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", solenoid->Tag(s)); }
+
+TEST_F(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", solenoid->State(s)); }
+
+TEST_F(NullSolenoidTest, IsOnReturnsFalse) { EXPECT_FALSE(solenoid->IsOn(s)); }
+
+TEST_F(NullSolenoidTest, SolenoidOnCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), solenoid->SolenoidOnCommand(s));
 }
 
-TEST(NullSolenoidTest, UnlockHasNoEffect) { nullSolenoid->Unlock(); }
+TEST_F(NullSolenoidTest, SolenoidOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), solenoid->SolenoidOffCommand(s));
+}
 
-TEST(NullSolenoidTest, IsLockedReturnsFalse) { EXPECT_FALSE(nullSolenoid->IsLocked()); }
+TEST_F(NullSolenoidTest, SolenoidForceOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), solenoid->SolenoidForceOffCommand(s));
+}

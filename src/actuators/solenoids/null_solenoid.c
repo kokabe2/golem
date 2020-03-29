@@ -2,21 +2,47 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_solenoid.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "null_command.h"
+#include "solenoid_private.h"
 
-static void NoEffect(void) {}
+static SolenoidStruct the_singleton;
+static Solenoid the_instance = NULL;
 
-static bool False(void) { return false; }
+static void Delete(Solenoid* self) {}
 
-static const SolenoidInterfaceStruct kTheMethod = {
+static int NonsenseValue(Solenoid self) { return ~0; }
+
+static const char* EmptyString(Solenoid self) { return ""; }
+
+static bool False(Solenoid self) { return false; }
+
+static Command NullCommand(Solenoid self) { return nullCommand->GetInstance(); }
+
+static const SolenoidInterfaceStruct kTheInterface = {
+    .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .Lock = NoEffect,
-    .Unlock = NoEffect,
-    .IsLocked = False,
+    .IsOn = False,
+    .SolenoidOnCommand = NullCommand,
+    .SolenoidOffCommand = NullCommand,
+    .SolenoidForceOffCommand = NullCommand,
 };
 
-const SolenoidInterface nullSolenoid = &kTheMethod;
+inline static Solenoid New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static Solenoid GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullSolenoidMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullSolenoidMethod nullSolenoid = &kTheMethod;
