@@ -4,20 +4,34 @@
 
 extern "C" {
 #include "null_actuator.h"
+#include "null_command.h"
 }
 
-TEST(NullActuatorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullActuator->Id()); }
+class NullActuatorTest : public ::testing::Test {
+ protected:
+  Actuator a;
 
-TEST(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullActuator->Tag()); }
+  virtual void SetUp() { a = nullActuator->GetInstance(); }
 
-TEST(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullActuator->State()); }
+  virtual void TearDown() { actuator->Delete(&a); }
+};
 
-TEST(NullActuatorTest, ActivateHasNoEffect) {
-  nullActuator->Activate();
+TEST_F(NullActuatorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, actuator->Id(a)); }
 
-  EXPECT_FALSE(nullActuator->IsActive());
+TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag(a)); }
+
+TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(a)); }
+
+TEST_F(NullActuatorTest, IsOnReturnsFalse) { EXPECT_FALSE(actuator->IsOn(a)); }
+
+TEST_F(NullActuatorTest, ActuatorOnCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOnCommand(a));
 }
 
-TEST(NullActuatorTest, DeactivateHasNoEffect) { nullActuator->Deactivate(); }
+TEST_F(NullActuatorTest, ActuatorOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOffCommand(a));
+}
 
-TEST(NullActuatorTest, IsActiveReturnsFalse) { EXPECT_FALSE(nullActuator->IsActive()); }
+TEST_F(NullActuatorTest, ActuatorForceOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorForceOffCommand(a));
+}
