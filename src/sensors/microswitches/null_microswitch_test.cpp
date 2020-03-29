@@ -3,15 +3,28 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_microswitch.h"
 }
+class NullMicroswitchTest : public ::testing::Test {
+ protected:
+  Microswitch m;
 
-TEST(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullMicroswitch->Id()); }
+  virtual void SetUp() { m = nullMicroswitch->GetInstance(); }
 
-TEST(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullMicroswitch->Tag()); }
+  virtual void TearDown() { microswitch->Delete(&m); }
+};
 
-TEST(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullMicroswitch->State()); }
+TEST_F(NullMicroswitchTest, SensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), microswitch->SensorWatchCommand(m, "", NULL));
+}
 
-TEST(NullMicroswitchTest, IsOffStateReturnsFalse) { EXPECT_FALSE(nullMicroswitch->IsOff()); }
+TEST_F(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, microswitch->Id(m)); }
 
-TEST(NullMicroswitchTest, IsOnStateReturnsFalse) { EXPECT_FALSE(nullMicroswitch->IsOn()); }
+TEST_F(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", microswitch->Tag(m)); }
+
+TEST_F(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", microswitch->State(m)); }
+
+TEST_F(NullMicroswitchTest, IsOffStateReturnsFalse) { EXPECT_FALSE(microswitch->IsOff(m)); }
+
+TEST_F(NullMicroswitchTest, IsOnStateReturnsFalse) { EXPECT_FALSE(microswitch->IsOn(m)); }

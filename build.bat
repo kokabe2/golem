@@ -11,6 +11,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
 %COMPILER% -output=obj -lang=c99 -nostuff -isa=rxv3 -debug -signed_char ^
            -include=v1/,external/ ^
            src/sensors/microswitches/microswitch.c ^
+           src/sensors/microswitches/null_microswitch.c ^
            src/sensors/null_sensor.c ^
            src/sensors/sensor_factory.c ^
            src/sensors/sensor.c ^
