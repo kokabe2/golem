@@ -8,6 +8,7 @@ include_directories(
 add_library(
     golem
     actuators/motors/motor.c
+    actuators/motors/null_motor.c
     actuators/actuator.c
     actuators/null_actuator.c
     displays/leds/led_arrays/led_array.c
@@ -43,6 +44,7 @@ add_library(
 
 add_executable(
     gtests
+    actuators/motors/null_motor_test.cpp
     actuators/null_actuator_test.cpp
     displays/leds/led_arrays/null_led_array_test.cpp
     displays/leds/null_led_test.cpp

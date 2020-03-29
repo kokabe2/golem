@@ -3,41 +3,51 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_motor.h"
 }
 
-TEST(NullMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullMotor->Id()); }
+class NullMotorTest : public ::testing::Test {
+ protected:
+  Motor m;
 
-TEST(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullMotor->Tag()); }
+  virtual void SetUp() { m = nullMotor->GetInstance(); }
 
-TEST(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullMotor->State()); }
+  virtual void TearDown() { motor->Delete(&m); }
+};
 
-TEST(NullMotorTest, RunHasNoEffect) {
-  nullMotor->Run();
+TEST_F(NullMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, motor->Id(m)); }
 
-  EXPECT_FALSE(nullMotor->IsRunning());
+TEST_F(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(m)); }
+
+TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(m)); }
+
+TEST_F(NullMotorTest, IsOnReturnsFalse) { EXPECT_FALSE(motor->IsOn(m)); }
+
+TEST_F(NullMotorTest, MotorOnCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), motor->MotorOnCommand(m));
 }
 
-TEST(NullMotorTest, StopHasNoEffect) { nullMotor->Stop(); }
-
-TEST(NullMotorTest, IsRunningReturnsFalse) { EXPECT_FALSE(nullMotor->IsRunning()); }
-
-TEST(NullMotorTest, ForceStopHasNoEffect) { nullMotor->ForceStop(); }
-
-TEST(NullMotorTest, SetToCwpHasNoEffect) {
-  nullMotor->SetToCw();
-
-  EXPECT_FALSE(nullMotor->IsCw());
+TEST_F(NullMotorTest, MotorOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), motor->MotorOffCommand(m));
 }
 
-TEST(NullMotorTest, SetToAcwpHasNoEffect) { nullMotor->SetToAcw(); }
+TEST_F(NullMotorTest, MotorForceOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), motor->MotorForceOffCommand(m));
+}
 
-TEST(NullMotorTest, IsCwReturnsFalse) { EXPECT_FALSE(nullMotor->IsCw()); }
+TEST_F(NullMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(m)); }
 
-TEST(NullMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, nullMotor->GetSpeed()); }
+TEST_F(NullMotorTest, SetDirectionHasNoEffect) {
+  motor->SetDirection(m, "CW");
 
-TEST(NullMotorTest, SetSpeedHasNoEffect) {
-  nullMotor->SetSpeed(100);
+  EXPECT_STREQ("", motor->GetDirection(m));
+}
 
-  EXPECT_EQ(0, nullMotor->GetSpeed());
+TEST_F(NullMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, motor->GetSpeed(m)); }
+
+TEST_F(NullMotorTest, SetSpeedHasNoEffect) {
+  motor->SetSpeed(m, 100);
+
+  EXPECT_EQ(0, motor->GetSpeed(m));
 }

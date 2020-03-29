@@ -2,31 +2,57 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_motor.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "motor_private.h"
+#include "null_command.h"
 
-static void NoEffect(void) {}
+static MotorStruct the_singleton;
+static Motor the_instance = NULL;
 
-static bool False(void) { return false; }
+static void Delete(Motor* self) {}
 
-static int Zero(void) { return 0; }
+static int NonsenseValue(Motor self) { return ~0; }
 
-static void NoEffectWithInt(int rpm) {}
+static const char* EmptyString(Motor self) { return ""; }
 
-static const MotorInterfaceStruct kTheMethod = {
+static bool False(Motor self) { return false; }
+
+static Command NullCommand(Motor self) { return nullCommand->GetInstance(); }
+
+static void NoEffectWithString(Motor self, const char* direction) {}
+
+static int Zero(Motor self) { return 0; }
+
+static void NoEffectWithInt(Motor self, int rpm) {}
+
+static const MotorInterfaceStruct kTheInterface = {
+    .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .Run = NoEffect,
-    .Stop = NoEffect,
-    .IsRunning = False,
-    .ForceStop = NoEffect,
-    .SetToCw = NoEffect,
-    .SetToAcw = NoEffect,
-    .IsCw = False,
+    .IsOn = False,
+    .MotorOnCommand = NullCommand,
+    .MotorOffCommand = NullCommand,
+    .MotorForceOffCommand = NullCommand,
+    .GetDirection = EmptyString,
+    .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,
     .SetSpeed = NoEffectWithInt,
 };
 
-const MotorInterface nullMotor = &kTheMethod;
+inline static Motor New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static Motor GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullMotorMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullMotorMethod nullMotor = &kTheMethod;

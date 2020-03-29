@@ -3,8 +3,13 @@
 #ifndef V1_NULL_MOTOR_H_
 #define V1_NULL_MOTOR_H_
 
-#include "motor_interface.h"
+#include "motor.h"
 
-extern const MotorInterface nullMotor;
+typedef struct {
+  Motor (*GetInstance)(void);  //
+} NullMotorMethodStruct;
+typedef const NullMotorMethodStruct* NullMotorMethod;
+
+extern const NullMotorMethod nullMotor;
 
 #endif  // V1_NULL_MOTOR_H_
