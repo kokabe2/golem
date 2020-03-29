@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    actuators/motors/pulse_motors/null_pulse_motor.c
     actuators/motors/pulse_motors/pulse_motor.c
     actuators/motors/motor.c
     actuators/motors/null_motor.c
@@ -47,6 +48,7 @@ add_library(
 
 add_executable(
     gtests
+    actuators/motors/pulse_motors/null_pulse_motor_test.cpp
     actuators/motors/null_motor_test.cpp
     actuators/solenoids/null_solenoid_test.cpp
     actuators/null_actuator_test.cpp

@@ -3,8 +3,13 @@
 #ifndef V1_NULL_PULSE_MOTOR_H_
 #define V1_NULL_PULSE_MOTOR_H_
 
-#include "pulse_motor_interface.h"
+#include "pulse_motor.h"
 
-extern const PulseMotorInterface nullPulseMotor;
+typedef struct {
+  PulseMotor (*GetInstance)(void);  //
+} NullPulseMotorMethodStruct;
+typedef const NullPulseMotorMethodStruct* NullPulseMotorMethod;
+
+extern const NullPulseMotorMethod nullPulseMotor;
 
 #endif  // V1_NULL_PULSE_MOTOR_H_

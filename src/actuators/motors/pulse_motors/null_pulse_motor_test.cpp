@@ -3,67 +3,77 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_pulse_motor.h"
 }
 
-TEST(NullPulseMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullPulseMotor->Id()); }
+class NullPulseMotorTest : public ::testing::Test {
+ protected:
+  PulseMotor pm;
 
-TEST(NullPulseMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullPulseMotor->Tag()); }
+  virtual void SetUp() { pm = nullPulseMotor->GetInstance(); }
 
-TEST(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullPulseMotor->State()); }
+  virtual void TearDown() { pulseMotor->Delete(&pm); }
+};
 
-TEST(NullPulseMotorTest, RunHasNoEffect) {
-  nullPulseMotor->Run();
+TEST_F(NullPulseMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, pulseMotor->Id(pm)); }
 
-  EXPECT_FALSE(nullPulseMotor->IsRunning());
+TEST_F(NullPulseMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->Tag(pm)); }
+
+TEST_F(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->State(pm)); }
+
+TEST_F(NullPulseMotorTest, IsOnReturnsFalse) { EXPECT_FALSE(pulseMotor->IsOn(pm)); }
+
+TEST_F(NullPulseMotorTest, PulseMotorOnCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorOnCommand(pm));
 }
 
-TEST(NullPulseMotorTest, StopHasNoEffect) { nullPulseMotor->Stop(); }
-
-TEST(NullPulseMotorTest, IsRunningReturnsFalse) { EXPECT_FALSE(nullPulseMotor->IsRunning()); }
-
-TEST(NullPulseMotorTest, ForceStopHasNoEffect) { nullPulseMotor->ForceStop(); }
-
-TEST(NullPulseMotorTest, SetToCwpHasNoEffect) {
-  nullPulseMotor->SetToCw();
-
-  EXPECT_FALSE(nullPulseMotor->IsCw());
+TEST_F(NullPulseMotorTest, PulseMotorOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorOffCommand(pm));
 }
 
-TEST(NullPulseMotorTest, SetToAcwpHasNoEffect) { nullPulseMotor->SetToAcw(); }
-
-TEST(NullPulseMotorTest, IsCwReturnsFalse) { EXPECT_FALSE(nullPulseMotor->IsCw()); }
-
-TEST(NullPulseMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, nullPulseMotor->GetSpeed()); }
-
-TEST(NullPulseMotorTest, SetSpeedHasNoEffect) {
-  nullPulseMotor->SetSpeed(100);
-
-  EXPECT_EQ(0, nullPulseMotor->GetSpeed());
+TEST_F(NullPulseMotorTest, PulseMotorForceOffCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorForceOffCommand(pm));
 }
 
-TEST(NullPulseMotorTest, ExciteHasNoEffect) {
-  nullPulseMotor->Excite();
+TEST_F(NullPulseMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetDirection(pm)); }
 
-  EXPECT_FALSE(nullPulseMotor->IsExciting());
+TEST_F(NullPulseMotorTest, SetDirectionHasNoEffect) {
+  pulseMotor->SetDirection(pm, "CW");
+
+  EXPECT_STREQ("", pulseMotor->GetDirection(pm));
 }
 
-TEST(NullPulseMotorTest, UnexciteHasNoEffect) { nullPulseMotor->Unexcite(); }
+TEST_F(NullPulseMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, pulseMotor->GetSpeed(pm)); }
 
-TEST(NullPulseMotorTest, GetPulseRateReturnsZero) { EXPECT_EQ(0, nullPulseMotor->GetPulseRate()); }
+TEST_F(NullPulseMotorTest, SetSpeedHasNoEffect) {
+  pulseMotor->SetSpeed(pm, 100);
 
-TEST(NullPulseMotorTest, SetPulseRateHasNoEffect) {
-  nullPulseMotor->SetSpeed(100);
-
-  EXPECT_EQ(0, nullPulseMotor->GetPulseRate());
+  EXPECT_EQ(0, pulseMotor->GetSpeed(pm));
 }
 
-TEST(NullPulseMotorTest, GetPositionReturnsZero) { EXPECT_EQ(0, nullPulseMotor->GetPosition()); }
-
-TEST(NullPulseMotorTest, MoveHasNoEffect) {
-  nullPulseMotor->Move(100);
-
-  EXPECT_EQ(0, nullPulseMotor->GetPosition());
+TEST_F(NullPulseMotorTest, PulseMotorStopCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorStopCommand(pm, 0));
 }
 
-TEST(NullPulseMotorTest, StopAfterHasNoEffect) { nullPulseMotor->StopAfter(100); }
+TEST_F(NullPulseMotorTest, PulseMotorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorWatchCommand(pm, 0, NULL));
+}
+
+TEST_F(NullPulseMotorTest, GetModeReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetMode(pm)); }
+
+TEST_F(NullPulseMotorTest, SelectModeHasNoEffect) {
+  pulseMotor->SelectMode(pm, "CW");
+
+  EXPECT_STREQ("", pulseMotor->GetMode(pm));
+}
+
+TEST_F(NullPulseMotorTest, GetPulseRateReturnsZero) { EXPECT_EQ(0, pulseMotor->GetPulseRate(pm)); }
+
+TEST_F(NullPulseMotorTest, SetPulseRateHasNoEffect) {
+  pulseMotor->SetPulseRate(pm, 100);
+
+  EXPECT_EQ(0, pulseMotor->GetPulseRate(pm));
+}
+
+TEST_F(NullPulseMotorTest, GetPositionReturnsZero) { EXPECT_EQ(0, pulseMotor->GetPosition(pm)); }
