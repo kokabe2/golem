@@ -21,6 +21,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/sensor.c ^
            src/util/active_object_engine_task.c ^
            src/util/active_object_engine.c ^
+           src/util/component_factory.c ^
            src/util/error_command.c ^
            src/util/null_command.c ^
            src/util/simple_active_object_engine.c ^

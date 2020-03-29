@@ -18,6 +18,7 @@ add_library(
     sensors/sensor.c
     util/active_object_engine_task.c
     util/active_object_engine.c
+    util/component_factory.c
     util/error_command.c
     util/null_command.c
     util/simple_active_object_engine.c
