@@ -3,7 +3,6 @@
 #ifndef V1_ERROR_COMMAND_H_
 #define V1_ERROR_COMMAND_H_
 
-#include "active_object_engine.h"
 #include "command.h"
 
 typedef void (*NotifyDelegate)(const char* message, int error, int parameter);
