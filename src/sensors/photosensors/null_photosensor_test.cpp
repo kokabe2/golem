@@ -3,15 +3,29 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_photosensor.h"
 }
 
-TEST(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullPhotosensor->Id()); }
+class NullPhotosensorTest : public ::testing::Test {
+ protected:
+  Photosensor p;
 
-TEST(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullPhotosensor->Tag()); }
+  virtual void SetUp() { p = nullPhotosensor->GetInstance(); }
 
-TEST(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullPhotosensor->State()); }
+  virtual void TearDown() { photosensor->Delete(&p); }
+};
 
-TEST(NullPhotosensorTest, IsLightStateReturnsFalse) { EXPECT_FALSE(nullPhotosensor->IsLight()); }
+TEST_F(NullPhotosensorTest, SensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), photosensor->SensorWatchCommand(p, "", NULL));
+}
 
-TEST(NullPhotosensorTest, IsDarkStateReturnsFalse) { EXPECT_FALSE(nullPhotosensor->IsDark()); }
+TEST_F(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, photosensor->Id(p)); }
+
+TEST_F(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", photosensor->Tag(p)); }
+
+TEST_F(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", photosensor->State(p)); }
+
+TEST_F(NullPhotosensorTest, IsLightStateReturnsFalse) { EXPECT_FALSE(photosensor->IsLight(p)); }
+
+TEST_F(NullPhotosensorTest, IsDarkStateReturnsFalse) { EXPECT_FALSE(photosensor->IsDark(p)); }

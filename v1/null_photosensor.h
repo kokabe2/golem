@@ -3,8 +3,13 @@
 #ifndef V1_NULL_PHOTOSENSOR_H_
 #define V1_NULL_PHOTOSENSOR_H_
 
-#include "photosensor_interface.h"
+#include "photosensor.h"
 
-extern const PhotosensorInterface nullPhotosensor;
+typedef struct {
+  Photosensor (*GetInstance)(void);  //
+} NullPhotosensorMethodStruct;
+typedef const NullPhotosensorMethodStruct* NullPhotosensorMethod;
+
+extern const NullPhotosensorMethod nullPhotosensor;
 
 #endif  // V1_NULL_PHOTOSENSOR_H_
