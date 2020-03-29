@@ -7,14 +7,11 @@ include_directories(
 
 add_library(
     golem
-    sensors/microswitches/microswitch_factory.c
     sensors/microswitches/microswitch.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
-    sensors/photosensors/photosensor_factory.c
     sensors/photosensors/photosensor.c
     sensors/null_sensor.c
-    sensors/sensor_factory.c
     sensors/sensor.c
     util/active_object_engine_task.c
     util/active_object_engine.c
