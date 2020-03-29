@@ -20,4 +20,6 @@ typedef struct {
 } ActuatorInterfaceStruct;
 typedef const ActuatorInterfaceStruct* ActuatorInterface;
 
+extern const ActuatorInterface actuator;
+
 #endif  // V1_ACTUATOR_H_
