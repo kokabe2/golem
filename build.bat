@@ -14,6 +14,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/microswitches/microswitch.c ^
            src/sensors/microswitches/null_microswitch.c ^
            src/sensors/photosensors/null_photosensor.c ^
+           src/sensors/photosensors/photosensor_factory.c ^
            src/sensors/photosensors/photosensor.c ^
            src/sensors/null_sensor.c ^
            src/sensors/sensor_factory.c ^

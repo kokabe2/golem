@@ -11,6 +11,7 @@ add_library(
     sensors/microswitches/microswitch.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
+    sensors/photosensors/photosensor_factory.c
     sensors/photosensors/photosensor.c
     sensors/null_sensor.c
     sensors/sensor_factory.c
