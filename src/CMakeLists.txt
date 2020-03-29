@@ -8,6 +8,7 @@ include_directories(
 add_library(
     golem
     displays/leds/led.c
+    displays/leds/null_led.c
     displays/display.c
     displays/null_display.c
     sensors/microswitches/microswitch.c
@@ -35,6 +36,7 @@ add_library(
 
 add_executable(
     gtests
+    displays/leds/null_led_test.cpp
     displays/null_display_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
     sensors/photosensors/null_photosensor_test.cpp
