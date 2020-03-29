@@ -8,6 +8,7 @@ include_directories(
 add_library(
     golem
     displays/leds/led_arrays/led_array.c
+    displays/leds/led_arrays/null_led_array.c
     displays/leds/led.c
     displays/leds/null_led.c
     displays/display.c
@@ -37,6 +38,7 @@ add_library(
 
 add_executable(
     gtests
+    displays/leds/led_arrays/null_led_array_test.cpp
     displays/leds/null_led_test.cpp
     displays/null_display_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
