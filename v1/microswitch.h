@@ -19,4 +19,6 @@ typedef struct {
 } MicroswitchInterfaceStruct;
 typedef const MicroswitchInterfaceStruct* MicroswitchInterface;
 
+extern const MicroswitchInterface microswitch;
+
 #endif  // V1_MICROSWITCH_H_
