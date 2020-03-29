@@ -8,7 +8,7 @@
 typedef struct ComponentFactoryStruct* ComponentFactory;
 typedef struct {
   void (*Delete)(ComponentFactory* self);
-  ComponentInterface (*Make)(ComponentFactory self, int id);
+  Component (*Make)(ComponentFactory self, int id);
 } ComponentFactoryInterfaceStruct;
 typedef const ComponentFactoryInterfaceStruct* ComponentFactoryInterface;
 
