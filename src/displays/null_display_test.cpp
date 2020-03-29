@@ -6,12 +6,21 @@ extern "C" {
 #include "null_display.h"
 }
 
-TEST(NullDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullDisplay->Id()); }
+class NullDisplayTest : public ::testing::Test {
+ protected:
+  Display d;
 
-TEST(NullDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullDisplay->Tag()); }
+  virtual void SetUp() { d = nullDisplay->GetInstance(); }
 
-TEST(NullDisplayTest, ResetHasNoEffect) {
-  nullDisplay->Reset();
+  virtual void TearDown() { display->Delete(&d); }
+};
+
+TEST_F(NullDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, display->Id(d)); }
+
+TEST_F(NullDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", display->Tag(d)); }
+
+TEST_F(NullDisplayTest, ResetHasNoEffect) {
+  display->Reset(d);
 
   SUCCEED();
 }
