@@ -3,8 +3,13 @@
 #ifndef V1_NULL_SEVEN_SEGMENT_DISPLAY_H_
 #define V1_NULL_SEVEN_SEGMENT_DISPLAY_H_
 
-#include "seven_segment_display_interface.h"
+#include "seven_segment_display.h"
 
-extern const SevenSegmentDisplayInterface nullSevenSegmentDisplay;
+typedef struct {
+  SevenSegmentDisplay (*GetInstance)(void);  //
+} NullSevenSegmentDisplayMethodStruct;
+typedef const NullSevenSegmentDisplayMethodStruct* NullSevenSegmentDisplayMethod;
+
+extern const NullSevenSegmentDisplayMethod nullSevenSegmentDisplay;
 
 #endif  // V1_NULL_SEVEN_SEGMENT_DISPLAY_H_

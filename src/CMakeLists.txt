@@ -11,6 +11,7 @@ add_library(
     displays/leds/led_arrays/null_led_array.c
     displays/leds/led.c
     displays/leds/null_led.c
+    displays/seven_segment_displays/null_seven_segment_display.c
     displays/seven_segment_displays/seven_segment_display.c
     displays/display.c
     displays/null_display.c
@@ -41,6 +42,7 @@ add_executable(
     gtests
     displays/leds/led_arrays/null_led_array_test.cpp
     displays/leds/null_led_test.cpp
+    displays/seven_segment_displays/null_seven_segment_display_test.cpp
     displays/null_display_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
     sensors/photosensors/null_photosensor_test.cpp

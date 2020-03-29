@@ -14,6 +14,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/displays/leds/led_arrays/led_array.c ^
            src/displays/leds/led.c ^
            src/displays/leds/null_led.c ^
+           src/displays/seven_segment_displays/null_seven_segment_display.c ^
            src/displays/seven_segment_displays/seven_segment_display.c ^
            src/displays/display.c ^
            src/displays/null_display.c ^
