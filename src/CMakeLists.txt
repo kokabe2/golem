@@ -11,6 +11,7 @@ add_library(
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
     sensors/photosensors/photosensor.c
+    sensors/temperature_sensors/temperature_sensor.c
     sensors/null_sensor.c
     sensors/sensor.c
     util/active_object_engine_task.c
