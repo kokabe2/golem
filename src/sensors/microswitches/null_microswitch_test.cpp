@@ -19,8 +19,8 @@ TEST_F(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, microswitch-
 
 TEST_F(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", microswitch->Tag(m)); }
 
-TEST_F(NullMicroswitchTest, SensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), microswitch->SensorWatchCommand(m, "", NULL));
+TEST_F(NullMicroswitchTest, MicroswitchWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), microswitch->MicroswitchWatchCommand(m, "", NULL));
 }
 
 TEST_F(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", microswitch->State(m)); }

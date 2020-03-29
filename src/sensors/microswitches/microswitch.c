@@ -10,8 +10,8 @@ static int Id(Microswitch self) { return self->impl->Id(self); }
 
 static const char* Tag(Microswitch self) { return self->impl->Tag(self); }
 
-static Command SensorWatchCommand(Microswitch self, const char* expected_state, Command notification_command) {
-  return self->impl->SensorWatchCommand(self, expected_state, notification_command);
+static Command MicroswitchWatchCommand(Microswitch self, const char* expected_state, Command notification_command) {
+  return self->impl->MicroswitchWatchCommand(self, expected_state, notification_command);
 }
 
 static const char* State(Microswitch self) { return self->impl->State(self); }
@@ -24,7 +24,7 @@ static const MicroswitchInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
-    .SensorWatchCommand = SensorWatchCommand,
+    .MicroswitchWatchCommand = MicroswitchWatchCommand,
     .State = State,
     .IsOff = IsOff,
     .IsOn = IsOn,
