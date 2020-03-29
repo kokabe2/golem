@@ -6,22 +6,31 @@ extern "C" {
 #include "null_led.h"
 }
 
-TEST(NullLedTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullLed->Id()); }
+class NullLedTest : public ::testing::Test {
+ protected:
+  Led l;
 
-TEST(NullLedTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullLed->Tag()); }
+  virtual void SetUp() { l = nullLed->GetInstance(); }
 
-TEST(NullLedTest, TunrOffHasNoEffect) {
-  nullLed->TurnOff();
+  virtual void TearDown() { led->Delete(&l); }
+};
 
-  EXPECT_FALSE(nullLed->IsOff());
+TEST_F(NullLedTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, led->Id(l)); }
+
+TEST_F(NullLedTest, TagReturnsEmptyString) { EXPECT_STREQ("", led->Tag(l)); }
+
+TEST_F(NullLedTest, TunrOffHasNoEffect) {
+  led->TurnOff(l);
+
+  EXPECT_FALSE(led->IsOff(l));
 }
 
-TEST(NullLedTest, TunrOnHasNoEffect) {
-  nullLed->TurnOn();
+TEST_F(NullLedTest, TunrOnHasNoEffect) {
+  led->TurnOn(l);
 
-  EXPECT_FALSE(nullLed->IsOn());
+  EXPECT_FALSE(led->IsOn(l));
 }
 
-TEST(NullLedTest, IsOffReturnsFalse) { EXPECT_FALSE(nullLed->IsOff()); }
+TEST_F(NullLedTest, IsOffReturnsFalse) { EXPECT_FALSE(led->IsOff(l)); }
 
-TEST(NullLedTest, IsOnReturnsFalse) { EXPECT_FALSE(nullLed->IsOn()); }
+TEST_F(NullLedTest, IsOnReturnsFalse) { EXPECT_FALSE(led->IsOn(l)); }

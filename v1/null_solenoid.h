@@ -3,8 +3,13 @@
 #ifndef V1_NULL_SOLENOID_H_
 #define V1_NULL_SOLENOID_H_
 
-#include "solenoid_interface.h"
+#include "solenoid.h"
 
-extern const SolenoidInterface nullSolenoid;
+typedef struct {
+  Solenoid (*GetInstance)(void);  //
+} NullSolenoidMethodStruct;
+typedef const NullSolenoidMethodStruct* NullSolenoidMethod;
+
+extern const NullSolenoidMethod nullSolenoid;
 
 #endif  // V1_NULL_SOLENOID_H_

@@ -5,69 +5,88 @@ skinparam {
 }
 
 package Golem {
+    interface Command {
+        + Delete(Command*)
+        + Do()
+    }
+
     folder sensors {
         interface Sensor {
-            + Id(): int
-            + Tag(): const char*
-            + State(): const char*
-            + IsDefaultState(): bool
+            + Delete(Sensor*)
+            + SensorWatchCommand(Sensor, const char*, Command): Command
+            + GetId(Sensor): int
+            + GetTag(Sensor): const char*
+            + GetState(Sensor): const char*
+            + IsDefaultState(Sensor): bool
         }
+
         interface SensorFactory {
-            Make(int): Sensor
+            + Delete(SensorFactory*)
+            + Make(SensorFactory, int): Sensor
         }
-        class NullSensor
+
         folder microswitches {
             interface Microswitch {
-                + Id(): int
-                + Tag(): const char*
-                + State(): const char*
-                + IsOff(): bool
-                + IsOn(): bool
+                + Delete(Microswitch*)
+                + SensorWatchCommand(Sensor, const char*, Command): Command
+                + GetId(Sensor): int
+                + GetTag(Sensor): const char*
+                + GetState(Sensor): const char*
+                + IsOff(Sensor): bool
+                + IsOn(Sensor): bool
             }
+
             interface MicroswitchFactory {
-                Make(int): Microswitch
+                + Delete(MicroswitchFactory*)
+                + Make(MicroswitchFactory, int): Microswitch
             }
-            class NullMicroswitch
-            Microswitch <|-- NullMicroswitch
+
             Microswitch <- MicroswitchFactory
         }
+
         folder photosensors {
             interface Photosensor {
-                + Id(): int
-                + Tag(): const char*
-                + State(): const char*
-                + IsLight(): bool
-                + IsDark(): bool
+                + Delete(Photosensor*)
+                + SensorWatchCommand(Sensor, const char*, Command): Command
+                + GetId(Sensor): int
+                + GetTag(Sensor): const char*
+                + GetState(Sensor): const char*
+                + IsLight(Sensor): bool
+                + IsDark(Sensor): bool
             }
+
             interface PhotosensorFactory {
-                Make(int): Photosensor
+                + Delete(PhotosensorFactory*)
+                + Make(PhotosensorFactory, int): Photosensor
             }
-            class NullPhotosensor
-            Photosensor <|-- NullPhotosensor
+
             Photosensor <- PhotosensorFactory
         }
+
         folder temperature_sensors {
             interface TemperatureSensor {
-                + Id(): int
-                + Tag(): const char*
-                + State(): const char*
-                + IsNormal(): bool
+                + Delete(TemperatureSensor*)
+                + SensorWatchCommand(Sensor, const char*, Command): Command
+                + GetId(Sensor): int
+                + GetTag(Sensor): const char*
+                + GetState(Sensor): const char*
+                + IsNormal(Sensor): bool
             }
+
             interface TemperatureSensorFactory {
-                Make(int): TemperatureSensor
+                + Delete(TemperatureSensorFactory*)
+                + Make(TemperatureSensorFactory, int): TemperatureSensor
             }
-            class NullTemperatureSensor
-            TemperatureSensor <|-- NullTemperatureSensor
+
             TemperatureSensor <- TemperatureSensorFactory
         }
-        Sensor <|-- NullSensor
+
         Sensor <- SensorFactory
         Sensor <|.. Microswitch
-        SensorFactory <|.. MicroswitchFactory
         Sensor <|.. Photosensor
-        SensorFactory <|.. PhotosensorFactory
         Sensor <|.. TemperatureSensor
-        SensorFactory <|.. TemperatureSensorFactory
     }
+
+    Command <|-- Sensor
 }
 @enduml

@@ -1,0 +1,45 @@
+﻿@startuml util_class_diagram
+skinparam {
+    defaultFontName Ricty Diminished
+    monochrome true
+}
+
+package Golem {
+    interface Command {
+        + Delete(Command*)
+        + Do()
+    }
+
+    interface ActiveObjectEngine {
+        + Delete(ActiveObjectEngine*)
+        + Run(ActiveObjectEngine)
+        + AddCommand(ActiveObjectEngine, Command)
+    }
+
+    folder util {
+        class ActiveObjectEngineTask {
+            + New(): ActiveObjectEngine
+        }
+
+        class CountingActiveObjectEngineStub {
+            + New(): ActiveObjectEngine
+        }
+
+        class SleepCommand {
+            + New(int, ActiveObjectEngine, Command): Command
+            + SetSleepTime(Command, int)
+        }
+
+        class ErrorCommand {
+            + New(NotifyDelegate): Command
+            + SetErrorInfo(Command, const char*, int, int)
+        }
+    }
+
+    Command <|-- SleepCommand
+    Command <|-- ErrorCommand
+    ActiveObjectEngine <|-- ActiveObjectEngineTask
+    ActiveObjectEngine <|-- CountingActiveObjectEngineStub
+    SleepCommand -> ActiveObjectEngine
+}
+@enduml

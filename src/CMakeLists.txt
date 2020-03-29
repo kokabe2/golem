@@ -7,65 +7,65 @@ include_directories(
 
 add_library(
     golem
-    actuators/motors/dc_motors/null_dc_motor.c
     actuators/motors/pulse_motors/null_pulse_motor.c
+    actuators/motors/pulse_motors/pulse_motor.c
+    actuators/motors/motor.c
     actuators/motors/null_motor.c
     actuators/solenoids/null_solenoid.c
-    actuators/null_actuator_transaction.c
+    actuators/solenoids/solenoid.c
+    actuators/actuator.c
     actuators/null_actuator.c
-    displays/seven_segment_display/null_seven_segment_display.c
-    displays/leds/led_array/null_led_array.c
+    displays/leds/led_arrays/led_array.c
+    displays/leds/led_arrays/null_led_array.c
+    displays/leds/led.c
     displays/leds/null_led.c
+    displays/seven_segment_displays/null_seven_segment_display.c
+    displays/seven_segment_displays/seven_segment_display.c
+    displays/display.c
     displays/null_display.c
+    sensors/microswitches/microswitch.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
+    sensors/photosensors/photosensor.c
     sensors/temperature_sensors/null_temperature_sensor.c
+    sensors/temperature_sensors/temperature_sensor.c
     sensors/null_sensor.c
+    sensors/sensor.c
+    util/active_object_engine_task.c
     util/active_object_engine.c
-    util/command.c
-    util/delay_command.c
-    util/one_shot_timer_manager.c
-    util/scheduled_process_manager.c
+    util/component_factory.c
+    util/error_command.c
+    util/null_command.c
+    util/simple_active_object_engine.c
     util/sleep_command.c
-    util/watch_command.c
-    golem.c
+    command.c
+    component.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list_node.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list.c
-    ${PROJECT_SOURCE_DIR}/external/bleu/src/util/null_comparer.c
-    ${PROJECT_SOURCE_DIR}/external/bleu/src/util/null_deleter.c
     )
 
 add_executable(
     gtests
-    actuators/motors/dc_motors/null_dc_motor_test.cpp
     actuators/motors/pulse_motors/null_pulse_motor_test.cpp
     actuators/motors/null_motor_test.cpp
     actuators/solenoids/null_solenoid_test.cpp
     actuators/null_actuator_test.cpp
-    actuators/null_actuator_transaction_test.cpp
-    displays/seven_segment_display/null_seven_segment_display_test.cpp
-    displays/leds/led_array/null_led_array_test.cpp
+    displays/leds/led_arrays/null_led_array_test.cpp
     displays/leds/null_led_test.cpp
+    displays/seven_segment_displays/null_seven_segment_display_test.cpp
     displays/null_display_test.cpp
     sensors/microswitches/null_microswitch_test.cpp
     sensors/photosensors/null_photosensor_test.cpp
     sensors/temperature_sensors/null_temperature_sensor_test.cpp
     sensors/null_sensor_test.cpp
-    util/active_object_engine_test.cpp
-    util/delay_command_test.cpp
-    util/one_shot_timer_manager_test.cpp
-    util/scheduled_process_manager_test.cpp
+    util/null_command_test.cpp
+    util/simple_active_object_engine_test.cpp
+    util/error_command_test.cpp
     util/sleep_command_test.cpp
-    util/watch_command_test.cpp
-    golem_test.cpp
+    util/time_unit_stub.c
     main.cpp
-    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/task/task_spy.c
-    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/one_shot_timer_spy.c
-    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/timer/timer_spy.c
-    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/inbox/inbox_stub.c
-    ${PROJECT_SOURCE_DIR}/external/malkt/src/utkernel/uptime/uptime_stub.c
     )
 
 add_dependencies(gtests googletest)

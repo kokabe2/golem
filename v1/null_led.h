@@ -3,8 +3,13 @@
 #ifndef V1_NULL_LED_H_
 #define V1_NULL_LED_H_
 
-#include "led_interface.h"
+#include "led.h"
 
-extern const LedInterface nullLed;
+typedef struct {
+  Led (*GetInstance)(void);  //
+} NullLedMethodStruct;
+typedef const NullLedMethodStruct* NullLedMethod;
+
+extern const NullLedMethod nullLed;
 
 #endif  // V1_NULL_LED_H_

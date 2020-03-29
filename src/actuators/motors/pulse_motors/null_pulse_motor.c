@@ -2,39 +2,70 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_pulse_motor.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "null_command.h"
+#include "pulse_motor_private.h"
 
-static void NoEffect(void) {}
+static PulseMotorStruct the_singleton;
+static PulseMotor the_instance = NULL;
 
-static bool False(void) { return false; }
+static void Delete(PulseMotor* self) {}
 
-static int Zero(void) { return 0; }
+static int NonsenseValue(PulseMotor self) { return ~0; }
 
-static void NoEffectWithInt(int unused) {}
+static const char* EmptyString(PulseMotor self) { return ""; }
 
-static const PulseMotorInterfaceStruct kTheMethod = {
+static bool False(PulseMotor self) { return false; }
+
+static Command NullCommand(PulseMotor self) { return nullCommand->GetInstance(); }
+
+static void NoEffectWithString(PulseMotor self, const char* direction) {}
+
+static int Zero(PulseMotor self) { return 0; }
+
+static void NoEffectWithInt(PulseMotor self, int rpm) {}
+
+static Command NullCommandWithInt(PulseMotor self, int pulse) { return nullCommand->GetInstance(); }
+
+static Command NullCommandWithIntAndCommand(PulseMotor self, int pulse, Command notification_command) {
+  return nullCommand->GetInstance();
+}
+
+static const PulseMotorInterfaceStruct kTheInterface = {
+    .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .Run = NoEffect,
-    .Stop = NoEffect,
-    .IsRunning = False,
-    .ForceStop = NoEffect,
-    .SetToCw = NoEffect,
-    .SetToAcw = NoEffect,
-    .IsCw = False,
+    .IsOn = False,
+    .PulseMotorOnCommand = NullCommand,
+    .PulseMotorOffCommand = NullCommand,
+    .PulseMotorForceOffCommand = NullCommand,
+    .GetDirection = EmptyString,
+    .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,
     .SetSpeed = NoEffectWithInt,
-    .Excite = NoEffect,
-    .Unexcite = NoEffect,
-    .IsExciting = False,
-    .Move = NoEffectWithInt,
-    .StopAfter = NoEffectWithInt,
+    .PulseMotorStopCommand = NullCommandWithInt,
+    .PulseMotorWatchCommand = NullCommandWithIntAndCommand,
+    .GetMode = EmptyString,
+    .SelectMode = NoEffectWithString,
     .GetPulseRate = Zero,
     .SetPulseRate = NoEffectWithInt,
     .GetPosition = Zero,
 };
 
-const PulseMotorInterface nullPulseMotor = &kTheMethod;
+inline static PulseMotor New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static PulseMotor GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullPulseMotorMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullPulseMotorMethod nullPulseMotor = &kTheMethod;

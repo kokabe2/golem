@@ -2,14 +2,48 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_photosensor.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "null_command.h"
+#include "photosensor_private.h"
 
-static bool False(void) { return false; }
+static PhotosensorStruct the_singleton;
+static Photosensor the_instance = NULL;
 
-static const PhotosensorInterfaceStruct kTheMethod = {
-    .Id = NonsenseValue, .Tag = EmptyString, .State = EmptyString, .IsLight = False, .IsDark = False,
+static void Delete(Photosensor* self) {}
+
+static int NonsenseValue(Photosensor self) { return ~0; }
+
+static const char* EmptyString(Photosensor self) { return ""; }
+
+static Command NullCommand(Photosensor self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
+
+static bool False(Photosensor self) { return false; }
+
+static const PhotosensorInterfaceStruct kTheInterface = {
+    .Delete = Delete,
+    .Id = NonsenseValue,
+    .Tag = EmptyString,
+    .PhotosensorWatchCommand = NullCommand,
+    .State = EmptyString,
+    .IsLight = False,
+    .IsDark = False,
 };
 
-const PhotosensorInterface nullPhotosensor = &kTheMethod;
+inline static Photosensor New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static Photosensor GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullPhotosensorMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullPhotosensorMethod nullPhotosensor = &kTheMethod;

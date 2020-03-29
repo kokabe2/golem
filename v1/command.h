@@ -5,12 +5,11 @@
 
 typedef struct CommandStruct* Command;
 typedef struct {
-  void (*Delete)(Command* self);  // Abstract method
-  void (*Do)(Command self);       // Abstract method
-  void (*Cancel)(Command self);   // Abstract method
-} CommandAbstractMethodStruct;
-typedef const CommandAbstractMethodStruct* CommandAbstractMethod;
+  void (*Delete)(Command* self);
+  void (*Do)(Command self);
+} CommandInterfaceStruct;
+typedef const CommandInterfaceStruct* CommandInterface;
 
-extern const CommandAbstractMethod command;
+extern const CommandInterface command;
 
 #endif  // V1_COMMAND_H_

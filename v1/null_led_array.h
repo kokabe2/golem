@@ -3,8 +3,13 @@
 #ifndef V1_NULL_LED_ARRAY_H_
 #define V1_NULL_LED_ARRAY_H_
 
-#include "led_array_interface.h"
+#include "led_array.h"
 
-extern const LedArrayInterface nullLedArray;
+typedef struct {
+  LedArray (*GetInstance)(void);  //
+} NullLedArrayMethodStruct;
+typedef const NullLedArrayMethodStruct* NullLedArrayMethod;
+
+extern const NullLedArrayMethod nullLedArray;
 
 #endif  // V1_NULL_LED_ARRAY_H_

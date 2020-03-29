@@ -3,8 +3,13 @@
 #ifndef V1_NULL_TEMPERATURE_SENSOR_H_
 #define V1_NULL_TEMPERATURE_SENSOR_H_
 
-#include "temperature_sensor_interface.h"
+#include "temperature_sensor.h"
 
-extern const TemperatureSensorInterface nullTemperatureSensor;
+typedef struct {
+  TemperatureSensor (*GetInstance)(void);  //
+} NullTemperatureSensorMethodStruct;
+typedef const NullTemperatureSensorMethodStruct* NullTemperatureSensorMethod;
+
+extern const NullTemperatureSensorMethod nullTemperatureSensor;
 
 #endif  // V1_NULL_TEMPERATURE_SENSOR_H_

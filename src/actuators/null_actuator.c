@@ -2,21 +2,47 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_actuator.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "actuator_private.h"
+#include "null_command.h"
 
-static void NoEffect(void) {}
+static ActuatorStruct the_singleton;
+static Actuator the_instance = NULL;
 
-static bool False(void) { return false; }
+static void Delete(Actuator* self) {}
 
-static const ActuatorInterfaceStruct kTheMethod = {
+static int NonsenseValue(Actuator self) { return ~0; }
+
+static const char* EmptyString(Actuator self) { return ""; }
+
+static bool False(Actuator self) { return false; }
+
+static Command NullCommand(Actuator self) { return nullCommand->GetInstance(); }
+
+static const ActuatorInterfaceStruct kTheInterface = {
+    .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .Activate = NoEffect,
-    .Deactivate = NoEffect,
-    .IsActive = False,
+    .IsOn = False,
+    .ActuatorOnCommand = NullCommand,
+    .ActuatorOffCommand = NullCommand,
+    .ActuatorForceOffCommand = NullCommand,
 };
 
-const ActuatorInterface nullActuator = &kTheMethod;
+inline static Actuator New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static Actuator GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullActuatorMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullActuatorMethod nullActuator = &kTheMethod;

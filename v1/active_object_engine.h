@@ -7,13 +7,12 @@
 
 typedef struct ActiveObjectEngineStruct* ActiveObjectEngine;
 typedef struct {
-  ActiveObjectEngine (*GetInstance)(void);
   void (*Delete)(ActiveObjectEngine* self);
   void (*Run)(ActiveObjectEngine self);
   void (*AddCommand)(ActiveObjectEngine self, Command c);
-} ActiveObjectEngineMethodStruct;
-typedef const ActiveObjectEngineMethodStruct* ActiveObjectEngineMethod;
+} ActiveObjectEngineInterfaceStruct;
+typedef const ActiveObjectEngineInterfaceStruct* ActiveObjectEngineInterface;
 
-extern const ActiveObjectEngineMethod activeObjectEngine;
+extern const ActiveObjectEngineInterface activeObjectEngine;
 
 #endif  // V1_ACTIVE_OBJECT_ENGINE_H_

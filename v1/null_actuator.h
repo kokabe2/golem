@@ -3,8 +3,13 @@
 #ifndef V1_NULL_ACTUATOR_H_
 #define V1_NULL_ACTUATOR_H_
 
-#include "actuator_interface.h"
+#include "actuator.h"
 
-extern const ActuatorInterface nullActuator;
+typedef struct {
+  Actuator (*GetInstance)(void);  //
+} NullActuatorMethodStruct;
+typedef const NullActuatorMethodStruct* NullActuatorMethod;
+
+extern const NullActuatorMethod nullActuator;
 
 #endif  // V1_NULL_ACTUATOR_H_

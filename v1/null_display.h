@@ -3,8 +3,13 @@
 #ifndef V1_NULL_DISPLAY_H_
 #define V1_NULL_DISPLAY_H_
 
-#include "display_interface.h"
+#include "display.h"
 
-extern const DisplayInterface nullDisplay;
+typedef struct {
+  Display (*GetInstance)(void);  //
+} NullDisplayMethodStruct;
+typedef const NullDisplayMethodStruct* NullDisplayMethod;
+
+extern const NullDisplayMethod nullDisplay;
 
 #endif  // V1_NULL_DISPLAY_H_

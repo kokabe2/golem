@@ -3,100 +3,55 @@
 #include "sleep_command.h"
 
 #include <stdbool.h>
-#include <stddef.h>
 
 #include "bleu/v1/heap.h"
-#include "command_protected.h"
-#include "malkt/v1/uptime.h"
-
-typedef enum {
-  kNone = 0,
-  kCancel,
-  kDelete,
-} PrivateRequest;
+#include "command_private.h"
+#include "malkt/v1/time_unit.h"
 
 typedef struct {
   CommandStruct base;
   int sleep_time;
-  uint64_t start_time;
-  bool started;
-  PrivateRequest request;
   ActiveObjectEngine engine;
   Command wakeup_command;
+  bool started;
+  int64_t start_time;
 } SleepCommandStruct, *SleepCommand;
 
-inline static SleepCommand Downcast(Command self) { return (SleepCommand)self; }
+static void Delete(Command *self) { heap->Delete((void **)self); }
 
-static void Delete(Command *self) {
-  if (Downcast(*self)->started) {
-    Downcast(*self)->request = kDelete;
-    *self = NULL;
-  } else {
-    heap->Delete((void **)self);
-  }
-}
-
-inline static bool HasRequest(SleepCommand self) { return self->request != kNone; }
-
-static void ProcessRequest(SleepCommand self) {
-  switch (self->request) {
-    case kNone:
-      break;
-    case kCancel:
-      self->started = false;
-      self->request = kNone;
-      break;
-    case kDelete:
-      heap->Delete((void **)&self);
-      break;
-  }
-}
-
-inline static bool ShouldWakeUp(SleepCommand self, uint64_t current_time) {
+inline static bool ShouldWakeUp(SleepCommand self, int64_t current_time) {
   return (current_time - self->start_time) >= self->sleep_time;
 }
 
-static void Do(Command self) {
-  uint64_t current_time = uptime->Get();
-  SleepCommand sc = Downcast(self);
-  if (!sc->started) {
-    sc->started = true;
-    sc->start_time = current_time;
-    activeObjectEngine->AddCommand(sc->engine, self);
-  } else if (HasRequest(sc)) {
-    ProcessRequest(sc);
-  } else if (ShouldWakeUp(sc, current_time)) {
-    activeObjectEngine->AddCommand(sc->engine, sc->wakeup_command);
+static void Do(Command base) {
+  int64_t current_time = timeUnit->Now(timeUnit->Millisecond);
+  SleepCommand self = (SleepCommand)base;
+  if (!self->started) {
+    self->started = true;
+    self->start_time = current_time;
+    activeObjectEngine->AddCommand(self->engine, base);
+  } else if (ShouldWakeUp(self, current_time)) {
+    activeObjectEngine->AddCommand(self->engine, self->wakeup_command);
   } else {
-    activeObjectEngine->AddCommand(sc->engine, self);
+    activeObjectEngine->AddCommand(self->engine, base);
   }
 }
 
-static void Cancel(Command self) { Downcast(self)->request = kCancel; }
-
-static const CommandAbstractMethodStruct kConcreteMethod = {
-    .Delete = Delete,
-    .Do = Do,
-    .Cancel = Cancel,
+static const CommandInterfaceStruct kTheInterface = {
+    .Delete = Delete, .Do = Do,
 };
 
 static Command New(int milliseconds, ActiveObjectEngine engine, Command wakeup_command) {
-  Command self = (Command)heap->New(sizeof(SleepCommandStruct));
-  self->impl = &kConcreteMethod;
-  Downcast(self)->sleep_time = milliseconds;
-  Downcast(self)->engine = engine;
-  Downcast(self)->wakeup_command = wakeup_command;
-  return self;
+  SleepCommand self = (SleepCommand)heap->New(sizeof(SleepCommandStruct));
+  self->base.impl = &kTheInterface;
+  self->sleep_time = milliseconds;
+  self->engine = engine;
+  self->wakeup_command = wakeup_command;
+  return (Command)self;
 }
-
-static int GetSleepTime(Command self) { return Downcast(self)->sleep_time; }
-
-static void SetSleepTime(Command self, int milliseconds) { Downcast(self)->sleep_time = milliseconds; }
 
 static const SleepCommandMethodStruct kTheMethod = {
     .New = New,
-    .GetSleepTime = GetSleepTime,
-    .SetSleepTime = SetSleepTime,
 };
 
 const SleepCommandMethod sleepCommand = &kTheMethod;

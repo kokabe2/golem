@@ -8,8 +8,6 @@
 
 typedef struct {
   Command (*New)(int milliseconds, ActiveObjectEngine engine, Command wakeup_command);
-  int (*GetSleepTime)(Command self);
-  void (*SetSleepTime)(Command self, int milliseconds);
 } SleepCommandMethodStruct;
 typedef const SleepCommandMethodStruct* SleepCommandMethod;
 

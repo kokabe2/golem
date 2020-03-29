@@ -3,13 +3,27 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "null_command.h"
 #include "null_temperature_sensor.h"
 }
 
-TEST(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, nullTemperatureSensor->Id()); }
+class NullTemperatureSensorTest : public ::testing::Test {
+ protected:
+  TemperatureSensor ts;
 
-TEST(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", nullTemperatureSensor->Tag()); }
+  virtual void SetUp() { ts = nullTemperatureSensor->GetInstance(); }
 
-TEST(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", nullTemperatureSensor->State()); }
+  virtual void TearDown() { temperatureSensor->Delete(&ts); }
+};
 
-TEST(NullTemperatureSensorTest, IsNormalStateReturnsFalse) { EXPECT_FALSE(nullTemperatureSensor->IsNormal()); }
+TEST_F(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, temperatureSensor->Id(ts)); }
+
+TEST_F(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->Tag(ts)); }
+
+TEST_F(NullTemperatureSensorTest, TemperatureSensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), temperatureSensor->TemperatureSensorWatchCommand(ts, "", NULL));
+}
+
+TEST_F(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->State(ts)); }
+
+TEST_F(NullTemperatureSensorTest, IsNormalStateReturnsFalse) { EXPECT_FALSE(temperatureSensor->IsNormal(ts)); }
