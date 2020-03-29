@@ -10,6 +10,7 @@ set OUTPUT_DIR=bin\%COMPILER%@%PROJECT_VER%
 mkdir %OUTPUT_DIR% > NUL 2>&1
 %COMPILER% -output=obj -lang=c99 -nostuff -isa=rxv3 -debug -signed_char ^
            -include=v1/,external/ ^
+           src/actuators/motors/pulse_motors/pulse_motor.c ^
            src/actuators/motors/motor.c ^
            src/actuators/motors/null_motor.c ^
            src/actuators/solenoids/null_solenoid.c ^
