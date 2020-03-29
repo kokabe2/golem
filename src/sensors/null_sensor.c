@@ -16,7 +16,7 @@ static Command NullCommand(Sensor self, const char* expected_state, Command noti
   return nullCommand->GetInstance();
 }
 
-static int NonsenseId(Sensor self) { return ~0; }
+static int NonsenseValue(Sensor self) { return ~0; }
 
 static const char* EmptyString(Sensor self) { return ""; }
 
@@ -25,7 +25,7 @@ static bool False(Sensor self) { return false; }
 static const SensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .SensorWatchCommand = NullCommand,
-    .Id = NonsenseId,
+    .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
     .IsDefaultState = False,
