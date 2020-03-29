@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    actuators/actuator.c
     displays/leds/led_arrays/led_array.c
     displays/leds/led_arrays/null_led_array.c
     displays/leds/led.c
