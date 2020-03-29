@@ -2,14 +2,47 @@
 // This software is released under the MIT License, see LICENSE.
 #include "null_temperature_sensor.h"
 
-static int NonsenseValue(void) { return ~0; }
+#include <stddef.h>
 
-static const char* EmptyString(void) { return ""; }
+#include "null_command.h"
+#include "temperature_sensor_private.h"
 
-static bool False(void) { return false; }
+static TemperatureSensorStruct the_singleton;
+static TemperatureSensor the_instance = NULL;
 
-static const TemperatureSensorInterfaceStruct kTheMethod = {
-    .Id = NonsenseValue, .Tag = EmptyString, .State = EmptyString, .IsNormal = False,
+static void Delete(TemperatureSensor* self) {}
+
+static Command NullCommand(TemperatureSensor self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
+
+static int NonsenseValue(TemperatureSensor self) { return ~0; }
+
+static const char* EmptyString(TemperatureSensor self) { return ""; }
+
+static bool False(TemperatureSensor self) { return false; }
+
+static const TemperatureSensorInterfaceStruct kTheInterface = {
+    .Delete = Delete,
+    .SensorWatchCommand = NullCommand,
+    .Id = NonsenseValue,
+    .Tag = EmptyString,
+    .State = EmptyString,
+    .IsNormal = False,
 };
 
-const TemperatureSensorInterface nullTemperatureSensor = &kTheMethod;
+inline static TemperatureSensor New(void) {
+  the_singleton.impl = &kTheInterface;
+  return &the_singleton;
+}
+
+static TemperatureSensor GetInstance(void) {
+  if (the_instance == NULL) the_instance = New();
+  return the_instance;
+}
+
+static const NullTemperatureSensorMethodStruct kTheMethod = {
+    .GetInstance = GetInstance,
+};
+
+const NullTemperatureSensorMethod nullTemperatureSensor = &kTheMethod;

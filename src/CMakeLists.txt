@@ -11,6 +11,7 @@ add_library(
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
     sensors/photosensors/photosensor.c
+    sensors/temperature_sensors/null_temperature_sensor.c
     sensors/temperature_sensors/temperature_sensor.c
     sensors/null_sensor.c
     sensors/sensor.c
@@ -32,6 +33,7 @@ add_executable(
     gtests
     sensors/microswitches/null_microswitch_test.cpp
     sensors/photosensors/null_photosensor_test.cpp
+    sensors/temperature_sensors/null_temperature_sensor_test.cpp
     sensors/null_sensor_test.cpp
     util/null_command_test.cpp
     util/simple_active_object_engine_test.cpp
