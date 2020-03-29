@@ -7,6 +7,7 @@ include_directories(
 
 add_library(
     golem
+    sensors/microswitches/microswitch.c
     sensors/null_sensor.c
     sensors/sensor_factory.c
     sensors/sensor.c
