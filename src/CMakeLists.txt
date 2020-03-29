@@ -33,12 +33,12 @@ add_library(
     sensors/sensor.c
     util/active_object_engine_task.c
     util/active_object_engine.c
-    util/component_factory.c
     util/error_command.c
     util/null_command.c
     util/simple_active_object_engine.c
     util/sleep_command.c
     command.c
+    component_factory.c
     component.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c

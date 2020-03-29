@@ -6,7 +6,7 @@
 
 static void Delete(ComponentFactory* self) { (*self)->impl->Delete(self); }
 
-static ComponentInterface Make(ComponentFactory self, int id) { return self->impl->Make(self, id); }
+static Component Make(ComponentFactory self, int id) { return self->impl->Make(self, id); }
 
 static const ComponentFactoryInterfaceStruct kTheInterface = {
     .Delete = Delete,
