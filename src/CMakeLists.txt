@@ -11,6 +11,7 @@ add_library(
     displays/leds/led_arrays/null_led_array.c
     displays/leds/led.c
     displays/leds/null_led.c
+    displays/seven_segment_displays/seven_segment_display.c
     displays/display.c
     displays/null_display.c
     sensors/microswitches/microswitch.c
