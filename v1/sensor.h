@@ -10,9 +10,9 @@
 typedef struct SensorStruct* Sensor;
 typedef struct {
   void (*Delete)(Sensor* self);
-  Command (*SensorWatchCommand)(Sensor self, const char* expected_state, Command notification_command);
   int (*Id)(Sensor self);
   const char* (*Tag)(Sensor self);
+  Command (*SensorWatchCommand)(Sensor self, const char* expected_state, Command notification_command);
   const char* (*State)(Sensor self);
   bool (*IsDefaultState)(Sensor self);
 } SensorInterfaceStruct;

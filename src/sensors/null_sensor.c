@@ -12,21 +12,21 @@ static Sensor the_instance = NULL;
 
 static void Delete(Sensor* self) {}
 
-static Command NullCommand(Sensor self, const char* expected_state, Command notification_command) {
-  return nullCommand->GetInstance();
-}
-
 static int NonsenseValue(Sensor self) { return ~0; }
 
 static const char* EmptyString(Sensor self) { return ""; }
+
+static Command NullCommand(Sensor self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
 
 static bool False(Sensor self) { return false; }
 
 static const SensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
-    .SensorWatchCommand = NullCommand,
     .Id = NonsenseValue,
     .Tag = EmptyString,
+    .SensorWatchCommand = NullCommand,
     .State = EmptyString,
     .IsDefaultState = False,
 };

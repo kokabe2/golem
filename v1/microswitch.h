@@ -10,9 +10,9 @@
 typedef struct MicroswitchStruct* Microswitch;
 typedef struct {
   void (*Delete)(Microswitch* self);
-  Command (*SensorWatchCommand)(Microswitch self, const char* expected_state, Command notification_command);
   int (*Id)(Microswitch self);
   const char* (*Tag)(Microswitch self);
+  Command (*SensorWatchCommand)(Microswitch self, const char* expected_state, Command notification_command);
   const char* (*State)(Microswitch self);
   bool (*IsOff)(Microswitch self);
   bool (*IsOn)(Microswitch self);

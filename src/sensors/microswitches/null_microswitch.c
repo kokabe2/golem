@@ -12,21 +12,21 @@ static Microswitch the_instance = NULL;
 
 static void Delete(Microswitch* self) {}
 
-static Command NullCommand(Microswitch self, const char* expected_state, Command notification_command) {
-  return nullCommand->GetInstance();
-}
-
 static int NonsenseValue(Microswitch self) { return ~0; }
 
 static const char* EmptyString(Microswitch self) { return ""; }
+
+static Command NullCommand(Microswitch self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
 
 static bool False(Microswitch self) { return false; }
 
 static const MicroswitchInterfaceStruct kTheInterface = {
     .Delete = Delete,
-    .SensorWatchCommand = NullCommand,
     .Id = NonsenseValue,
     .Tag = EmptyString,
+    .SensorWatchCommand = NullCommand,
     .State = EmptyString,
     .IsOff = False,
     .IsOn = False,

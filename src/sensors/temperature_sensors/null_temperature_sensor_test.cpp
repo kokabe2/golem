@@ -16,13 +16,13 @@ class NullTemperatureSensorTest : public ::testing::Test {
   virtual void TearDown() { temperatureSensor->Delete(&ts); }
 };
 
-TEST_F(NullTemperatureSensorTest, SensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), temperatureSensor->SensorWatchCommand(ts, "", NULL));
-}
-
 TEST_F(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, temperatureSensor->Id(ts)); }
 
 TEST_F(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->Tag(ts)); }
+
+TEST_F(NullTemperatureSensorTest, SensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), temperatureSensor->SensorWatchCommand(ts, "", NULL));
+}
 
 TEST_F(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->State(ts)); }
 

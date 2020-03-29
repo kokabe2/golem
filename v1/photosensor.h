@@ -10,9 +10,9 @@
 typedef struct PhotosensorStruct* Photosensor;
 typedef struct {
   void (*Delete)(Photosensor* self);
-  Command (*SensorWatchCommand)(Photosensor self, const char* expected_state, Command notification_command);
   int (*Id)(Photosensor self);
   const char* (*Tag)(Photosensor self);
+  Command (*SensorWatchCommand)(Photosensor self, const char* expected_state, Command notification_command);
   const char* (*State)(Photosensor self);
   bool (*IsLight)(Photosensor self);
   bool (*IsDark)(Photosensor self);

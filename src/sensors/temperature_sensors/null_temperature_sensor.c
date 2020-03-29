@@ -12,21 +12,21 @@ static TemperatureSensor the_instance = NULL;
 
 static void Delete(TemperatureSensor* self) {}
 
-static Command NullCommand(TemperatureSensor self, const char* expected_state, Command notification_command) {
-  return nullCommand->GetInstance();
-}
-
 static int NonsenseValue(TemperatureSensor self) { return ~0; }
 
 static const char* EmptyString(TemperatureSensor self) { return ""; }
+
+static Command NullCommand(TemperatureSensor self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
 
 static bool False(TemperatureSensor self) { return false; }
 
 static const TemperatureSensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
-    .SensorWatchCommand = NullCommand,
     .Id = NonsenseValue,
     .Tag = EmptyString,
+    .SensorWatchCommand = NullCommand,
     .State = EmptyString,
     .IsNormal = False,
 };

@@ -12,21 +12,21 @@ static Photosensor the_instance = NULL;
 
 static void Delete(Photosensor* self) {}
 
-static Command NullCommand(Photosensor self, const char* expected_state, Command notification_command) {
-  return nullCommand->GetInstance();
-}
-
 static int NonsenseValue(Photosensor self) { return ~0; }
 
 static const char* EmptyString(Photosensor self) { return ""; }
+
+static Command NullCommand(Photosensor self, const char* expected_state, Command notification_command) {
+  return nullCommand->GetInstance();
+}
 
 static bool False(Photosensor self) { return false; }
 
 static const PhotosensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
-    .SensorWatchCommand = NullCommand,
     .Id = NonsenseValue,
     .Tag = EmptyString,
+    .SensorWatchCommand = NullCommand,
     .State = EmptyString,
     .IsLight = False,
     .IsDark = False,

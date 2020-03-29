@@ -16,13 +16,13 @@ class NullPhotosensorTest : public ::testing::Test {
   virtual void TearDown() { photosensor->Delete(&p); }
 };
 
-TEST_F(NullPhotosensorTest, SensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), photosensor->SensorWatchCommand(p, "", NULL));
-}
-
 TEST_F(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, photosensor->Id(p)); }
 
 TEST_F(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", photosensor->Tag(p)); }
+
+TEST_F(NullPhotosensorTest, SensorWatchCommandReturnsNullCommand) {
+  EXPECT_EQ(nullCommand->GetInstance(), photosensor->SensorWatchCommand(p, "", NULL));
+}
 
 TEST_F(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", photosensor->State(p)); }
 
