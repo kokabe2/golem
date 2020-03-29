@@ -62,6 +62,8 @@ add_executable(
     sensors/null_sensor_test.cpp
     util/null_command_test.cpp
     util/simple_active_object_engine_test.cpp
+    util/counting_command_stub.c
+    util/counting_command_stub_test.cpp
     util/error_command_test.cpp
     util/sleep_command_test.cpp
     util/time_unit_stub.c
