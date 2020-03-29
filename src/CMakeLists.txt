@@ -22,11 +22,12 @@ add_library(
     util/null_command.c
     util/simple_active_object_engine.c
     util/sleep_command.c
+    command.c
+    component.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list_node.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/list/list.c
-    command.c
     )
 
 add_executable(

@@ -3,7 +3,8 @@
 #ifndef V1_COMPONENT_FACTORY_H_
 #define V1_COMPONENT_FACTORY_H_
 
-typedef void* ComponentInterface;
+#include "component.h"
+
 typedef struct ComponentFactoryStruct* ComponentFactory;
 typedef struct {
   void (*Delete)(ComponentFactory* self);
