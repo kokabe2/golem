@@ -12,6 +12,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            -include=v1/,external/ ^
            src/actuators/motors/motor.c ^
            src/actuators/motors/null_motor.c ^
+           src/actuators/solenoids/solenoid.c ^
            src/actuators/actuator.c ^
            src/actuators/null_actuator.c ^
            src/displays/leds/led_arrays/null_led_array.c ^
