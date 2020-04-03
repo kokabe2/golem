@@ -1,7 +1,7 @@
 ﻿// Copyright(c) 2020 Ken Okabe
 // This software is released under the MIT License, see LICENSE.
-#ifndef SRC_UTIL_SIMPLE_ACTIVE_OBJECT_ENGINE_H_
-#define SRC_UTIL_SIMPLE_ACTIVE_OBJECT_ENGINE_H_
+#ifndef V1_SIMPLE_ACTIVE_OBJECT_ENGINE_H_
+#define V1_SIMPLE_ACTIVE_OBJECT_ENGINE_H_
 
 #include "active_object_engine.h"
 
@@ -12,4 +12,4 @@ typedef const SimpleActiveObjectEngineMethodStruct* SimpleActiveObjectEngineMeth
 
 extern const SimpleActiveObjectEngineMethod simpleActiveObjectEngine;
 
-#endif  // SRC_UTIL_SIMPLE_ACTIVE_OBJECT_ENGINE_H_
+#endif  // V1_SIMPLE_ACTIVE_OBJECT_ENGINE_H_
