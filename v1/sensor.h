@@ -6,15 +6,15 @@
 #include <stdbool.h>
 
 #include "command.h"
+#include "component.h"
 
-typedef struct SensorStruct* Sensor;
 typedef struct {
-  void (*Delete)(Sensor* self);
-  int (*Id)(Sensor self);
-  const char* (*Tag)(Sensor self);
-  Command (*SensorWatchCommand)(Sensor self, const char* expected_state, Command notification_command);
-  const char* (*State)(Sensor self);
-  bool (*IsDefaultState)(Sensor self);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  Command (*SensorWatchCommand)(Component self, const char* expected_state, Command notification_command);
+  const char* (*State)(Component self);
+  bool (*IsDefaultState)(Component self);
 } SensorInterfaceStruct;
 typedef const SensorInterfaceStruct* SensorInterface;
 
