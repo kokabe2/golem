@@ -23,6 +23,16 @@ TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(c
 
 TEST_F(NullMotorTest, IsOffReturnsTrue) { EXPECT_TRUE(motor->IsOff(c)); }
 
+TEST_F(NullMotorTest, RunHasNoEffect) {
+  motor->Run(c);
+
+  EXPECT_TRUE(motor->IsOff(c));
+}
+
+TEST_F(NullMotorTest, StopHasNoEffect) { motor->Stop(c); }
+
+TEST_F(NullMotorTest, ForceStopHasNoEffect) { motor->ForceStop(c); }
+
 TEST_F(NullMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(c)); }
 
 TEST_F(NullMotorTest, SetDirectionHasNoEffect) {

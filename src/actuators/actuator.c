@@ -12,12 +12,21 @@ static const char* State(Component self) { return ((ActuatorInterface)self)->Sta
 
 static bool IsOff(Component self) { return ((ActuatorInterface)self)->IsOff(self); }
 
+static void TurnOn(Component self) { ((ActuatorInterface)self)->TurnOn(self); }
+
+static void TurnOff(Component self) { ((ActuatorInterface)self)->TurnOff(self); }
+
+static void ForceTurnOff(Component self) { ((ActuatorInterface)self)->ForceTurnOff(self); }
+
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
     .IsOff = IsOff,
+    .TurnOn = TurnOn,
+    .TurnOff = TurnOff,
+    .ForceTurnOff = ForceTurnOff,
 };
 
 const ActuatorInterface actuator = &kTheInterface;

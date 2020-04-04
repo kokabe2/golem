@@ -14,12 +14,17 @@ static const char* EmptyString(Component self) { return ""; }
 
 static bool True(Component self) { return true; }
 
+static void NoEffect(Component self) {}
+
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
     .IsOff = True,
+    .TurnOn = NoEffect,
+    .TurnOff = NoEffect,
+    .ForceTurnOff = NoEffect,
 };
 
 inline static Component New(void) { return (Component)&kTheInterface; }

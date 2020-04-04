@@ -23,6 +23,16 @@ TEST_F(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", pulseMoto
 
 TEST_F(NullPulseMotorTest, IsOffReturnsTrue) { EXPECT_TRUE(pulseMotor->IsOff(c)); }
 
+TEST_F(NullPulseMotorTest, RunHasNoEffect) {
+  pulseMotor->Run(c);
+
+  EXPECT_TRUE(pulseMotor->IsOff(c));
+}
+
+TEST_F(NullPulseMotorTest, StopHasNoEffect) { pulseMotor->Stop(c); }
+
+TEST_F(NullPulseMotorTest, ForceStopHasNoEffect) { pulseMotor->ForceStop(c); }
+
 TEST_F(NullPulseMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetDirection(c)); }
 
 TEST_F(NullPulseMotorTest, SetDirectionHasNoEffect) {

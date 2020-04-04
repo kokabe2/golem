@@ -14,12 +14,17 @@ static const char* EmptyString(Component self) { return ""; }
 
 static bool True(Component self) { return true; }
 
+static void NoEffect(Component self) {}
+
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
     .IsOff = True,
+    .Lock = NoEffect,
+    .Unlock = NoEffect,
+    .ForceUnlock = NoEffect,
 };
 
 inline static Component New(void) { return (Component)&kTheInterface; }

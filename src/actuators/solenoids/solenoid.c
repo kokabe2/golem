@@ -12,12 +12,21 @@ static const char* State(Component self) { return ((SolenoidInterface)self)->Sta
 
 static bool IsOff(Component self) { return ((SolenoidInterface)self)->IsOff(self); }
 
+static void Lock(Component self) { ((SolenoidInterface)self)->Lock(self); }
+
+static void Unlock(Component self) { ((SolenoidInterface)self)->Unlock(self); }
+
+static void ForceUnlock(Component self) { ((SolenoidInterface)self)->ForceUnlock(self); }
+
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
     .IsOff = IsOff,
+    .Lock = Lock,
+    .Unlock = Unlock,
+    .ForceUnlock = ForceUnlock,
 };
 
 const SolenoidInterface solenoid = &kTheInterface;

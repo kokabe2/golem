@@ -14,6 +14,9 @@ typedef struct {
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
   bool (*IsOff)(Component self);
+  void (*TurnOn)(Component self);
+  void (*TurnOff)(Component self);
+  void (*ForceTurnOff)(Component self);
 } ActuatorInterfaceStruct;
 typedef const ActuatorInterfaceStruct* ActuatorInterface;
 

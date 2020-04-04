@@ -14,6 +14,8 @@ static const char* EmptyString(Component self) { return ""; }
 
 static bool True(Component self) { return true; }
 
+static void NoEffect(Component self) {}
+
 static void NoEffectWithString(Component self, const char* direction) {}
 
 static int Zero(Component self) { return 0; }
@@ -26,6 +28,9 @@ static const MotorInterfaceStruct kTheInterface = {
     .Tag = EmptyString,
     .State = EmptyString,
     .IsOff = True,
+    .Run = NoEffect,
+    .Stop = NoEffect,
+    .ForceStop = NoEffect,
     .GetDirection = EmptyString,
     .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,

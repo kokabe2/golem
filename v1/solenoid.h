@@ -14,6 +14,9 @@ typedef struct {
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
   bool (*IsOff)(Component self);
+  void (*Lock)(Component self);
+  void (*Unlock)(Component self);
+  void (*ForceUnlock)(Component self);
 } SolenoidInterfaceStruct;
 typedef const SolenoidInterfaceStruct* SolenoidInterface;
 
