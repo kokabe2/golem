@@ -3,10 +3,9 @@
 #include "counting_command_stub.h"
 
 #include "bleu/v1/heap.h"
-#include "command_private.h"
 
 typedef struct {
-  CommandStruct base;
+  CommandInterfaceStruct impl;
   int count;
 } CountingCommandStubStruct, *CountingCommandStub;
 
@@ -24,7 +23,7 @@ static const CommandInterfaceStruct kTheInterface = {
 
 static Command New(void) {
   CountingCommandStub self = (CountingCommandStub)heap->New(sizeof(CountingCommandStubStruct));
-  self->base.impl = &kTheInterface;
+  self->impl = kTheInterface;
   return (Command)self;
 }
 

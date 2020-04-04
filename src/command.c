@@ -2,14 +2,13 @@
 // This software is released under the MIT License, see LICENSE.
 #include "command.h"
 
-#include "command_private.h"
+static void Delete(Command *self) { (*self)->Delete(self); }
 
-static void Delete(Command *self) { (*self)->impl->Delete(self); }
-
-static void Do(Command self) { self->impl->Do(self); }
+static void Do(Command self) { self->Do(self); }
 
 static const CommandInterfaceStruct kTheInterface = {
-    .Delete = Delete, .Do = Do,
+    .Delete = Delete,
+    .Do = Do,
 };
 
 const CommandInterface command = &kTheInterface;

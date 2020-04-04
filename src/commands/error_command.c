@@ -3,10 +3,9 @@
 #include "error_command.h"
 
 #include "bleu/v1/heap.h"
-#include "command_private.h"
 
 typedef struct {
-  CommandStruct base;
+  CommandInterfaceStruct impl;
   NotifyDelegate Notify;
   const char *message;
   int error;
@@ -21,12 +20,13 @@ static void Do(Command base) {
 }
 
 static const CommandInterfaceStruct kTheInterface = {
-    .Delete = Delete, .Do = Do,
+    .Delete = Delete,
+    .Do = Do,
 };
 
 static Command New(NotifyDelegate delegate) {
   ErrorCommand self = (ErrorCommand)heap->New(sizeof(ErrorCommandStruct));
-  self->base.impl = &kTheInterface;
+  self->impl = kTheInterface;
   self->Notify = delegate;
   return (Command)self;
 }
@@ -39,7 +39,8 @@ static void SetErrorInfo(Command base, const char *message, int error, int param
 }
 
 static const ErrorCommandMethodStruct kTheMethod = {
-    .New = New, .SetErrorInfo = SetErrorInfo,
+    .New = New,
+    .SetErrorInfo = SetErrorInfo,
 };
 
 const ErrorCommandMethod errorCommand = &kTheMethod;
