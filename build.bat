@@ -41,6 +41,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/util/active_object_engine.c ^
            src/util/simple_active_object_engine.c ^
            src/command.c ^
+           src/component_command_factory.c ^
            src/component_factory.c ^
            src/component.c
 if %errorlevel% neq 0 exit /b

@@ -38,6 +38,7 @@ add_library(
     util/active_object_engine.c
     util/simple_active_object_engine.c
     command.c
+    component_command_factory.c
     component_factory.c
     component.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
