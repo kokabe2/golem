@@ -4,27 +4,27 @@
 
 #include <stddef.h>
 
-#include "motor_private.h"
+#include "component_private.h"
 #include "null_command.h"
 
-static MotorStruct the_singleton;
-static Motor the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Motor* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Motor self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Motor self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static bool False(Motor self) { return false; }
+static bool False(Component self) { return false; }
 
-static Command NullCommand(Motor self) { return nullCommand->GetInstance(); }
+static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
 
-static void NoEffectWithString(Motor self, const char* direction) {}
+static void NoEffectWithString(Component self, const char* direction) {}
 
-static int Zero(Motor self) { return 0; }
+static int Zero(Component self) { return 0; }
 
-static void NoEffectWithInt(Motor self, int rpm) {}
+static void NoEffectWithInt(Component self, int rpm) {}
 
 static const MotorInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -41,12 +41,12 @@ static const MotorInterfaceStruct kTheInterface = {
     .SetSpeed = NoEffectWithInt,
 };
 
-inline static Motor New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Motor GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }
