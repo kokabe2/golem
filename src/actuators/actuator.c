@@ -12,23 +12,12 @@ static const char* State(Component self) { return ((ActuatorInterface)self)->Sta
 
 static bool IsOn(Component self) { return ((ActuatorInterface)self)->IsOn(self); }
 
-static Command ActuatorOnCommand(Component self) { return ((ActuatorInterface)self)->ActuatorOnCommand(self); }
-
-static Command ActuatorOffCommand(Component self) { return ((ActuatorInterface)self)->ActuatorOffCommand(self); }
-
-static Command ActuatorForceOffCommand(Component self) {
-  return ((ActuatorInterface)self)->ActuatorForceOffCommand(self);
-}
-
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
     .IsOn = IsOn,
-    .ActuatorOnCommand = ActuatorOnCommand,
-    .ActuatorOffCommand = ActuatorOffCommand,
-    .ActuatorForceOffCommand = ActuatorForceOffCommand,
 };
 
 const ActuatorInterface actuator = &kTheInterface;

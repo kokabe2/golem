@@ -14,9 +14,6 @@ typedef struct {
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
   bool (*IsOn)(Component self);
-  Command (*MotorOnCommand)(Component self);
-  Command (*MotorOffCommand)(Component self);
-  Command (*MotorForceOffCommand)(Component self);
   const char* (*GetDirection)(Component self);
   void (*SetDirection)(Component self, const char* direction);
   int (*GetSpeed)(Component self);

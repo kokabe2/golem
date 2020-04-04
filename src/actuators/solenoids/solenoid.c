@@ -12,23 +12,12 @@ static const char* State(Component self) { return ((SolenoidInterface)self)->Sta
 
 static bool IsOn(Component self) { return ((SolenoidInterface)self)->IsOn(self); }
 
-static Command SolenoidOnCommand(Component self) { return ((SolenoidInterface)self)->SolenoidOnCommand(self); }
-
-static Command SolenoidOffCommand(Component self) { return ((SolenoidInterface)self)->SolenoidOffCommand(self); }
-
-static Command SolenoidForceOffCommand(Component self) {
-  return ((SolenoidInterface)self)->SolenoidForceOffCommand(self);
-}
-
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
     .IsOn = IsOn,
-    .SolenoidOnCommand = SolenoidOnCommand,
-    .SolenoidOffCommand = SolenoidOffCommand,
-    .SolenoidForceOffCommand = SolenoidForceOffCommand,
 };
 
 const SolenoidInterface solenoid = &kTheInterface;

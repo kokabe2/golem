@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "null_command.h"
 #include "null_photosensor.h"
 }
 
@@ -19,10 +18,6 @@ class NullPhotosensorTest : public ::testing::Test {
 TEST_F(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, photosensor->Id(c)); }
 
 TEST_F(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", photosensor->Tag(c)); }
-
-TEST_F(NullPhotosensorTest, PhotosensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), photosensor->PhotosensorWatchCommand(c, "", NULL));
-}
 
 TEST_F(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", photosensor->State(c)); }
 

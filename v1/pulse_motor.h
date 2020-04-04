@@ -14,15 +14,10 @@ typedef struct {
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
   bool (*IsOn)(Component self);
-  Command (*PulseMotorOnCommand)(Component self);
-  Command (*PulseMotorOffCommand)(Component self);
-  Command (*PulseMotorForceOffCommand)(Component self);
   const char* (*GetDirection)(Component self);
   void (*SetDirection)(Component self, const char* direction);
   int (*GetSpeed)(Component self);
   void (*SetSpeed)(Component self, int rpm);
-  Command (*PulseMotorStopCommand)(Component self, int pulse);
-  Command (*PulseMotorWatchCommand)(Component self, int pulse, Command notification_command);
   const char* (*GetMode)(Component self);
   void (*SelectMode)(Component self, const char* mode);
   int (*GetPulseRate)(Component self);

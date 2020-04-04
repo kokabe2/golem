@@ -4,8 +4,6 @@
 
 #include <stddef.h>
 
-#include "null_command.h"
-
 static Component the_instance = NULL;
 
 static void Delete(Component* self) {}
@@ -16,19 +14,11 @@ static const char* EmptyString(Component self) { return ""; }
 
 static bool False(Component self) { return false; }
 
-static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
-
 static void NoEffectWithString(Component self, const char* direction) {}
 
 static int Zero(Component self) { return 0; }
 
 static void NoEffectWithInt(Component self, int rpm) {}
-
-static Command NullCommandWithInt(Component self, int pulse) { return nullCommand->GetInstance(); }
-
-static Command NullCommandWithIntAndCommand(Component self, int pulse, Command notification_command) {
-  return nullCommand->GetInstance();
-}
 
 static const PulseMotorInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -36,15 +26,10 @@ static const PulseMotorInterfaceStruct kTheInterface = {
     .Tag = EmptyString,
     .State = EmptyString,
     .IsOn = False,
-    .PulseMotorOnCommand = NullCommand,
-    .PulseMotorOffCommand = NullCommand,
-    .PulseMotorForceOffCommand = NullCommand,
     .GetDirection = EmptyString,
     .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,
     .SetSpeed = NoEffectWithInt,
-    .PulseMotorStopCommand = NullCommandWithInt,
-    .PulseMotorWatchCommand = NullCommandWithIntAndCommand,
     .GetMode = EmptyString,
     .SelectMode = NoEffectWithString,
     .GetPulseRate = Zero,

@@ -12,14 +12,6 @@ static const char* State(Component self) { return ((PulseMotorInterface)self)->S
 
 static bool IsOn(Component self) { return ((PulseMotorInterface)self)->IsOn(self); }
 
-static Command PulseMotorOnCommand(Component self) { return ((PulseMotorInterface)self)->PulseMotorOnCommand(self); }
-
-static Command PulseMotorOffCommand(Component self) { return ((PulseMotorInterface)self)->PulseMotorOffCommand(self); }
-
-static Command PulseMotorForceOffCommand(Component self) {
-  return ((PulseMotorInterface)self)->PulseMotorForceOffCommand(self);
-}
-
 static const char* GetDirection(Component self) { return ((PulseMotorInterface)self)->GetDirection(self); }
 
 static void SetDirection(Component self, const char* direction) {
@@ -29,14 +21,6 @@ static void SetDirection(Component self, const char* direction) {
 static int GetSpeed(Component self) { return ((PulseMotorInterface)self)->GetSpeed(self); }
 
 static void SetSpeed(Component self, int rpm) { ((PulseMotorInterface)self)->SetSpeed(self, rpm); }
-
-static Command PulseMotorStopCommand(Component self, int pulse) {
-  return ((PulseMotorInterface)self)->PulseMotorStopCommand(self, pulse);
-}
-
-static Command PulseMotorWatchCommand(Component self, int pulse, Command notification_command) {
-  return ((PulseMotorInterface)self)->PulseMotorWatchCommand(self, pulse, notification_command);
-}
 
 static const char* GetMode(Component self) { return ((PulseMotorInterface)self)->GetMode(self); }
 
@@ -54,15 +38,10 @@ static const PulseMotorInterfaceStruct kTheInterface = {
     .Tag = Tag,
     .State = State,
     .IsOn = IsOn,
-    .PulseMotorOnCommand = PulseMotorOnCommand,
-    .PulseMotorOffCommand = PulseMotorOffCommand,
-    .PulseMotorForceOffCommand = PulseMotorForceOffCommand,
     .GetDirection = GetDirection,
     .SetDirection = SetDirection,
     .GetSpeed = GetSpeed,
     .SetSpeed = SetSpeed,
-    .PulseMotorStopCommand = PulseMotorStopCommand,
-    .PulseMotorWatchCommand = PulseMotorWatchCommand,
     .GetMode = GetMode,
     .SelectMode = SelectMode,
     .GetPulseRate = GetPulseRate,

@@ -4,8 +4,6 @@
 
 #include <stddef.h>
 
-#include "null_command.h"
-
 static Component the_instance = NULL;
 
 static void Delete(Component* self) {}
@@ -15,8 +13,6 @@ static int NonsenseValue(Component self) { return ~0; }
 static const char* EmptyString(Component self) { return ""; }
 
 static bool False(Component self) { return false; }
-
-static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
 
 static void NoEffectWithString(Component self, const char* direction) {}
 
@@ -30,9 +26,6 @@ static const MotorInterfaceStruct kTheInterface = {
     .Tag = EmptyString,
     .State = EmptyString,
     .IsOn = False,
-    .MotorOnCommand = NullCommand,
-    .MotorOffCommand = NullCommand,
-    .MotorForceOffCommand = NullCommand,
     .GetDirection = EmptyString,
     .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,

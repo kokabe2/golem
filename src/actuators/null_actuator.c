@@ -4,8 +4,6 @@
 
 #include <stddef.h>
 
-#include "null_command.h"
-
 static Component the_instance = NULL;
 
 static void Delete(Component* self) {}
@@ -16,17 +14,12 @@ static const char* EmptyString(Component self) { return ""; }
 
 static bool False(Component self) { return false; }
 
-static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
-
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
     .IsOn = False,
-    .ActuatorOnCommand = NullCommand,
-    .ActuatorOffCommand = NullCommand,
-    .ActuatorForceOffCommand = NullCommand,
 };
 
 inline static Component New(void) { return (Component)&kTheInterface; }

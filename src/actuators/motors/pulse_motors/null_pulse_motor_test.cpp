@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "null_command.h"
 #include "null_pulse_motor.h"
 }
 
@@ -24,18 +23,6 @@ TEST_F(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", pulseMoto
 
 TEST_F(NullPulseMotorTest, IsOnReturnsFalse) { EXPECT_FALSE(pulseMotor->IsOn(c)); }
 
-TEST_F(NullPulseMotorTest, PulseMotorOnCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorOnCommand(c));
-}
-
-TEST_F(NullPulseMotorTest, PulseMotorOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorOffCommand(c));
-}
-
-TEST_F(NullPulseMotorTest, PulseMotorForceOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorForceOffCommand(c));
-}
-
 TEST_F(NullPulseMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetDirection(c)); }
 
 TEST_F(NullPulseMotorTest, SetDirectionHasNoEffect) {
@@ -50,14 +37,6 @@ TEST_F(NullPulseMotorTest, SetSpeedHasNoEffect) {
   pulseMotor->SetSpeed(c, 100);
 
   EXPECT_EQ(0, pulseMotor->GetSpeed(c));
-}
-
-TEST_F(NullPulseMotorTest, PulseMotorStopCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorStopCommand(c, 0));
-}
-
-TEST_F(NullPulseMotorTest, PulseMotorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), pulseMotor->PulseMotorWatchCommand(c, 0, NULL));
 }
 
 TEST_F(NullPulseMotorTest, GetModeReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetMode(c)); }
