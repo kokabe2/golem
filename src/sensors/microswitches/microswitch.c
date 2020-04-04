@@ -2,23 +2,23 @@
 // This software is released under the MIT License, see LICENSE.
 #include "microswitch.h"
 
-#include "microswitch_private.h"
+#include "component_private.h"
 
-static void Delete(Microswitch* self) { (*self)->impl->Delete(self); }
+static void Delete(Component* self) { ((MicroswitchInterface)((*self)->impl))->Delete(self); }
 
-static int Id(Microswitch self) { return self->impl->Id(self); }
+static int Id(Component self) { return ((MicroswitchInterface)(self->impl))->Id(self); }
 
-static const char* Tag(Microswitch self) { return self->impl->Tag(self); }
+static const char* Tag(Component self) { return ((MicroswitchInterface)(self->impl))->Tag(self); }
 
-static Command MicroswitchWatchCommand(Microswitch self, const char* expected_state, Command notification_command) {
-  return self->impl->MicroswitchWatchCommand(self, expected_state, notification_command);
+static Command MicroswitchWatchCommand(Component self, const char* expected_state, Command notification_command) {
+  return ((MicroswitchInterface)(self->impl))->MicroswitchWatchCommand(self, expected_state, notification_command);
 }
 
-static const char* State(Microswitch self) { return self->impl->State(self); }
+static const char* State(Component self) { return ((MicroswitchInterface)(self->impl))->State(self); }
 
-static bool IsOff(Microswitch self) { return self->impl->IsOff(self); }
+static bool IsOff(Component self) { return ((MicroswitchInterface)(self->impl))->IsOff(self); }
 
-static bool IsOn(Microswitch self) { return self->impl->IsOn(self); }
+static bool IsOn(Component self) { return ((MicroswitchInterface)(self->impl))->IsOn(self); }
 
 static const MicroswitchInterfaceStruct kTheInterface = {
     .Delete = Delete,

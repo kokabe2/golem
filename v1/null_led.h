@@ -6,7 +6,7 @@
 #include "led.h"
 
 typedef struct {
-  Led (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullLedMethodStruct;
 typedef const NullLedMethodStruct* NullLedMethod;
 

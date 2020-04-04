@@ -2,23 +2,23 @@
 // This software is released under the MIT License, see LICENSE.
 #include "photosensor.h"
 
-#include "photosensor_private.h"
+#include "component_private.h"
 
-static void Delete(Photosensor* self) { (*self)->impl->Delete(self); }
+static void Delete(Component* self) { ((PhotosensorInterface)((*self)->impl))->Delete(self); }
 
-static int Id(Photosensor self) { return self->impl->Id(self); }
+static int Id(Component self) { return ((PhotosensorInterface)(self->impl))->Id(self); }
 
-static const char* Tag(Photosensor self) { return self->impl->Tag(self); }
+static const char* Tag(Component self) { return ((PhotosensorInterface)(self->impl))->Tag(self); }
 
-static Command PhotosensorWatchCommand(Photosensor self, const char* expected_state, Command notification_command) {
-  return self->impl->PhotosensorWatchCommand(self, expected_state, notification_command);
+static Command PhotosensorWatchCommand(Component self, const char* expected_state, Command notification_command) {
+  return ((PhotosensorInterface)(self->impl))->PhotosensorWatchCommand(self, expected_state, notification_command);
 }
 
-static const char* State(Photosensor self) { return self->impl->State(self); }
+static const char* State(Component self) { return ((PhotosensorInterface)(self->impl))->State(self); }
 
-static bool IsLight(Photosensor self) { return self->impl->IsLight(self); }
+static bool IsLight(Component self) { return ((PhotosensorInterface)(self->impl))->IsLight(self); }
 
-static bool IsDark(Photosensor self) { return self->impl->IsDark(self); }
+static bool IsDark(Component self) { return ((PhotosensorInterface)(self->impl))->IsDark(self); }
 
 static const PhotosensorInterfaceStruct kTheInterface = {
     .Delete = Delete,

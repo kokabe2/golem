@@ -4,23 +4,23 @@
 
 #include <stddef.h>
 
+#include "component_private.h"
 #include "null_command.h"
-#include "sensor_private.h"
 
-static SensorStruct the_singleton;
-static Sensor the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Sensor* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Sensor self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Sensor self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static Command NullCommand(Sensor self, const char* expected_state, Command notification_command) {
+static Command NullCommand(Component self, const char* expected_state, Command notification_command) {
   return nullCommand->GetInstance();
 }
 
-static bool False(Sensor self) { return false; }
+static bool False(Component self) { return false; }
 
 static const SensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -31,12 +31,12 @@ static const SensorInterfaceStruct kTheInterface = {
     .IsDefaultState = False,
 };
 
-inline static Sensor New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Sensor GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

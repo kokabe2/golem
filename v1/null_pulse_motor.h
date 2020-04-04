@@ -6,7 +6,7 @@
 #include "pulse_motor.h"
 
 typedef struct {
-  PulseMotor (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullPulseMotorMethodStruct;
 typedef const NullPulseMotorMethodStruct* NullPulseMotorMethod;
 

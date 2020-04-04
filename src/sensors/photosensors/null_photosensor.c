@@ -4,23 +4,23 @@
 
 #include <stddef.h>
 
+#include "component_private.h"
 #include "null_command.h"
-#include "photosensor_private.h"
 
-static PhotosensorStruct the_singleton;
-static Photosensor the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Photosensor* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Photosensor self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Photosensor self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static Command NullCommand(Photosensor self, const char* expected_state, Command notification_command) {
+static Command NullCommand(Component self, const char* expected_state, Command notification_command) {
   return nullCommand->GetInstance();
 }
 
-static bool False(Photosensor self) { return false; }
+static bool False(Component self) { return false; }
 
 static const PhotosensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -32,12 +32,12 @@ static const PhotosensorInterfaceStruct kTheInterface = {
     .IsDark = False,
 };
 
-inline static Photosensor New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Photosensor GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

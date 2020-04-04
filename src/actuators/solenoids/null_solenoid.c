@@ -4,21 +4,21 @@
 
 #include <stddef.h>
 
+#include "component_private.h"
 #include "null_command.h"
-#include "solenoid_private.h"
 
-static SolenoidStruct the_singleton;
-static Solenoid the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Solenoid* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Solenoid self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Solenoid self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static bool False(Solenoid self) { return false; }
+static bool False(Component self) { return false; }
 
-static Command NullCommand(Solenoid self) { return nullCommand->GetInstance(); }
+static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
 
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -31,12 +31,12 @@ static const SolenoidInterfaceStruct kTheInterface = {
     .SolenoidForceOffCommand = NullCommand,
 };
 
-inline static Solenoid New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Solenoid GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

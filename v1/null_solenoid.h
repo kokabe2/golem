@@ -6,7 +6,7 @@
 #include "solenoid.h"
 
 typedef struct {
-  Solenoid (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullSolenoidMethodStruct;
 typedef const NullSolenoidMethodStruct* NullSolenoidMethod;
 

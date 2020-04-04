@@ -6,21 +6,21 @@
 #include <stdbool.h>
 
 #include "command.h"
+#include "component.h"
 
-typedef struct MotorStruct* Motor;
 typedef struct {
-  void (*Delete)(Motor* self);
-  int (*Id)(Motor self);
-  const char* (*Tag)(Motor self);
-  const char* (*State)(Motor self);
-  bool (*IsOn)(Motor self);
-  Command (*MotorOnCommand)(Motor self);
-  Command (*MotorOffCommand)(Motor self);
-  Command (*MotorForceOffCommand)(Motor self);
-  const char* (*GetDirection)(Motor self);
-  void (*SetDirection)(Motor self, const char* direction);
-  int (*GetSpeed)(Motor self);
-  void (*SetSpeed)(Motor self, int rpm);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  const char* (*State)(Component self);
+  bool (*IsOn)(Component self);
+  Command (*MotorOnCommand)(Component self);
+  Command (*MotorOffCommand)(Component self);
+  Command (*MotorForceOffCommand)(Component self);
+  const char* (*GetDirection)(Component self);
+  void (*SetDirection)(Component self, const char* direction);
+  int (*GetSpeed)(Component self);
+  void (*SetSpeed)(Component self, int rpm);
 } MotorInterfaceStruct;
 typedef const MotorInterfaceStruct* MotorInterface;
 

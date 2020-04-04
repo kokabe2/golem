@@ -4,21 +4,21 @@
 
 #include <stddef.h>
 
-#include "actuator_private.h"
+#include "component_private.h"
 #include "null_command.h"
 
-static ActuatorStruct the_singleton;
-static Actuator the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Actuator* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Actuator self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Actuator self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static bool False(Actuator self) { return false; }
+static bool False(Component self) { return false; }
 
-static Command NullCommand(Actuator self) { return nullCommand->GetInstance(); }
+static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
 
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -31,12 +31,12 @@ static const ActuatorInterfaceStruct kTheInterface = {
     .ActuatorForceOffCommand = NullCommand,
 };
 
-inline static Actuator New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Actuator GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

@@ -2,19 +2,19 @@
 // This software is released under the MIT License, see LICENSE.
 #include "seven_segment_display.h"
 
-#include "seven_segment_display_private.h"
+#include "component_private.h"
 
-static void Delete(SevenSegmentDisplay* self) { (*self)->impl->Delete(self); }
+static void Delete(Component* self) { ((SevenSegmentDisplayInterface)((*self)->impl))->Delete(self); }
 
-static int Id(SevenSegmentDisplay self) { return self->impl->Id(self); }
+static int Id(Component self) { return ((SevenSegmentDisplayInterface)(self->impl))->Id(self); }
 
-static const char* Tag(SevenSegmentDisplay self) { return self->impl->Tag(self); }
+static const char* Tag(Component self) { return ((SevenSegmentDisplayInterface)(self->impl))->Tag(self); }
 
-static void Clear(SevenSegmentDisplay self) { self->impl->Clear(self); }
+static void Clear(Component self) { ((SevenSegmentDisplayInterface)(self->impl))->Clear(self); }
 
-static uint8_t Get(SevenSegmentDisplay self) { return self->impl->Get(self); }
+static uint8_t Get(Component self) { return ((SevenSegmentDisplayInterface)(self->impl))->Get(self); }
 
-static void Set(SevenSegmentDisplay self, uint8_t encoding) { self->impl->Set(self, encoding); }
+static void Set(Component self, uint8_t encoding) { ((SevenSegmentDisplayInterface)(self->impl))->Set(self, encoding); }
 
 static const SevenSegmentDisplayInterfaceStruct kTheInterface = {
     .Delete = Delete,

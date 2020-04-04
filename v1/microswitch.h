@@ -6,16 +6,16 @@
 #include <stdbool.h>
 
 #include "command.h"
+#include "component.h"
 
-typedef struct MicroswitchStruct* Microswitch;
 typedef struct {
-  void (*Delete)(Microswitch* self);
-  int (*Id)(Microswitch self);
-  const char* (*Tag)(Microswitch self);
-  Command (*MicroswitchWatchCommand)(Microswitch self, const char* expected_state, Command notification_command);
-  const char* (*State)(Microswitch self);
-  bool (*IsOff)(Microswitch self);
-  bool (*IsOn)(Microswitch self);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  Command (*MicroswitchWatchCommand)(Component self, const char* expected_state, Command notification_command);
+  const char* (*State)(Component self);
+  bool (*IsOff)(Component self);
+  bool (*IsOn)(Component self);
 } MicroswitchInterfaceStruct;
 typedef const MicroswitchInterfaceStruct* MicroswitchInterface;
 

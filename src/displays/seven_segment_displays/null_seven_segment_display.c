@@ -4,22 +4,22 @@
 
 #include <stddef.h>
 
-#include "seven_segment_display_private.h"
+#include "component_private.h"
 
-static SevenSegmentDisplayStruct the_singleton;
-static SevenSegmentDisplay the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(SevenSegmentDisplay* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(SevenSegmentDisplay self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(SevenSegmentDisplay self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static void NoEffect(SevenSegmentDisplay self) {}
+static void NoEffect(Component self) {}
 
-static uint8_t Zero(SevenSegmentDisplay self) { return 0; }
+static uint8_t Zero(Component self) { return 0; }
 
-static void NoEffectWithUint8(SevenSegmentDisplay self, uint8_t encoding) {}
+static void NoEffectWithUint8(Component self, uint8_t encoding) {}
 
 static const SevenSegmentDisplayInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -30,12 +30,12 @@ static const SevenSegmentDisplayInterfaceStruct kTheInterface = {
     .Set = NoEffectWithUint8,
 };
 
-inline static SevenSegmentDisplay New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static SevenSegmentDisplay GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

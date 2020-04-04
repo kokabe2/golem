@@ -6,7 +6,7 @@
 #include "sensor.h"
 
 typedef struct {
-  Sensor (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullSensorMethodStruct;
 typedef const NullSensorMethodStruct* NullSensorMethod;
 

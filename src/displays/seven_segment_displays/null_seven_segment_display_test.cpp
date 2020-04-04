@@ -8,27 +8,27 @@ extern "C" {
 
 class NullSevenSegmentDisplayTest : public ::testing::Test {
  protected:
-  SevenSegmentDisplay ssd;
+  Component c;
 
-  virtual void SetUp() { ssd = nullSevenSegmentDisplay->GetInstance(); }
+  virtual void SetUp() { c = nullSevenSegmentDisplay->GetInstance(); }
 
-  virtual void TearDown() { sevenSegmentDisplay->Delete(&ssd); }
+  virtual void TearDown() { sevenSegmentDisplay->Delete(&c); }
 };
 
-TEST_F(NullSevenSegmentDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, sevenSegmentDisplay->Id(ssd)); }
+TEST_F(NullSevenSegmentDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, sevenSegmentDisplay->Id(c)); }
 
-TEST_F(NullSevenSegmentDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", sevenSegmentDisplay->Tag(ssd)); }
+TEST_F(NullSevenSegmentDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", sevenSegmentDisplay->Tag(c)); }
 
 TEST_F(NullSevenSegmentDisplayTest, ClearHasNoEffect) {
-  sevenSegmentDisplay->Clear(ssd);
+  sevenSegmentDisplay->Clear(c);
 
   SUCCEED();
 }
 
-TEST_F(NullSevenSegmentDisplayTest, GetReturnsZero) { EXPECT_EQ(0, sevenSegmentDisplay->Get(ssd)); }
+TEST_F(NullSevenSegmentDisplayTest, GetReturnsZero) { EXPECT_EQ(0, sevenSegmentDisplay->Get(c)); }
 
 TEST_F(NullSevenSegmentDisplayTest, SetHasNoEffect) {
-  sevenSegmentDisplay->Set(ssd, '1');
+  sevenSegmentDisplay->Set(c, '1');
 
-  EXPECT_EQ(0, sevenSegmentDisplay->Get(ssd));
+  EXPECT_EQ(0, sevenSegmentDisplay->Get(c));
 }

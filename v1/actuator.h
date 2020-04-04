@@ -6,17 +6,17 @@
 #include <stdbool.h>
 
 #include "command.h"
+#include "component.h"
 
-typedef struct ActuatorStruct* Actuator;
 typedef struct {
-  void (*Delete)(Actuator* self);
-  int (*Id)(Actuator self);
-  const char* (*Tag)(Actuator self);
-  const char* (*State)(Actuator self);
-  bool (*IsOn)(Actuator self);
-  Command (*ActuatorOnCommand)(Actuator self);
-  Command (*ActuatorOffCommand)(Actuator self);
-  Command (*ActuatorForceOffCommand)(Actuator self);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  const char* (*State)(Component self);
+  bool (*IsOn)(Component self);
+  Command (*ActuatorOnCommand)(Component self);
+  Command (*ActuatorOffCommand)(Component self);
+  Command (*ActuatorForceOffCommand)(Component self);
 } ActuatorInterfaceStruct;
 typedef const ActuatorInterfaceStruct* ActuatorInterface;
 

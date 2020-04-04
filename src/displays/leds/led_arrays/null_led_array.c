@@ -4,24 +4,24 @@
 
 #include <stddef.h>
 
-#include "led_array_private.h"
+#include "component_private.h"
 
-static LedArrayStruct the_singleton;
-static LedArray the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(LedArray* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(LedArray self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(LedArray self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static void NoEffect(LedArray self) {}
+static void NoEffect(Component self) {}
 
-static bool False(LedArray self) { return false; }
+static bool False(Component self) { return false; }
 
-static void NoEffectWithInt(LedArray self, int led_id) {}
+static void NoEffectWithInt(Component self, int led_id) {}
 
-static bool FalseWithInt(LedArray self, int led_id) { return false; }
+static bool FalseWithInt(Component self, int led_id) { return false; }
 
 static const LedArrayInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -37,12 +37,12 @@ static const LedArrayInterfaceStruct kTheInterface = {
     .IsOn = FalseWithInt,
 };
 
-inline static LedArray New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static LedArray GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

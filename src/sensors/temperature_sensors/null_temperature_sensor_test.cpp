@@ -9,21 +9,21 @@ extern "C" {
 
 class NullTemperatureSensorTest : public ::testing::Test {
  protected:
-  TemperatureSensor ts;
+  Component c;
 
-  virtual void SetUp() { ts = nullTemperatureSensor->GetInstance(); }
+  virtual void SetUp() { c = nullTemperatureSensor->GetInstance(); }
 
-  virtual void TearDown() { temperatureSensor->Delete(&ts); }
+  virtual void TearDown() { temperatureSensor->Delete(&c); }
 };
 
-TEST_F(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, temperatureSensor->Id(ts)); }
+TEST_F(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, temperatureSensor->Id(c)); }
 
-TEST_F(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->Tag(ts)); }
+TEST_F(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->Tag(c)); }
 
 TEST_F(NullTemperatureSensorTest, TemperatureSensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), temperatureSensor->TemperatureSensorWatchCommand(ts, "", NULL));
+  EXPECT_EQ(nullCommand->GetInstance(), temperatureSensor->TemperatureSensorWatchCommand(c, "", NULL));
 }
 
-TEST_F(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->State(ts)); }
+TEST_F(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->State(c)); }
 
-TEST_F(NullTemperatureSensorTest, IsNormalStateReturnsFalse) { EXPECT_FALSE(temperatureSensor->IsNormal(ts)); }
+TEST_F(NullTemperatureSensorTest, IsNormalStateReturnsFalse) { EXPECT_FALSE(temperatureSensor->IsNormal(c)); }

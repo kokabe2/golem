@@ -8,45 +8,45 @@ extern "C" {
 
 class NullLedArrayTest : public ::testing::Test {
  protected:
-  LedArray la;
+  Component c;
 
-  virtual void SetUp() { la = nullLedArray->GetInstance(); }
+  virtual void SetUp() { c = nullLedArray->GetInstance(); }
 
-  virtual void TearDown() { ledArray->Delete(&la); }
+  virtual void TearDown() { ledArray->Delete(&c); }
 };
 
-TEST_F(NullLedArrayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, ledArray->Id(la)); }
+TEST_F(NullLedArrayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, ledArray->Id(c)); }
 
-TEST_F(NullLedArrayTest, TagReturnsEmptyString) { EXPECT_STREQ("", ledArray->Tag(la)); }
+TEST_F(NullLedArrayTest, TagReturnsEmptyString) { EXPECT_STREQ("", ledArray->Tag(c)); }
 
 TEST_F(NullLedArrayTest, TunrAllOffHasNoEffect) {
-  ledArray->TurnAllOff(la);
+  ledArray->TurnAllOff(c);
 
-  EXPECT_FALSE(ledArray->IsAllOff(la));
+  EXPECT_FALSE(ledArray->IsAllOff(c));
 }
 
 TEST_F(NullLedArrayTest, TunrAllOnHasNoEffect) {
-  ledArray->TurnAllOn(la);
+  ledArray->TurnAllOn(c);
 
-  EXPECT_FALSE(ledArray->IsAllOn(la));
+  EXPECT_FALSE(ledArray->IsAllOn(c));
 }
 
-TEST_F(NullLedArrayTest, IsAllOffReturnsFalse) { EXPECT_FALSE(ledArray->IsAllOff(la)); }
+TEST_F(NullLedArrayTest, IsAllOffReturnsFalse) { EXPECT_FALSE(ledArray->IsAllOff(c)); }
 
-TEST_F(NullLedArrayTest, IsAllOnReturnsFalse) { EXPECT_FALSE(ledArray->IsAllOn(la)); }
+TEST_F(NullLedArrayTest, IsAllOnReturnsFalse) { EXPECT_FALSE(ledArray->IsAllOn(c)); }
 
 TEST_F(NullLedArrayTest, TunrOffHasNoEffect) {
-  ledArray->TurnOff(la, 0);
+  ledArray->TurnOff(c, 0);
 
-  EXPECT_FALSE(ledArray->IsOff(la, 0));
+  EXPECT_FALSE(ledArray->IsOff(c, 0));
 }
 
 TEST_F(NullLedArrayTest, TunrOnHasNoEffect) {
-  ledArray->TurnOn(la, 0);
+  ledArray->TurnOn(c, 0);
 
-  EXPECT_FALSE(ledArray->IsOn(la, 0));
+  EXPECT_FALSE(ledArray->IsOn(c, 0));
 }
 
-TEST_F(NullLedArrayTest, IsOffReturnsFalse) { EXPECT_FALSE(ledArray->IsOff(la, 0)); }
+TEST_F(NullLedArrayTest, IsOffReturnsFalse) { EXPECT_FALSE(ledArray->IsOff(c, 0)); }
 
-TEST_F(NullLedArrayTest, IsOnReturnsFalse) { EXPECT_FALSE(ledArray->IsOn(la, 0)); }
+TEST_F(NullLedArrayTest, IsOnReturnsFalse) { EXPECT_FALSE(ledArray->IsOn(c, 0)); }

@@ -2,31 +2,35 @@
 // This software is released under the MIT License, see LICENSE.
 #include "motor.h"
 
-#include "motor_private.h"
+#include "component_private.h"
 
-static void Delete(Motor* self) { (*self)->impl->Delete(self); }
+static void Delete(Component* self) { ((MotorInterface)((*self)->impl))->Delete(self); }
 
-static int Id(Motor self) { return self->impl->Id(self); }
+static int Id(Component self) { return ((MotorInterface)(self->impl))->Id(self); }
 
-static const char* Tag(Motor self) { return self->impl->Tag(self); }
+static const char* Tag(Component self) { return ((MotorInterface)(self->impl))->Tag(self); }
 
-static const char* State(Motor self) { return self->impl->State(self); }
+static const char* State(Component self) { return ((MotorInterface)(self->impl))->State(self); }
 
-static bool IsOn(Motor self) { return self->impl->IsOn(self); }
+static bool IsOn(Component self) { return ((MotorInterface)(self->impl))->IsOn(self); }
 
-static Command MotorOnCommand(Motor self) { return self->impl->MotorOnCommand(self); }
+static Command MotorOnCommand(Component self) { return ((MotorInterface)(self->impl))->MotorOnCommand(self); }
 
-static Command MotorOffCommand(Motor self) { return self->impl->MotorOffCommand(self); }
+static Command MotorOffCommand(Component self) { return ((MotorInterface)(self->impl))->MotorOffCommand(self); }
 
-static Command MotorForceOffCommand(Motor self) { return self->impl->MotorForceOffCommand(self); }
+static Command MotorForceOffCommand(Component self) {
+  return ((MotorInterface)(self->impl))->MotorForceOffCommand(self);
+}
 
-static const char* GetDirection(Motor self) { return self->impl->GetDirection(self); }
+static const char* GetDirection(Component self) { return ((MotorInterface)(self->impl))->GetDirection(self); }
 
-static void SetDirection(Motor self, const char* direction) { self->impl->SetDirection(self, direction); }
+static void SetDirection(Component self, const char* direction) {
+  ((MotorInterface)(self->impl))->SetDirection(self, direction);
+}
 
-static int GetSpeed(Motor self) { return self->impl->GetSpeed(self); }
+static int GetSpeed(Component self) { return ((MotorInterface)(self->impl))->GetSpeed(self); }
 
-static void SetSpeed(Motor self, int rpm) { self->impl->SetSpeed(self, rpm); }
+static void SetSpeed(Component self, int rpm) { ((MotorInterface)(self->impl))->SetSpeed(self, rpm); }
 
 static const MotorInterfaceStruct kTheInterface = {
     .Delete = Delete,

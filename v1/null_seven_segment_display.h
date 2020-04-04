@@ -6,7 +6,7 @@
 #include "seven_segment_display.h"
 
 typedef struct {
-  SevenSegmentDisplay (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullSevenSegmentDisplayMethodStruct;
 typedef const NullSevenSegmentDisplayMethodStruct* NullSevenSegmentDisplayMethod;
 

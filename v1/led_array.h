@@ -5,19 +5,20 @@
 
 #include <stdbool.h>
 
-typedef struct LedArrayStruct* LedArray;
+#include "component.h"
+
 typedef struct {
-  void (*Delete)(LedArray* self);
-  int (*Id)(LedArray self);
-  const char* (*Tag)(LedArray self);
-  void (*TurnAllOff)(LedArray self);
-  void (*TurnAllOn)(LedArray self);
-  bool (*IsAllOff)(LedArray self);
-  bool (*IsAllOn)(LedArray self);
-  void (*TurnOff)(LedArray self, int led_id);
-  void (*TurnOn)(LedArray self, int led_id);
-  bool (*IsOff)(LedArray self, int led_id);
-  bool (*IsOn)(LedArray self, int led_id);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  void (*TurnAllOff)(Component self);
+  void (*TurnAllOn)(Component self);
+  bool (*IsAllOff)(Component self);
+  bool (*IsAllOn)(Component self);
+  void (*TurnOff)(Component self, int led_id);
+  void (*TurnOn)(Component self, int led_id);
+  bool (*IsOff)(Component self, int led_id);
+  bool (*IsOn)(Component self, int led_id);
 } LedArrayInterfaceStruct;
 typedef const LedArrayInterfaceStruct* LedArrayInterface;
 

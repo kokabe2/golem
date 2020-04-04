@@ -4,20 +4,20 @@
 
 #include <stddef.h>
 
-#include "led_private.h"
+#include "component_private.h"
 
-static LedStruct the_singleton;
-static Led the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Led* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Led self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Led self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static void NoEffect(Led self) {}
+static void NoEffect(Component self) {}
 
-static bool False(Led self) { return false; }
+static bool False(Component self) { return false; }
 
 static const LedInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -29,12 +29,12 @@ static const LedInterfaceStruct kTheInterface = {
     .IsOn = False,
 };
 
-inline static Led New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Led GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }
