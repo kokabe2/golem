@@ -5,11 +5,10 @@
 #include <stdbool.h>
 
 #include "bleu/v1/heap.h"
-#include "command_private.h"
 #include "malkt/v1/time_unit.h"
 
 typedef struct {
-  CommandStruct base;
+  CommandInterfaceStruct impl;
   int sleep_time;
   ActiveObjectEngine engine;
   Command wakeup_command;
@@ -38,12 +37,13 @@ static void Do(Command base) {
 }
 
 static const CommandInterfaceStruct kTheInterface = {
-    .Delete = Delete, .Do = Do,
+    .Delete = Delete,
+    .Do = Do,
 };
 
 static Command New(int milliseconds, ActiveObjectEngine engine, Command wakeup_command) {
   SleepCommand self = (SleepCommand)heap->New(sizeof(SleepCommandStruct));
-  self->base.impl = &kTheInterface;
+  self->impl = kTheInterface;
   self->sleep_time = milliseconds;
   self->engine = engine;
   self->wakeup_command = wakeup_command;

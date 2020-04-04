@@ -3,21 +3,9 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "command_private.h"
+#include "counting_command_stub.h"
 #include "simple_active_object_engine.h"
 }
-
-namespace {
-int called_count;
-
-void Do(Command self) { ++called_count; }
-
-CommandInterfaceStruct kSpyInterface = {
-    NULL, Do,
-};
-
-CommandStruct command_spy = {&kSpyInterface};
-}  // namespace
 
 class SimpleActiveObjectEngineTest : public ::testing::Test {
  protected:
@@ -25,12 +13,14 @@ class SimpleActiveObjectEngineTest : public ::testing::Test {
   ActiveObjectEngine e;
 
   virtual void SetUp() {
-    called_count = 0;
-    c = &command_spy;
+    c = countingCommandStub->New();
     e = simpleActiveObjectEngine->New();
   }
 
-  virtual void TearDown() { activeObjectEngine->Delete(&e); }
+  virtual void TearDown() {
+    activeObjectEngine->Delete(&e);
+    command->Delete(&c);
+  }
 };
 
 TEST_F(SimpleActiveObjectEngineTest, Run) {
@@ -38,7 +28,7 @@ TEST_F(SimpleActiveObjectEngineTest, Run) {
 
   activeObjectEngine->Run(e);
 
-  EXPECT_EQ(1, called_count);
+  EXPECT_EQ(1, countingCommandStub->Count(c));
 }
 
 TEST_F(SimpleActiveObjectEngineTest, RunWhenNoCommandAddedHasNoEffect) {
@@ -54,5 +44,5 @@ TEST_F(SimpleActiveObjectEngineTest, AddCommandMultipleTimes) {
 
   activeObjectEngine->Run(e);
 
-  EXPECT_EQ(3, called_count);
+  EXPECT_EQ(3, countingCommandStub->Count(c));
 }

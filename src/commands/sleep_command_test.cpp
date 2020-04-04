@@ -3,39 +3,29 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "command_private.h"
+#include "../util/time_unit_stub.h"
+#include "counting_command_stub.h"
 #include "simple_active_object_engine.h"
 #include "sleep_command.h"
-#include "time_unit_stub.h"
 }
-
-namespace {
-bool was_ran;
-
-void Do(Command self) { was_ran = true; }
-
-CommandInterfaceStruct kSpyInterface = {
-    NULL, Do,
-};
-
-CommandStruct command_spy = {&kSpyInterface};
-}  // namespace
 
 class SleepCommandTest : public ::testing::Test {
  protected:
   ActiveObjectEngine e;
+  Command wakeup;
   Command c;
 
   virtual void SetUp() {
-    was_ran = false;
     timeUnitStub->Reset(0, 20);
+    wakeup = countingCommandStub->New();
     e = simpleActiveObjectEngine->New();
-    c = sleepCommand->New(100, e, &command_spy);
+    c = sleepCommand->New(100, e, wakeup);
   }
 
   virtual void TearDown() {
     command->Delete(&c);
     activeObjectEngine->Delete(&e);
+    command->Delete(&wakeup);
   }
 };
 
@@ -44,7 +34,7 @@ TEST_F(SleepCommandTest, Do) {
 
   activeObjectEngine->Run(e);
 
-  EXPECT_TRUE(was_ran);
+  EXPECT_EQ(1, countingCommandStub->Count(wakeup));
   int64_t t = timeUnit->Now(timeUnit->Millisecond);
   EXPECT_GE(t, 100);
   EXPECT_LE(t, 120);

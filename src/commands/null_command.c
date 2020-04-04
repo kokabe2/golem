@@ -4,9 +4,6 @@
 
 #include <stddef.h>
 
-#include "command_private.h"
-
-static CommandStruct the_singleton;
 static Command the_instance = NULL;
 
 static void Delete(Command *self) {}
@@ -14,13 +11,11 @@ static void Delete(Command *self) {}
 static void Do(Command self) {}
 
 static const CommandInterfaceStruct kTheInterface = {
-    .Delete = Delete, .Do = Do,
+    .Delete = Delete,
+    .Do = Do,
 };
 
-static Command New(void) {
-  the_singleton.impl = &kTheInterface;
-  return &the_singleton;
-}
+static Command New(void) { return (Command)&kTheInterface; }
 
 static Command GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
