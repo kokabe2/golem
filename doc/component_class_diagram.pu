@@ -1,0 +1,34 @@
+﻿@startuml component_class_diagram
+skinparam {
+    defaultFontName Ricty Diminished
+    monochrome true
+}
+
+package Golem {
+        interface Component {
+            + Delete(Component*)
+            + Id(Component): int
+            + Tag(Component): const char*
+        }
+
+        interface ComponentFactory {
+            + Delete(ComponentFactory*)
+            + Make(ComponentFactory, int): Component
+        }
+
+        interface ComponentCommandFactory {
+            + Delete(ComponentCommandFactory*)
+            + MakeActuatorOnCommand(ComponentCommandFactory, Component): Command
+            + MakeActuatorOffCommand(ComponentCommandFactory, Component): Command
+            + MakeActuatorForceOffCommand(ComponentCommandFactory, Component): Command
+            + MMakePulseMotorStopCommandake(ComponentCommandFactory, Component, int): Command
+            + MakePulseMotorWatchCommand(ComponentCommandFactory, Component, int, Command): Command
+            + MakeSensorWatchCommand(ComponentCommandFactory, Component, const char*, Command): Command
+        }
+
+        interface Command
+
+        ComponentCommandFactory -> Command
+        ComponentCommandFactory -l-> Component
+}
+@enduml
