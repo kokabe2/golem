@@ -5,8 +5,8 @@
 
 #include "command.h"
 
-typedef struct ActiveObjectEngineStruct* ActiveObjectEngine;
-typedef struct {
+typedef struct ActiveObjectEngineInterfaceStruct* ActiveObjectEngine;
+typedef struct ActiveObjectEngineInterfaceStruct {
   void (*Delete)(ActiveObjectEngine* self);
   void (*Run)(ActiveObjectEngine self);
   void (*AddCommand)(ActiveObjectEngine self, Command c);

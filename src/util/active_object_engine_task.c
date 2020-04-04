@@ -4,19 +4,16 @@
 
 #include <stddef.h>
 
-#include "active_object_engine_private.h"
 #include "bleu/v1/heap.h"
 #include "malkt/v1/objectizable_task.h"
 #include "malkt/v1/simple_inbox.h"
 
 typedef struct {
-  ActiveObjectEngineStruct base;
+  ActiveObjectEngineInterfaceStruct impl;
   Task task;
   Inbox inbox;
   bool done;
 } ActiveObjectEngineTaskStruct, *ActiveObjectEngineTask;
-
-inline static ActiveObjectEngineTask Downcast(ActiveObjectEngine base) { return (ActiveObjectEngineTask)base; }
 
 inline static Command BlockingGetCommand(ActiveObjectEngineTask self) {
   Command* c = inbox->BlockingGet(self->inbox);
@@ -24,7 +21,7 @@ inline static Command BlockingGetCommand(ActiveObjectEngineTask self) {
 }
 
 static void TaskAction(void* base) {
-  ActiveObjectEngineTask self = Downcast(base);
+  ActiveObjectEngineTask self = (ActiveObjectEngineTask)base;
   while (!self->done) {
     Command c = BlockingGetCommand(self);
     if (c != NULL) command->Do(c);
@@ -32,30 +29,30 @@ static void TaskAction(void* base) {
 }
 
 inline static void AddCommand(ActiveObjectEngine self, Command c) {
-  inbox->BlockingPost(Downcast(self)->inbox, &c, sizeof(Command));
+  inbox->BlockingPost(((ActiveObjectEngineTask)self)->inbox, &c, sizeof(Command));
 }
 
-inline static void MakeTaskDone(ActiveObjectEngine self) {
-  Downcast(self)->done = true;
-  AddCommand(self, NULL);
+static void Delete(ActiveObjectEngine* base) {
+  ActiveObjectEngineTask self = (ActiveObjectEngineTask)*base;
+  self->done = true;
+  AddCommand(*base, NULL);
+
+  inbox->Delete(&self->inbox);
+  task->Delete(&self->task);
+  heap->Delete((void**)base);
 }
 
-static void Delete(ActiveObjectEngine* self) {
-  MakeTaskDone(*self);
-  inbox->Delete(&Downcast(*self)->inbox);
-  task->Delete(&Downcast(*self)->task);
-  heap->Delete((void**)self);
-}
-
-static void Run(ActiveObjectEngine self) { task->Run(Downcast(self)->task); }
+static void Run(ActiveObjectEngine self) { task->Run(((ActiveObjectEngineTask)self)->task); }
 
 static const ActiveObjectEngineInterfaceStruct kTheInterface = {
-    .Delete = Delete, .Run = Run, .AddCommand = AddCommand,
+    .Delete = Delete,
+    .Run = Run,
+    .AddCommand = AddCommand,
 };
 
 static ActiveObjectEngine New(void) {
   ActiveObjectEngineTask self = (ActiveObjectEngineTask)heap->New(sizeof(ActiveObjectEngineTaskStruct));
-  self->base.impl = &kTheInterface;
+  self->impl = kTheInterface;
   self->task = objectizableTask->New(TaskAction, 4, 1024, self);
   self->inbox = simpleInbox->New(1024);
   return (ActiveObjectEngine)self;

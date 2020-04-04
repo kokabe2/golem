@@ -4,12 +4,11 @@
 
 #include <stddef.h>
 
-#include "active_object_engine_private.h"
 #include "bleu/v1/heap.h"
 #include "bleu/v1/list.h"
 
 typedef struct {
-  ActiveObjectEngineStruct base;
+  ActiveObjectEngineInterfaceStruct impl;
   List commands;
 } SimpleActiveObjectEngineStruct, *SimpleActiveObjectEngine;
 
@@ -31,12 +30,14 @@ static void AddCommand(ActiveObjectEngine base, Command c) {
 }
 
 static const ActiveObjectEngineInterfaceStruct kTheInterface = {
-    .Delete = Delete, .Run = Run, .AddCommand = AddCommand,
+    .Delete = Delete,
+    .Run = Run,
+    .AddCommand = AddCommand,
 };
 
 static ActiveObjectEngine New(void) {
   SimpleActiveObjectEngine self = (SimpleActiveObjectEngine)heap->New(sizeof(SimpleActiveObjectEngineStruct));
-  self->base.impl = &kTheInterface;
+  self->impl = kTheInterface;
   self->commands = list->New();
   return (ActiveObjectEngine)self;
 }
