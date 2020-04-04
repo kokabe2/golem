@@ -2,21 +2,19 @@
 // This software is released under the MIT License, see LICENSE.
 #include "led.h"
 
-#include "component_private.h"
+static void Delete(Component* self) { ((LedInterface)(*self))->Delete(self); }
 
-static void Delete(Component* self) { ((LedInterface)((*self)->impl))->Delete(self); }
+static int Id(Component self) { return ((LedInterface)self)->Id(self); }
 
-static int Id(Component self) { return ((LedInterface)(self->impl))->Id(self); }
+static const char* Tag(Component self) { return ((LedInterface)self)->Tag(self); }
 
-static const char* Tag(Component self) { return ((LedInterface)(self->impl))->Tag(self); }
+static void TurnOff(Component self) { ((LedInterface)self)->TurnOff(self); }
 
-static void TurnOff(Component self) { ((LedInterface)(self->impl))->TurnOff(self); }
+static void TurnOn(Component self) { ((LedInterface)self)->TurnOn(self); }
 
-static void TurnOn(Component self) { ((LedInterface)(self->impl))->TurnOn(self); }
+static bool IsOff(Component self) { return ((LedInterface)self)->IsOff(self); }
 
-static bool IsOff(Component self) { return ((LedInterface)(self->impl))->IsOff(self); }
-
-static bool IsOn(Component self) { return ((LedInterface)(self->impl))->IsOn(self); }
+static bool IsOn(Component self) { return ((LedInterface)self)->IsOn(self); }
 
 static const LedInterfaceStruct kTheInterface = {
     .Delete = Delete,

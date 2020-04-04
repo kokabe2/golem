@@ -2,15 +2,13 @@
 // This software is released under the MIT License, see LICENSE.
 #include "display.h"
 
-#include "component_private.h"
+static void Delete(Component* self) { ((DisplayInterface)(*self))->Delete(self); }
 
-static void Delete(Component* self) { ((DisplayInterface)((*self)->impl))->Delete(self); }
+static int Id(Component self) { return ((DisplayInterface)self)->Id(self); }
 
-static int Id(Component self) { return ((DisplayInterface)(self->impl))->Id(self); }
+static const char* Tag(Component self) { return ((DisplayInterface)self)->Tag(self); }
 
-static const char* Tag(Component self) { return ((DisplayInterface)(self->impl))->Tag(self); }
-
-static void Reset(Component self) { ((DisplayInterface)(self->impl))->Reset(self); }
+static void Reset(Component self) { ((DisplayInterface)self)->Reset(self); }
 
 static const DisplayInterfaceStruct kTheInterface = {
     .Delete = Delete,

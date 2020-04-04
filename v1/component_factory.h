@@ -5,8 +5,8 @@
 
 #include "component.h"
 
-typedef struct ComponentFactoryStruct* ComponentFactory;
-typedef struct {
+typedef struct ComponentFactoryInterfaceStruct* ComponentFactory;
+typedef struct ComponentFactoryInterfaceStruct {
   void (*Delete)(ComponentFactory* self);
   Component (*Make)(ComponentFactory self, int id);
 } ComponentFactoryInterfaceStruct;

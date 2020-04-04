@@ -4,9 +4,6 @@
 
 #include <stddef.h>
 
-#include "component_private.h"
-
-static ComponentStruct the_singleton;
 static Component the_instance = NULL;
 
 static void Delete(Component* self) {}
@@ -30,10 +27,7 @@ static const SevenSegmentDisplayInterfaceStruct kTheInterface = {
     .Set = NoEffectWithUint8,
 };
 
-inline static Component New(void) {
-  the_singleton.impl = (ComponentInterface)&kTheInterface;
-  return &the_singleton;
-}
+inline static Component New(void) { return (Component)&kTheInterface; }
 
 static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();

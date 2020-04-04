@@ -2,11 +2,9 @@
 // This software is released under the MIT License, see LICENSE.
 #include "component_factory.h"
 
-#include "component_factory_private.h"
+static void Delete(ComponentFactory* self) { (*self)->Delete(self); }
 
-static void Delete(ComponentFactory* self) { (*self)->impl->Delete(self); }
-
-static Component Make(ComponentFactory self, int id) { return self->impl->Make(self, id); }
+static Component Make(ComponentFactory self, int id) { return self->Make(self, id); }
 
 static const ComponentFactoryInterfaceStruct kTheInterface = {
     .Delete = Delete,

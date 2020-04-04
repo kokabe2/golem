@@ -3,8 +3,8 @@
 #ifndef V1_COMPONENT_H_
 #define V1_COMPONENT_H_
 
-typedef struct ComponentStruct* Component;
-typedef struct {
+typedef struct ComponentInterfaceStruct* Component;
+typedef struct ComponentInterfaceStruct {
   void (*Delete)(Component* self);
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
