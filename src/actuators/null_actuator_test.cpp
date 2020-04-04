@@ -21,4 +21,4 @@ TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag
 
 TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(c)); }
 
-TEST_F(NullActuatorTest, IsOnReturnsFalse) { EXPECT_FALSE(actuator->IsOn(c)); }
+TEST_F(NullActuatorTest, IsOffReturnsFalse) { EXPECT_FALSE(actuator->IsOff(c)); }

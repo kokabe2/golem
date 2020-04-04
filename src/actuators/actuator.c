@@ -10,14 +10,14 @@ static const char* Tag(Component self) { return ((ActuatorInterface)self)->Tag(s
 
 static const char* State(Component self) { return ((ActuatorInterface)self)->State(self); }
 
-static bool IsOn(Component self) { return ((ActuatorInterface)self)->IsOn(self); }
+static bool IsOff(Component self) { return ((ActuatorInterface)self)->IsOff(self); }
 
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOn = IsOn,
+    .IsOff = IsOff,
 };
 
 const ActuatorInterface actuator = &kTheInterface;

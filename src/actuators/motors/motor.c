@@ -10,7 +10,7 @@ static const char* Tag(Component self) { return ((MotorInterface)self)->Tag(self
 
 static const char* State(Component self) { return ((MotorInterface)self)->State(self); }
 
-static bool IsOn(Component self) { return ((MotorInterface)self)->IsOn(self); }
+static bool IsOff(Component self) { return ((MotorInterface)self)->IsOff(self); }
 
 static const char* GetDirection(Component self) { return ((MotorInterface)self)->GetDirection(self); }
 
@@ -27,7 +27,7 @@ static const MotorInterfaceStruct kTheInterface = {
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOn = IsOn,
+    .IsOff = IsOff,
     .GetDirection = GetDirection,
     .SetDirection = SetDirection,
     .GetSpeed = GetSpeed,

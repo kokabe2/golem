@@ -19,7 +19,7 @@ static const SolenoidInterfaceStruct kTheInterface = {
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .IsOn = False,
+    .IsOff = False,
 };
 
 inline static Component New(void) { return (Component)&kTheInterface; }

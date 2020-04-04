@@ -10,14 +10,14 @@ static const char* Tag(Component self) { return ((SolenoidInterface)self)->Tag(s
 
 static const char* State(Component self) { return ((SolenoidInterface)self)->State(self); }
 
-static bool IsOn(Component self) { return ((SolenoidInterface)self)->IsOn(self); }
+static bool IsOff(Component self) { return ((SolenoidInterface)self)->IsOff(self); }
 
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOn = IsOn,
+    .IsOff = IsOff,
 };
 
 const SolenoidInterface solenoid = &kTheInterface;

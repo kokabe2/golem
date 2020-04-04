@@ -10,7 +10,7 @@ static const char* Tag(Component self) { return ((PulseMotorInterface)self)->Tag
 
 static const char* State(Component self) { return ((PulseMotorInterface)self)->State(self); }
 
-static bool IsOn(Component self) { return ((PulseMotorInterface)self)->IsOn(self); }
+static bool IsOff(Component self) { return ((PulseMotorInterface)self)->IsOff(self); }
 
 static const char* GetDirection(Component self) { return ((PulseMotorInterface)self)->GetDirection(self); }
 
@@ -37,7 +37,7 @@ static const PulseMotorInterfaceStruct kTheInterface = {
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOn = IsOn,
+    .IsOff = IsOff,
     .GetDirection = GetDirection,
     .SetDirection = SetDirection,
     .GetSpeed = GetSpeed,

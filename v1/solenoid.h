@@ -13,7 +13,7 @@ typedef struct {
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
-  bool (*IsOn)(Component self);
+  bool (*IsOff)(Component self);
 } SolenoidInterfaceStruct;
 typedef const SolenoidInterfaceStruct* SolenoidInterface;
 

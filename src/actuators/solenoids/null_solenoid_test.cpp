@@ -21,4 +21,4 @@ TEST_F(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", solenoid->Tag
 
 TEST_F(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", solenoid->State(c)); }
 
-TEST_F(NullSolenoidTest, IsOnReturnsFalse) { EXPECT_FALSE(solenoid->IsOn(c)); }
+TEST_F(NullSolenoidTest, IsOffReturnsFalse) { EXPECT_FALSE(solenoid->IsOff(c)); }
