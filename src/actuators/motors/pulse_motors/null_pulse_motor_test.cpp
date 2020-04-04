@@ -21,12 +21,12 @@ TEST_F(NullPulseMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", pulseMotor-
 
 TEST_F(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->State(c)); }
 
-TEST_F(NullPulseMotorTest, IsOffReturnsTrue) { EXPECT_TRUE(pulseMotor->IsOff(c)); }
+TEST_F(NullPulseMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(pulseMotor->IsStopped(c)); }
 
 TEST_F(NullPulseMotorTest, RunHasNoEffect) {
   pulseMotor->Run(c);
 
-  EXPECT_TRUE(pulseMotor->IsOff(c));
+  EXPECT_TRUE(pulseMotor->IsStopped(c));
 }
 
 TEST_F(NullPulseMotorTest, StopHasNoEffect) { pulseMotor->Stop(c); }

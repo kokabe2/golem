@@ -21,12 +21,12 @@ TEST_F(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(c)); 
 
 TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(c)); }
 
-TEST_F(NullMotorTest, IsOffReturnsTrue) { EXPECT_TRUE(motor->IsOff(c)); }
+TEST_F(NullMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(motor->IsStopped(c)); }
 
 TEST_F(NullMotorTest, RunHasNoEffect) {
   motor->Run(c);
 
-  EXPECT_TRUE(motor->IsOff(c));
+  EXPECT_TRUE(motor->IsStopped(c));
 }
 
 TEST_F(NullMotorTest, StopHasNoEffect) { motor->Stop(c); }
