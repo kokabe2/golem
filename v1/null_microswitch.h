@@ -6,7 +6,7 @@
 #include "microswitch.h"
 
 typedef struct {
-  Microswitch (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullMicroswitchMethodStruct;
 typedef const NullMicroswitchMethodStruct* NullMicroswitchMethod;
 

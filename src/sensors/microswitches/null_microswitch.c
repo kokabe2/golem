@@ -4,23 +4,23 @@
 
 #include <stddef.h>
 
-#include "microswitch_private.h"
+#include "component_private.h"
 #include "null_command.h"
 
-static MicroswitchStruct the_singleton;
-static Microswitch the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Microswitch* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Microswitch self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Microswitch self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static Command NullCommand(Microswitch self, const char* expected_state, Command notification_command) {
+static Command NullCommand(Component self, const char* expected_state, Command notification_command) {
   return nullCommand->GetInstance();
 }
 
-static bool False(Microswitch self) { return false; }
+static bool False(Component self) { return false; }
 
 static const MicroswitchInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -32,12 +32,12 @@ static const MicroswitchInterfaceStruct kTheInterface = {
     .IsOn = False,
 };
 
-inline static Microswitch New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Microswitch GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }
