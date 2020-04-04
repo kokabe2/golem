@@ -5,88 +5,77 @@ skinparam {
 }
 
 package Golem {
-    interface Command {
-        + Delete(Command*)
-        + Do()
-    }
+    interface Component
 
     folder sensors {
         interface Sensor {
-            + Delete(Sensor*)
-            + SensorWatchCommand(Sensor, const char*, Command): Command
-            + GetId(Sensor): int
-            + GetTag(Sensor): const char*
-            + GetState(Sensor): const char*
-            + IsDefaultState(Sensor): bool
+            + Delete(Component*)
+            + Id(Component): int
+            + Tag(Component): const char*
+            + State(Component): const char*
+            + IsDefaultState(Component): bool
         }
 
-        interface SensorFactory {
-            + Delete(SensorFactory*)
-            + Make(SensorFactory, int): Sensor
+        interface NullSensor {
+            + GetInstance(): Component
         }
 
         folder microswitches {
             interface Microswitch {
-                + Delete(Microswitch*)
-                + SensorWatchCommand(Sensor, const char*, Command): Command
-                + GetId(Sensor): int
-                + GetTag(Sensor): const char*
-                + GetState(Sensor): const char*
-                + IsOff(Sensor): bool
-                + IsOn(Sensor): bool
+                + Delete(Component*)
+                + Id(Component): int
+                + Tag(Component): const char*
+                + State(Component): const char*
+                + IsOff(Component): bool
+                + IsOn(Component): bool
             }
 
-            interface MicroswitchFactory {
-                + Delete(MicroswitchFactory*)
-                + Make(MicroswitchFactory, int): Microswitch
+            interface NullMicroswitch {
+                + GetInstance(): Component
             }
 
-            Microswitch <- MicroswitchFactory
+            Microswitch <|-- NullMicroswitch
         }
 
         folder photosensors {
             interface Photosensor {
-                + Delete(Photosensor*)
-                + SensorWatchCommand(Sensor, const char*, Command): Command
-                + GetId(Sensor): int
-                + GetTag(Sensor): const char*
-                + GetState(Sensor): const char*
-                + IsLight(Sensor): bool
-                + IsDark(Sensor): bool
+                + Delete(Component*)
+                + Id(Component): int
+                + Tag(Component): const char*
+                + State(Component): const char*
+                + IsLight(Component): bool
+                + IsDark(Component): bool
             }
 
-            interface PhotosensorFactory {
-                + Delete(PhotosensorFactory*)
-                + Make(PhotosensorFactory, int): Photosensor
+            interface NullPhotosensor {
+                + GetInstance(): Component
             }
 
-            Photosensor <- PhotosensorFactory
+            Photosensor <|-- NullPhotosensor
         }
 
         folder temperature_sensors {
             interface TemperatureSensor {
-                + Delete(TemperatureSensor*)
-                + SensorWatchCommand(Sensor, const char*, Command): Command
-                + GetId(Sensor): int
-                + GetTag(Sensor): const char*
-                + GetState(Sensor): const char*
-                + IsNormal(Sensor): bool
+                + Delete(Component*)
+                + Id(Component): int
+                + Tag(Component): const char*
+                + State(Component): const char*
+                + IsNormal(Component): bool
             }
 
-            interface TemperatureSensorFactory {
-                + Delete(TemperatureSensorFactory*)
-                + Make(TemperatureSensorFactory, int): TemperatureSensor
+            interface NullTemperatureSensor {
+                + GetInstance(): Component
             }
 
-            TemperatureSensor <- TemperatureSensorFactory
+            TemperatureSensor <|-- NullTemperatureSensor
         }
 
-        Sensor <- SensorFactory
+        Sensor <|-- NullSensor
         Sensor <|.. Microswitch
         Sensor <|.. Photosensor
         Sensor <|.. TemperatureSensor
     }
 
-    Command <|-- Sensor
+    Component <|.. Sensor
 }
 @enduml
