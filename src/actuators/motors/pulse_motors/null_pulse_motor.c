@@ -12,7 +12,7 @@ static int NonsenseValue(Component self) { return ~0; }
 
 static const char* EmptyString(Component self) { return ""; }
 
-static bool False(Component self) { return false; }
+static bool True(Component self) { return true; }
 
 static void NoEffectWithString(Component self, const char* direction) {}
 
@@ -25,7 +25,7 @@ static const PulseMotorInterfaceStruct kTheInterface = {
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .IsOff = False,
+    .IsOff = True,
     .GetDirection = EmptyString,
     .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,

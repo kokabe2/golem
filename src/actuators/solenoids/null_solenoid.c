@@ -12,14 +12,14 @@ static int NonsenseValue(Component self) { return ~0; }
 
 static const char* EmptyString(Component self) { return ""; }
 
-static bool False(Component self) { return false; }
+static bool True(Component self) { return true; }
 
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .IsOff = False,
+    .IsOff = True,
 };
 
 inline static Component New(void) { return (Component)&kTheInterface; }

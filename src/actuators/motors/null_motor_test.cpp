@@ -21,7 +21,7 @@ TEST_F(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(c)); 
 
 TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(c)); }
 
-TEST_F(NullMotorTest, IsOffReturnsFalse) { EXPECT_FALSE(motor->IsOff(c)); }
+TEST_F(NullMotorTest, IsOffReturnsTrue) { EXPECT_TRUE(motor->IsOff(c)); }
 
 TEST_F(NullMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(c)); }
 
