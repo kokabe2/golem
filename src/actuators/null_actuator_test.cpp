@@ -9,29 +9,29 @@ extern "C" {
 
 class NullActuatorTest : public ::testing::Test {
  protected:
-  Actuator a;
+  Component c;
 
-  virtual void SetUp() { a = nullActuator->GetInstance(); }
+  virtual void SetUp() { c = nullActuator->GetInstance(); }
 
-  virtual void TearDown() { actuator->Delete(&a); }
+  virtual void TearDown() { actuator->Delete(&c); }
 };
 
-TEST_F(NullActuatorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, actuator->Id(a)); }
+TEST_F(NullActuatorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, actuator->Id(c)); }
 
-TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag(a)); }
+TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag(c)); }
 
-TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(a)); }
+TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(c)); }
 
-TEST_F(NullActuatorTest, IsOnReturnsFalse) { EXPECT_FALSE(actuator->IsOn(a)); }
+TEST_F(NullActuatorTest, IsOnReturnsFalse) { EXPECT_FALSE(actuator->IsOn(c)); }
 
 TEST_F(NullActuatorTest, ActuatorOnCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOnCommand(a));
+  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOnCommand(c));
 }
 
 TEST_F(NullActuatorTest, ActuatorOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOffCommand(a));
+  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOffCommand(c));
 }
 
 TEST_F(NullActuatorTest, ActuatorForceOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorForceOffCommand(a));
+  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorForceOffCommand(c));
 }
