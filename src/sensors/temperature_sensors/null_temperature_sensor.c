@@ -4,23 +4,23 @@
 
 #include <stddef.h>
 
+#include "component_private.h"
 #include "null_command.h"
-#include "temperature_sensor_private.h"
 
-static TemperatureSensorStruct the_singleton;
-static TemperatureSensor the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(TemperatureSensor* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(TemperatureSensor self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(TemperatureSensor self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static Command NullCommand(TemperatureSensor self, const char* expected_state, Command notification_command) {
+static Command NullCommand(Component self, const char* expected_state, Command notification_command) {
   return nullCommand->GetInstance();
 }
 
-static bool False(TemperatureSensor self) { return false; }
+static bool False(Component self) { return false; }
 
 static const TemperatureSensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -31,12 +31,12 @@ static const TemperatureSensorInterfaceStruct kTheInterface = {
     .IsNormal = False,
 };
 
-inline static TemperatureSensor New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static TemperatureSensor GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

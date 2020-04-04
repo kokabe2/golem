@@ -2,22 +2,22 @@
 // This software is released under the MIT License, see LICENSE.
 #include "temperature_sensor.h"
 
-#include "temperature_sensor_private.h"
+#include "component_private.h"
 
-static void Delete(TemperatureSensor* self) { (*self)->impl->Delete(self); }
+static void Delete(Component* self) { ((TemperatureSensorInterface)((*self)->impl))->Delete(self); }
 
-static int Id(TemperatureSensor self) { return self->impl->Id(self); }
+static int Id(Component self) { return ((TemperatureSensorInterface)(self->impl))->Id(self); }
 
-static const char* Tag(TemperatureSensor self) { return self->impl->Tag(self); }
+static const char* Tag(Component self) { return ((TemperatureSensorInterface)(self->impl))->Tag(self); }
 
-static Command TemperatureSensorWatchCommand(TemperatureSensor self, const char* expected_state,
-                                             Command notification_command) {
-  return self->impl->TemperatureSensorWatchCommand(self, expected_state, notification_command);
+static Command TemperatureSensorWatchCommand(Component self, const char* expected_state, Command notification_command) {
+  return ((TemperatureSensorInterface)(self->impl))
+      ->TemperatureSensorWatchCommand(self, expected_state, notification_command);
 }
 
-static const char* State(TemperatureSensor self) { return self->impl->State(self); }
+static const char* State(Component self) { return ((TemperatureSensorInterface)(self->impl))->State(self); }
 
-static bool IsNormal(TemperatureSensor self) { return self->impl->IsNormal(self); }
+static bool IsNormal(Component self) { return ((TemperatureSensorInterface)(self->impl))->IsNormal(self); }
 
 static const TemperatureSensorInterfaceStruct kTheInterface = {
     .Delete = Delete,
