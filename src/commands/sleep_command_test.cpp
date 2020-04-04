@@ -3,10 +3,10 @@
 #include "gtest/gtest.h"
 
 extern "C" {
+#include "../util/time_unit_stub.h"
 #include "command_private.h"
 #include "simple_active_object_engine.h"
 #include "sleep_command.h"
-#include "time_unit_stub.h"
 }
 
 namespace {

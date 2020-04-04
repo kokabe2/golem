@@ -18,6 +18,9 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/actuators/solenoids/solenoid.c ^
            src/actuators/actuator.c ^
            src/actuators/null_actuator.c ^
+           src/commands/error_command.c ^
+           src/commands/null_command.c ^
+           src/commands/sleep_command.c ^
            src/displays/leds/led_arrays/null_led_array.c ^
            src/displays/leds/led_arrays/led_array.c ^
            src/displays/leds/led.c ^
@@ -36,10 +39,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/sensor.c ^
            src/util/active_object_engine_task.c ^
            src/util/active_object_engine.c ^
-           src/util/error_command.c ^
-           src/util/null_command.c ^
            src/util/simple_active_object_engine.c ^
-           src/util/sleep_command.c ^
            src/command.c ^
            src/component_factory.c ^
            src/component.c
