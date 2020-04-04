@@ -6,17 +6,17 @@
 #include <stdbool.h>
 
 #include "command.h"
+#include "component.h"
 
-typedef struct SolenoidStruct* Solenoid;
 typedef struct {
-  void (*Delete)(Solenoid* self);
-  int (*Id)(Solenoid self);
-  const char* (*Tag)(Solenoid self);
-  const char* (*State)(Solenoid self);
-  bool (*IsOn)(Solenoid self);
-  Command (*SolenoidOnCommand)(Solenoid self);
-  Command (*SolenoidOffCommand)(Solenoid self);
-  Command (*SolenoidForceOffCommand)(Solenoid self);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  const char* (*State)(Component self);
+  bool (*IsOn)(Component self);
+  Command (*SolenoidOnCommand)(Component self);
+  Command (*SolenoidOffCommand)(Component self);
+  Command (*SolenoidForceOffCommand)(Component self);
 } SolenoidInterfaceStruct;
 typedef const SolenoidInterfaceStruct* SolenoidInterface;
 

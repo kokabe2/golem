@@ -2,23 +2,27 @@
 // This software is released under the MIT License, see LICENSE.
 #include "solenoid.h"
 
-#include "solenoid_private.h"
+#include "component_private.h"
 
-static void Delete(Solenoid* self) { (*self)->impl->Delete(self); }
+static void Delete(Component* self) { ((SolenoidInterface)((*self)->impl))->Delete(self); }
 
-static int Id(Solenoid self) { return self->impl->Id(self); }
+static int Id(Component self) { return ((SolenoidInterface)(self->impl))->Id(self); }
 
-static const char* Tag(Solenoid self) { return self->impl->Tag(self); }
+static const char* Tag(Component self) { return ((SolenoidInterface)(self->impl))->Tag(self); }
 
-static const char* State(Solenoid self) { return self->impl->State(self); }
+static const char* State(Component self) { return ((SolenoidInterface)(self->impl))->State(self); }
 
-static bool IsOn(Solenoid self) { return self->impl->IsOn(self); }
+static bool IsOn(Component self) { return ((SolenoidInterface)(self->impl))->IsOn(self); }
 
-static Command SolenoidOnCommand(Solenoid self) { return self->impl->SolenoidOnCommand(self); }
+static Command SolenoidOnCommand(Component self) { return ((SolenoidInterface)(self->impl))->SolenoidOnCommand(self); }
 
-static Command SolenoidOffCommand(Solenoid self) { return self->impl->SolenoidOffCommand(self); }
+static Command SolenoidOffCommand(Component self) {
+  return ((SolenoidInterface)(self->impl))->SolenoidOffCommand(self);
+}
 
-static Command SolenoidForceOffCommand(Solenoid self) { return self->impl->SolenoidForceOffCommand(self); }
+static Command SolenoidForceOffCommand(Component self) {
+  return ((SolenoidInterface)(self->impl))->SolenoidForceOffCommand(self);
+}
 
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
