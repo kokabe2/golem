@@ -6,28 +6,28 @@
 #include <stdbool.h>
 
 #include "command.h"
+#include "component.h"
 
-typedef struct PulseMotorStruct* PulseMotor;
 typedef struct {
-  void (*Delete)(PulseMotor* self);
-  int (*Id)(PulseMotor self);
-  const char* (*Tag)(PulseMotor self);
-  const char* (*State)(PulseMotor self);
-  bool (*IsOn)(PulseMotor self);
-  Command (*PulseMotorOnCommand)(PulseMotor self);
-  Command (*PulseMotorOffCommand)(PulseMotor self);
-  Command (*PulseMotorForceOffCommand)(PulseMotor self);
-  const char* (*GetDirection)(PulseMotor self);
-  void (*SetDirection)(PulseMotor self, const char* direction);
-  int (*GetSpeed)(PulseMotor self);
-  void (*SetSpeed)(PulseMotor self, int rpm);
-  Command (*PulseMotorStopCommand)(PulseMotor self, int pulse);
-  Command (*PulseMotorWatchCommand)(PulseMotor self, int pulse, Command notification_command);
-  const char* (*GetMode)(PulseMotor self);
-  void (*SelectMode)(PulseMotor self, const char* mode);
-  int (*GetPulseRate)(PulseMotor self);
-  void (*SetPulseRate)(PulseMotor self, int pps);
-  int (*GetPosition)(PulseMotor self);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  const char* (*State)(Component self);
+  bool (*IsOn)(Component self);
+  Command (*PulseMotorOnCommand)(Component self);
+  Command (*PulseMotorOffCommand)(Component self);
+  Command (*PulseMotorForceOffCommand)(Component self);
+  const char* (*GetDirection)(Component self);
+  void (*SetDirection)(Component self, const char* direction);
+  int (*GetSpeed)(Component self);
+  void (*SetSpeed)(Component self, int rpm);
+  Command (*PulseMotorStopCommand)(Component self, int pulse);
+  Command (*PulseMotorWatchCommand)(Component self, int pulse, Command notification_command);
+  const char* (*GetMode)(Component self);
+  void (*SelectMode)(Component self, const char* mode);
+  int (*GetPulseRate)(Component self);
+  void (*SetPulseRate)(Component self, int pps);
+  int (*GetPosition)(Component self);
 } PulseMotorInterfaceStruct;
 typedef const PulseMotorInterfaceStruct* PulseMotorInterface;
 

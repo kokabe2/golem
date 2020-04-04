@@ -4,31 +4,31 @@
 
 #include <stddef.h>
 
+#include "component_private.h"
 #include "null_command.h"
-#include "pulse_motor_private.h"
 
-static PulseMotorStruct the_singleton;
-static PulseMotor the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(PulseMotor* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(PulseMotor self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(PulseMotor self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static bool False(PulseMotor self) { return false; }
+static bool False(Component self) { return false; }
 
-static Command NullCommand(PulseMotor self) { return nullCommand->GetInstance(); }
+static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
 
-static void NoEffectWithString(PulseMotor self, const char* direction) {}
+static void NoEffectWithString(Component self, const char* direction) {}
 
-static int Zero(PulseMotor self) { return 0; }
+static int Zero(Component self) { return 0; }
 
-static void NoEffectWithInt(PulseMotor self, int rpm) {}
+static void NoEffectWithInt(Component self, int rpm) {}
 
-static Command NullCommandWithInt(PulseMotor self, int pulse) { return nullCommand->GetInstance(); }
+static Command NullCommandWithInt(Component self, int pulse) { return nullCommand->GetInstance(); }
 
-static Command NullCommandWithIntAndCommand(PulseMotor self, int pulse, Command notification_command) {
+static Command NullCommandWithIntAndCommand(Component self, int pulse, Command notification_command) {
   return nullCommand->GetInstance();
 }
 
@@ -54,12 +54,12 @@ static const PulseMotorInterfaceStruct kTheInterface = {
     .GetPosition = Zero,
 };
 
-inline static PulseMotor New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static PulseMotor GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }
