@@ -21,12 +21,12 @@ TEST_F(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", solenoid->Tag
 
 TEST_F(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", solenoid->State(c)); }
 
-TEST_F(NullSolenoidTest, IsOffReturnsTrue) { EXPECT_TRUE(solenoid->IsOff(c)); }
+TEST_F(NullSolenoidTest, IsUnlockedReturnsTrue) { EXPECT_TRUE(solenoid->IsUnlocked(c)); }
 
 TEST_F(NullSolenoidTest, LockHasNoEffect) {
   solenoid->Lock(c);
 
-  EXPECT_TRUE(solenoid->IsOff(c));
+  EXPECT_TRUE(solenoid->IsUnlocked(c));
 }
 
 TEST_F(NullSolenoidTest, UnlockHasNoEffect) { solenoid->Unlock(c); }

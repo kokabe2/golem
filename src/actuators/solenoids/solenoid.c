@@ -10,7 +10,7 @@ static const char* Tag(Component self) { return ((SolenoidInterface)self)->Tag(s
 
 static const char* State(Component self) { return ((SolenoidInterface)self)->State(self); }
 
-static bool IsOff(Component self) { return ((SolenoidInterface)self)->IsOff(self); }
+static bool IsUnlocked(Component self) { return ((SolenoidInterface)self)->IsUnlocked(self); }
 
 static void Lock(Component self) { ((SolenoidInterface)self)->Lock(self); }
 
@@ -23,7 +23,7 @@ static const SolenoidInterfaceStruct kTheInterface = {
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOff = IsOff,
+    .IsUnlocked = IsUnlocked,
     .Lock = Lock,
     .Unlock = Unlock,
     .ForceUnlock = ForceUnlock,

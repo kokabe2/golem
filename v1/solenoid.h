@@ -13,7 +13,7 @@ typedef struct {
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
-  bool (*IsOff)(Component self);
+  bool (*IsUnlocked)(Component self);
   void (*Lock)(Component self);
   void (*Unlock)(Component self);
   void (*ForceUnlock)(Component self);
