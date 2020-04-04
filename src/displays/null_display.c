@@ -4,18 +4,18 @@
 
 #include <stddef.h>
 
-#include "display_private.h"
+#include "component_private.h"
 
-static DisplayStruct the_singleton;
-static Display the_instance = NULL;
+static ComponentStruct the_singleton;
+static Component the_instance = NULL;
 
-static void Delete(Display* self) {}
+static void Delete(Component* self) {}
 
-static int NonsenseValue(Display self) { return ~0; }
+static int NonsenseValue(Component self) { return ~0; }
 
-static const char* EmptyString(Display self) { return ""; }
+static const char* EmptyString(Component self) { return ""; }
 
-static void NoEffect(Display self) {}
+static void NoEffect(Component self) {}
 
 static const DisplayInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -24,12 +24,12 @@ static const DisplayInterfaceStruct kTheInterface = {
     .Reset = NoEffect,
 };
 
-inline static Display New(void) {
-  the_singleton.impl = &kTheInterface;
+inline static Component New(void) {
+  the_singleton.impl = (ComponentInterface)&kTheInterface;
   return &the_singleton;
 }
 
-static Display GetInstance(void) {
+static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();
   return the_instance;
 }

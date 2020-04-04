@@ -6,7 +6,7 @@
 #include "display.h"
 
 typedef struct {
-  Display (*GetInstance)(void);  //
+  Component (*GetInstance)(void);  //
 } NullDisplayMethodStruct;
 typedef const NullDisplayMethodStruct* NullDisplayMethod;
 

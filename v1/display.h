@@ -3,12 +3,13 @@
 #ifndef V1_DISPLAY_H_
 #define V1_DISPLAY_H_
 
-typedef struct DisplayStruct* Display;
+#include "component.h"
+
 typedef struct {
-  void (*Delete)(Display* self);
-  int (*Id)(Display self);
-  const char* (*Tag)(Display self);
-  void (*Reset)(Display self);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  void (*Reset)(Component self);
 } DisplayInterfaceStruct;
 typedef const DisplayInterfaceStruct* DisplayInterface;
 

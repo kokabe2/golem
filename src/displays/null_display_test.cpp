@@ -8,19 +8,19 @@ extern "C" {
 
 class NullDisplayTest : public ::testing::Test {
  protected:
-  Display d;
+  Component c;
 
-  virtual void SetUp() { d = nullDisplay->GetInstance(); }
+  virtual void SetUp() { c = nullDisplay->GetInstance(); }
 
-  virtual void TearDown() { display->Delete(&d); }
+  virtual void TearDown() { display->Delete(&c); }
 };
 
-TEST_F(NullDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, display->Id(d)); }
+TEST_F(NullDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, display->Id(c)); }
 
-TEST_F(NullDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", display->Tag(d)); }
+TEST_F(NullDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", display->Tag(c)); }
 
 TEST_F(NullDisplayTest, ResetHasNoEffect) {
-  display->Reset(d);
+  display->Reset(c);
 
   SUCCEED();
 }
