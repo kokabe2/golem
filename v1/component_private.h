@@ -6,9 +6,7 @@
 #include "component.h"
 
 typedef struct ComponentStruct {
-  ComponentInterface impl;
-  int id;
-  const char *tag;
+  ComponentInterface impl;  //
 } ComponentStruct;
 
 #endif  // V1_COMPONENT_PRIVATE_H_
