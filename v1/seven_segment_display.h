@@ -5,14 +5,15 @@
 
 #include <stdint.h>
 
-typedef struct SevenSegmentDisplayStruct* SevenSegmentDisplay;
+#include "component.h"
+
 typedef struct {
-  void (*Delete)(SevenSegmentDisplay* self);
-  int (*Id)(SevenSegmentDisplay self);
-  const char* (*Tag)(SevenSegmentDisplay self);
-  void (*Clear)(SevenSegmentDisplay self);
-  uint8_t (*Get)(SevenSegmentDisplay self);
-  void (*Set)(SevenSegmentDisplay self, uint8_t encoding);
+  void (*Delete)(Component* self);
+  int (*Id)(Component self);
+  const char* (*Tag)(Component self);
+  void (*Clear)(Component self);
+  uint8_t (*Get)(Component self);
+  void (*Set)(Component self, uint8_t encoding);
 } SevenSegmentDisplayInterfaceStruct;
 typedef const SevenSegmentDisplayInterfaceStruct* SevenSegmentDisplayInterface;
 
