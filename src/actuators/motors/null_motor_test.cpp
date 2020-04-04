@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "null_command.h"
 #include "null_motor.h"
 }
 
@@ -22,19 +21,17 @@ TEST_F(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(c)); 
 
 TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(c)); }
 
-TEST_F(NullMotorTest, IsOnReturnsFalse) { EXPECT_FALSE(motor->IsOn(c)); }
+TEST_F(NullMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(motor->IsStopped(c)); }
 
-TEST_F(NullMotorTest, MotorOnCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), motor->MotorOnCommand(c));
+TEST_F(NullMotorTest, RunHasNoEffect) {
+  motor->Run(c);
+
+  EXPECT_TRUE(motor->IsStopped(c));
 }
 
-TEST_F(NullMotorTest, MotorOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), motor->MotorOffCommand(c));
-}
+TEST_F(NullMotorTest, StopHasNoEffect) { motor->Stop(c); }
 
-TEST_F(NullMotorTest, MotorForceOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), motor->MotorForceOffCommand(c));
-}
+TEST_F(NullMotorTest, ForceStopHasNoEffect) { motor->ForceStop(c); }
 
 TEST_F(NullMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(c)); }
 

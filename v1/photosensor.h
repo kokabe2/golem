@@ -12,7 +12,6 @@ typedef struct {
   void (*Delete)(Component* self);
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
-  Command (*PhotosensorWatchCommand)(Component self, const char* expected_state, Command notification_command);
   const char* (*State)(Component self);
   bool (*IsLight)(Component self);
   bool (*IsDark)(Component self);

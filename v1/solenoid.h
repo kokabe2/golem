@@ -13,10 +13,10 @@ typedef struct {
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
-  bool (*IsOn)(Component self);
-  Command (*SolenoidOnCommand)(Component self);
-  Command (*SolenoidOffCommand)(Component self);
-  Command (*SolenoidForceOffCommand)(Component self);
+  bool (*IsUnlocked)(Component self);
+  void (*Lock)(Component self);
+  void (*Unlock)(Component self);
+  void (*ForceUnlock)(Component self);
 } SolenoidInterfaceStruct;
 typedef const SolenoidInterfaceStruct* SolenoidInterface;
 

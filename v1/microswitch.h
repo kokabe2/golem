@@ -12,7 +12,6 @@ typedef struct {
   void (*Delete)(Component* self);
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
-  Command (*MicroswitchWatchCommand)(Component self, const char* expected_state, Command notification_command);
   const char* (*State)(Component self);
   bool (*IsOff)(Component self);
   bool (*IsOn)(Component self);

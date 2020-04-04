@@ -13,10 +13,10 @@ typedef struct {
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
-  bool (*IsOn)(Component self);
-  Command (*ActuatorOnCommand)(Component self);
-  Command (*ActuatorOffCommand)(Component self);
-  Command (*ActuatorForceOffCommand)(Component self);
+  bool (*IsOff)(Component self);
+  void (*TurnOn)(Component self);
+  void (*TurnOff)(Component self);
+  void (*ForceTurnOff)(Component self);
 } ActuatorInterfaceStruct;
 typedef const ActuatorInterfaceStruct* ActuatorInterface;
 

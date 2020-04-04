@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "null_command.h"
 #include "null_microswitch.h"
 }
 class NullMicroswitchTest : public ::testing::Test {
@@ -18,10 +17,6 @@ class NullMicroswitchTest : public ::testing::Test {
 TEST_F(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, microswitch->Id(c)); }
 
 TEST_F(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", microswitch->Tag(c)); }
-
-TEST_F(NullMicroswitchTest, MicroswitchWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), microswitch->MicroswitchWatchCommand(c, "", NULL));
-}
 
 TEST_F(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", microswitch->State(c)); }
 

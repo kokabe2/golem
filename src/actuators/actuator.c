@@ -2,37 +2,31 @@
 // This software is released under the MIT License, see LICENSE.
 #include "actuator.h"
 
-#include "component_private.h"
+static void Delete(Component* self) { ((ActuatorInterface)(*self))->Delete(self); }
 
-static void Delete(Component* self) { ((ActuatorInterface)((*self)->impl))->Delete(self); }
+static int Id(Component self) { return ((ActuatorInterface)self)->Id(self); }
 
-static int Id(Component self) { return ((ActuatorInterface)(self->impl))->Id(self); }
+static const char* Tag(Component self) { return ((ActuatorInterface)self)->Tag(self); }
 
-static const char* Tag(Component self) { return ((ActuatorInterface)(self->impl))->Tag(self); }
+static const char* State(Component self) { return ((ActuatorInterface)self)->State(self); }
 
-static const char* State(Component self) { return ((ActuatorInterface)(self->impl))->State(self); }
+static bool IsOff(Component self) { return ((ActuatorInterface)self)->IsOff(self); }
 
-static bool IsOn(Component self) { return ((ActuatorInterface)(self->impl))->IsOn(self); }
+static void TurnOn(Component self) { ((ActuatorInterface)self)->TurnOn(self); }
 
-static Command ActuatorOnCommand(Component self) { return ((ActuatorInterface)(self->impl))->ActuatorOnCommand(self); }
+static void TurnOff(Component self) { ((ActuatorInterface)self)->TurnOff(self); }
 
-static Command ActuatorOffCommand(Component self) {
-  return ((ActuatorInterface)(self->impl))->ActuatorOffCommand(self);
-}
-
-static Command ActuatorForceOffCommand(Component self) {
-  return ((ActuatorInterface)(self->impl))->ActuatorForceOffCommand(self);
-}
+static void ForceTurnOff(Component self) { ((ActuatorInterface)self)->ForceTurnOff(self); }
 
 static const ActuatorInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOn = IsOn,
-    .ActuatorOnCommand = ActuatorOnCommand,
-    .ActuatorOffCommand = ActuatorOffCommand,
-    .ActuatorForceOffCommand = ActuatorForceOffCommand,
+    .IsOff = IsOff,
+    .TurnOn = TurnOn,
+    .TurnOff = TurnOff,
+    .ForceTurnOff = ForceTurnOff,
 };
 
 const ActuatorInterface actuator = &kTheInterface;

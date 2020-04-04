@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "null_command.h"
 #include "null_solenoid.h"
 }
 
@@ -22,16 +21,14 @@ TEST_F(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", solenoid->Tag
 
 TEST_F(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", solenoid->State(c)); }
 
-TEST_F(NullSolenoidTest, IsOnReturnsFalse) { EXPECT_FALSE(solenoid->IsOn(c)); }
+TEST_F(NullSolenoidTest, IsUnlockedReturnsTrue) { EXPECT_TRUE(solenoid->IsUnlocked(c)); }
 
-TEST_F(NullSolenoidTest, SolenoidOnCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), solenoid->SolenoidOnCommand(c));
+TEST_F(NullSolenoidTest, LockHasNoEffect) {
+  solenoid->Lock(c);
+
+  EXPECT_TRUE(solenoid->IsUnlocked(c));
 }
 
-TEST_F(NullSolenoidTest, SolenoidOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), solenoid->SolenoidOffCommand(c));
-}
+TEST_F(NullSolenoidTest, UnlockHasNoEffect) { solenoid->Unlock(c); }
 
-TEST_F(NullSolenoidTest, SolenoidForceOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), solenoid->SolenoidForceOffCommand(c));
-}
+TEST_F(NullSolenoidTest, ForceUnlockHasNoEffect) { solenoid->ForceUnlock(c); }

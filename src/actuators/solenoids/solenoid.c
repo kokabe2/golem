@@ -2,37 +2,31 @@
 // This software is released under the MIT License, see LICENSE.
 #include "solenoid.h"
 
-#include "component_private.h"
+static void Delete(Component* self) { ((SolenoidInterface)(*self))->Delete(self); }
 
-static void Delete(Component* self) { ((SolenoidInterface)((*self)->impl))->Delete(self); }
+static int Id(Component self) { return ((SolenoidInterface)self)->Id(self); }
 
-static int Id(Component self) { return ((SolenoidInterface)(self->impl))->Id(self); }
+static const char* Tag(Component self) { return ((SolenoidInterface)self)->Tag(self); }
 
-static const char* Tag(Component self) { return ((SolenoidInterface)(self->impl))->Tag(self); }
+static const char* State(Component self) { return ((SolenoidInterface)self)->State(self); }
 
-static const char* State(Component self) { return ((SolenoidInterface)(self->impl))->State(self); }
+static bool IsUnlocked(Component self) { return ((SolenoidInterface)self)->IsUnlocked(self); }
 
-static bool IsOn(Component self) { return ((SolenoidInterface)(self->impl))->IsOn(self); }
+static void Lock(Component self) { ((SolenoidInterface)self)->Lock(self); }
 
-static Command SolenoidOnCommand(Component self) { return ((SolenoidInterface)(self->impl))->SolenoidOnCommand(self); }
+static void Unlock(Component self) { ((SolenoidInterface)self)->Unlock(self); }
 
-static Command SolenoidOffCommand(Component self) {
-  return ((SolenoidInterface)(self->impl))->SolenoidOffCommand(self);
-}
-
-static Command SolenoidForceOffCommand(Component self) {
-  return ((SolenoidInterface)(self->impl))->SolenoidForceOffCommand(self);
-}
+static void ForceUnlock(Component self) { ((SolenoidInterface)self)->ForceUnlock(self); }
 
 static const SolenoidInterfaceStruct kTheInterface = {
     .Delete = Delete,
     .Id = Id,
     .Tag = Tag,
     .State = State,
-    .IsOn = IsOn,
-    .SolenoidOnCommand = SolenoidOnCommand,
-    .SolenoidOffCommand = SolenoidOffCommand,
-    .SolenoidForceOffCommand = SolenoidForceOffCommand,
+    .IsUnlocked = IsUnlocked,
+    .Lock = Lock,
+    .Unlock = Unlock,
+    .ForceUnlock = ForceUnlock,
 };
 
 const SolenoidInterface solenoid = &kTheInterface;

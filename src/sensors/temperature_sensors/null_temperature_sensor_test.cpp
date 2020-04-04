@@ -3,7 +3,6 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "null_command.h"
 #include "null_temperature_sensor.h"
 }
 
@@ -19,10 +18,6 @@ class NullTemperatureSensorTest : public ::testing::Test {
 TEST_F(NullTemperatureSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, temperatureSensor->Id(c)); }
 
 TEST_F(NullTemperatureSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->Tag(c)); }
-
-TEST_F(NullTemperatureSensorTest, TemperatureSensorWatchCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), temperatureSensor->TemperatureSensorWatchCommand(c, "", NULL));
-}
 
 TEST_F(NullTemperatureSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", temperatureSensor->State(c)); }
 

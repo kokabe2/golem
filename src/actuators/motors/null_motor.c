@@ -4,10 +4,6 @@
 
 #include <stddef.h>
 
-#include "component_private.h"
-#include "null_command.h"
-
-static ComponentStruct the_singleton;
 static Component the_instance = NULL;
 
 static void Delete(Component* self) {}
@@ -16,9 +12,9 @@ static int NonsenseValue(Component self) { return ~0; }
 
 static const char* EmptyString(Component self) { return ""; }
 
-static bool False(Component self) { return false; }
+static bool True(Component self) { return true; }
 
-static Command NullCommand(Component self) { return nullCommand->GetInstance(); }
+static void NoEffect(Component self) {}
 
 static void NoEffectWithString(Component self, const char* direction) {}
 
@@ -31,20 +27,17 @@ static const MotorInterfaceStruct kTheInterface = {
     .Id = NonsenseValue,
     .Tag = EmptyString,
     .State = EmptyString,
-    .IsOn = False,
-    .MotorOnCommand = NullCommand,
-    .MotorOffCommand = NullCommand,
-    .MotorForceOffCommand = NullCommand,
+    .IsStopped = True,
+    .Run = NoEffect,
+    .Stop = NoEffect,
+    .ForceStop = NoEffect,
     .GetDirection = EmptyString,
     .SetDirection = NoEffectWithString,
     .GetSpeed = Zero,
     .SetSpeed = NoEffectWithInt,
 };
 
-inline static Component New(void) {
-  the_singleton.impl = (ComponentInterface)&kTheInterface;
-  return &the_singleton;
-}
+inline static Component New(void) { return (Component)&kTheInterface; }
 
 static Component GetInstance(void) {
   if (the_instance == NULL) the_instance = New();

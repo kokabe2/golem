@@ -13,10 +13,10 @@ typedef struct {
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
   const char* (*State)(Component self);
-  bool (*IsOn)(Component self);
-  Command (*MotorOnCommand)(Component self);
-  Command (*MotorOffCommand)(Component self);
-  Command (*MotorForceOffCommand)(Component self);
+  bool (*IsStopped)(Component self);
+  void (*Run)(Component self);
+  void (*Stop)(Component self);
+  void (*ForceStop)(Component self);
   const char* (*GetDirection)(Component self);
   void (*SetDirection)(Component self, const char* direction);
   int (*GetSpeed)(Component self);

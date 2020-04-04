@@ -4,7 +4,6 @@
 
 extern "C" {
 #include "null_actuator.h"
-#include "null_command.h"
 }
 
 class NullActuatorTest : public ::testing::Test {
@@ -22,16 +21,14 @@ TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag
 
 TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(c)); }
 
-TEST_F(NullActuatorTest, IsOnReturnsFalse) { EXPECT_FALSE(actuator->IsOn(c)); }
+TEST_F(NullActuatorTest, IsOffReturnsTrue) { EXPECT_TRUE(actuator->IsOff(c)); }
 
-TEST_F(NullActuatorTest, ActuatorOnCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOnCommand(c));
+TEST_F(NullActuatorTest, TurnOnHasNoEffect) {
+  actuator->TurnOn(c);
+
+  EXPECT_TRUE(actuator->IsOff(c));
 }
 
-TEST_F(NullActuatorTest, ActuatorOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorOffCommand(c));
-}
+TEST_F(NullActuatorTest, TurnOffHasNoEffect) { actuator->TurnOff(c); }
 
-TEST_F(NullActuatorTest, ActuatorForceOffCommandReturnsNullCommand) {
-  EXPECT_EQ(nullCommand->GetInstance(), actuator->ActuatorForceOffCommand(c));
-}
+TEST_F(NullActuatorTest, ForceTurnOffHasNoEffect) { actuator->ForceTurnOff(c); }
