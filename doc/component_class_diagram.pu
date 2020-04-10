@@ -13,7 +13,7 @@ package Golem {
 
         interface ComponentFactory {
             + Delete(ComponentFactory*)
-            + Make(ComponentFactory, int): Component
+            + Make(ComponentFactory, const char*, int): Component
         }
 
         interface ComponentCommandFactory {
