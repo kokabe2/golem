@@ -4,11 +4,12 @@
 
 static void Delete(ComponentFactory* self) { (*self)->Delete(self); }
 
-static Component Make(ComponentFactory self, int id) { return self->Make(self, id); }
+static Component Make(ComponentFactory self, const char* component_name, int id) {
+  return self->Make(self, component_name, id);
+}
 
 static const ComponentFactoryInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Make = Make,
+    .Delete = Delete, .Make = Make,
 };
 
 const ComponentFactoryInterface componentFactory = &kTheInterface;
