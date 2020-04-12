@@ -18,10 +18,10 @@ package Golem {
 
         interface ComponentCommandFactory {
             + Delete(ComponentCommandFactory*)
-            + MakeActuatorOnCommand(ComponentCommandFactory, Component): Command
-            + MakeActuatorOffCommand(ComponentCommandFactory, Component): Command
-            + MakeActuatorForceOffCommand(ComponentCommandFactory, Component): Command
-            + MMakePulseMotorStopCommandake(ComponentCommandFactory, Component, int): Command
+            + MakeActuatorOnCommand(ComponentCommandFactory, Component, Command): Command
+            + MakeActuatorOffCommand(ComponentCommandFactory, Component, Command): Command
+            + MakeActuatorForceOffCommand(ComponentCommandFactory, Component, Command): Command
+            + MMakePulseMotorStopCommandake(ComponentCommandFactory, Component, int, Command): Command
             + MakePulseMotorWatchCommand(ComponentCommandFactory, Component, int, Command): Command
             + MakeSensorWatchCommand(ComponentCommandFactory, Component, const char*, Command): Command
         }
