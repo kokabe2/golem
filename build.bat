@@ -29,6 +29,10 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/displays/seven_segment_displays/seven_segment_display.c ^
            src/displays/display.c ^
            src/displays/null_display.c ^
+           src/scripts/command_script_handle.c ^
+           src/scripts/command_script.c ^
+           src/scripts/script_runner.c ^
+           src/scripts/script.c ^
            src/sensors/microswitches/microswitch.c ^
            src/sensors/microswitches/null_microswitch.c ^
            src/sensors/photosensors/null_photosensor.c ^
