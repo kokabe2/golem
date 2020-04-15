@@ -26,6 +26,8 @@ add_library(
     displays/seven_segment_displays/seven_segment_display.c
     displays/display.c
     displays/null_display.c
+    scripts/command_script_handle.c
+    scripts/command_script.c
     scripts/script_runner.c
     scripts/script.c
     sensors/microswitches/microswitch.c
@@ -64,6 +66,8 @@ add_executable(
     displays/leds/null_led_test.cpp
     displays/seven_segment_displays/null_seven_segment_display_test.cpp
     displays/null_display_test.cpp
+    scripts/command_script_handle_spy.c
+    scripts/command_script_test.cpp
     scripts/script_runner_test.cpp
     scripts/script_spy.c
     scripts/script_test.cpp
