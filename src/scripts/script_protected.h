@@ -1,7 +1,7 @@
 ﻿// Copyright(c) 2020 Ken Okabe
 // This software is released under the MIT License, see LICENSE.
-#ifndef V1_SCRIPT_PROTECTED_H_
-#define V1_SCRIPT_PROTECTED_H_
+#ifndef SRC_SCRIPTS_SCRIPT_PROTECTED_H_
+#define SRC_SCRIPTS_SCRIPT_PROTECTED_H_
 
 #include "script.h"
 
@@ -13,4 +13,4 @@ typedef struct ScriptStruct {
   int error_code;
 } ScriptStruct;
 
-#endif  // V1_SCRIPT_PROTECTED_H_
+#endif  // SRC_SCRIPTS_SCRIPT_PROTECTED_H_
