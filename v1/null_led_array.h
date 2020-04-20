@@ -6,7 +6,7 @@
 #include "led_array.h"
 
 typedef struct {
-  Component (*GetInstance)(void);  //
+  LedArray (*GetInstance)(void);  //
 } NullLedArrayMethodStruct;
 typedef const NullLedArrayMethodStruct* NullLedArrayMethod;
 

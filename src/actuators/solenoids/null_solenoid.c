@@ -4,34 +4,36 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Solenoid INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Solenoid* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Solenoid self) { return ~0; }
 
-static bool True(Component self) { return true; }
+static const char* EmptyString(Solenoid self) { return ""; }
 
-static void NoEffect(Component self) {}
+static bool True(Solenoid self) { return true; }
 
-static const SolenoidInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsUnlocked = True,
-    .Lock = NoEffect,
-    .Unlock = NoEffect,
-    .ForceUnlock = NoEffect,
-};
+static void NoEffect(Solenoid self) {}
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Solenoid New(void) {
+  Solenoid self = heap->New(sizeof(SolenoidInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsUnlocked = True;
+  self->Lock = NoEffect;
+  self->Unlock = NoEffect;
+  self->ForceUnlock = NoEffect;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Solenoid GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullSolenoidMethodStruct kTheMethod = {

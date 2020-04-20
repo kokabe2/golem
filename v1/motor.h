@@ -3,26 +3,22 @@
 #ifndef V1_MOTOR_H_
 #define V1_MOTOR_H_
 
-#include <stdbool.h>
+#include "actuator.h"
 
-#include "component.h"
-
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsStopped)(Component self);
-  void (*Run)(Component self);
-  void (*Stop)(Component self);
-  void (*ForceStop)(Component self);
-  const char* (*GetDirection)(Component self);
-  void (*SetDirection)(Component self, const char* direction);
-  int (*GetSpeed)(Component self);
-  void (*SetSpeed)(Component self, int rpm);
+typedef struct MotorInterfaceStruct* Motor;
+typedef struct MotorInterfaceStruct {
+  void (*Delete)(Motor* self);
+  int (*Id)(Motor self);
+  const char* (*Tag)(Motor self);
+  const char* (*State)(Motor self);
+  bool (*IsStopped)(Motor self);
+  void (*Run)(Motor self);
+  void (*Stop)(Motor self);
+  void (*ForceStop)(Motor self);
+  const char* (*GetDirection)(Motor self);
+  void (*SetDirection)(Motor self, const char* direction);
+  int (*GetSpeed)(Motor self);
+  void (*SetSpeed)(Motor self, int rpm);
 } MotorInterfaceStruct;
-typedef const MotorInterfaceStruct* MotorInterface;
-
-extern const MotorInterface motor;
 
 #endif  // V1_MOTOR_H_

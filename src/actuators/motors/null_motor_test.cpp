@@ -8,43 +8,43 @@ extern "C" {
 
 class NullMotorTest : public ::testing::Test {
  protected:
-  Component c;
+  Motor motor;
 
-  virtual void SetUp() { c = nullMotor->GetInstance(); }
+  virtual void SetUp() { motor = nullMotor->GetInstance(); }
 
-  virtual void TearDown() { motor->Delete(&c); }
+  virtual void TearDown() { motor->Delete(&motor); }
 };
 
-TEST_F(NullMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, motor->Id(c)); }
+TEST_F(NullMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, motor->Id(motor)); }
 
-TEST_F(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(c)); }
+TEST_F(NullMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(motor)); }
 
-TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(c)); }
+TEST_F(NullMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(motor)); }
 
-TEST_F(NullMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(motor->IsStopped(c)); }
+TEST_F(NullMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(motor->IsStopped(motor)); }
 
 TEST_F(NullMotorTest, RunHasNoEffect) {
-  motor->Run(c);
+  motor->Run(motor);
 
-  EXPECT_TRUE(motor->IsStopped(c));
+  EXPECT_TRUE(motor->IsStopped(motor));
 }
 
-TEST_F(NullMotorTest, StopHasNoEffect) { motor->Stop(c); }
+TEST_F(NullMotorTest, StopHasNoEffect) { motor->Stop(motor); }
 
-TEST_F(NullMotorTest, ForceStopHasNoEffect) { motor->ForceStop(c); }
+TEST_F(NullMotorTest, ForceStopHasNoEffect) { motor->ForceStop(motor); }
 
-TEST_F(NullMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(c)); }
+TEST_F(NullMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(motor)); }
 
 TEST_F(NullMotorTest, SetDirectionHasNoEffect) {
-  motor->SetDirection(c, "CW");
+  motor->SetDirection(motor, "CW");
 
-  EXPECT_STREQ("", motor->GetDirection(c));
+  EXPECT_STREQ("", motor->GetDirection(motor));
 }
 
-TEST_F(NullMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, motor->GetSpeed(c)); }
+TEST_F(NullMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, motor->GetSpeed(motor)); }
 
 TEST_F(NullMotorTest, SetSpeedHasNoEffect) {
-  motor->SetSpeed(c, 100);
+  motor->SetSpeed(motor, 100);
 
-  EXPECT_EQ(0, motor->GetSpeed(c));
+  EXPECT_EQ(0, motor->GetSpeed(motor));
 }

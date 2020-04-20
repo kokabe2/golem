@@ -8,19 +8,19 @@ extern "C" {
 
 class NullPhotosensorTest : public ::testing::Test {
  protected:
-  Component c;
+  Photosensor photosensor;
 
-  virtual void SetUp() { c = nullPhotosensor->GetInstance(); }
+  virtual void SetUp() { photosensor = nullPhotosensor->GetInstance(); }
 
-  virtual void TearDown() { photosensor->Delete(&c); }
+  virtual void TearDown() { photosensor->Delete(&photosensor); }
 };
 
-TEST_F(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, photosensor->Id(c)); }
+TEST_F(NullPhotosensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, photosensor->Id(photosensor)); }
 
-TEST_F(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", photosensor->Tag(c)); }
+TEST_F(NullPhotosensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", photosensor->Tag(photosensor)); }
 
-TEST_F(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", photosensor->State(c)); }
+TEST_F(NullPhotosensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", photosensor->State(photosensor)); }
 
-TEST_F(NullPhotosensorTest, IsLightStateReturnsFalse) { EXPECT_FALSE(photosensor->IsLight(c)); }
+TEST_F(NullPhotosensorTest, IsLightStateReturnsFalse) { EXPECT_FALSE(photosensor->IsLight(photosensor)); }
 
-TEST_F(NullPhotosensorTest, IsDarkStateReturnsFalse) { EXPECT_FALSE(photosensor->IsDark(c)); }
+TEST_F(NullPhotosensorTest, IsDarkStateReturnsFalse) { EXPECT_FALSE(photosensor->IsDark(photosensor)); }

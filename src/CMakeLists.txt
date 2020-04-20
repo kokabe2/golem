@@ -8,31 +8,17 @@ include_directories(
 add_library(
     golem
     actuators/motors/pulse_motors/null_pulse_motor.c
-    actuators/motors/pulse_motors/pulse_motor.c
-    actuators/motors/motor.c
     actuators/motors/null_motor.c
     actuators/solenoids/null_solenoid.c
-    actuators/solenoids/solenoid.c
-    actuators/actuator.c
     actuators/null_actuator.c
-    displays/leds/led_arrays/led_array.c
     displays/leds/led_arrays/null_led_array.c
-    displays/leds/led.c
     displays/leds/null_led.c
     displays/seven_segment_displays/null_seven_segment_display.c
-    displays/seven_segment_displays/seven_segment_display.c
-    displays/display.c
     displays/null_display.c
-    sensors/microswitches/microswitch.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
-    sensors/photosensors/photosensor.c
     sensors/temperature_sensors/null_temperature_sensor.c
-    sensors/temperature_sensors/temperature_sensor.c
     sensors/null_sensor.c
-    sensors/sensor.c
-    component_factory.c
-    component.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
     )

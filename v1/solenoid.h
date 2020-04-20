@@ -3,22 +3,18 @@
 #ifndef V1_SOLENOID_H_
 #define V1_SOLENOID_H_
 
-#include <stdbool.h>
+#include "actuator.h"
 
-#include "component.h"
-
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsUnlocked)(Component self);
-  void (*Lock)(Component self);
-  void (*Unlock)(Component self);
-  void (*ForceUnlock)(Component self);
+typedef struct SolenoidInterfaceStruct* Solenoid;
+typedef struct SolenoidInterfaceStruct {
+  void (*Delete)(Solenoid* self);
+  int (*Id)(Solenoid self);
+  const char* (*Tag)(Solenoid self);
+  const char* (*State)(Solenoid self);
+  bool (*IsUnlocked)(Solenoid self);
+  void (*Lock)(Solenoid self);
+  void (*Unlock)(Solenoid self);
+  void (*ForceUnlock)(Solenoid self);
 } SolenoidInterfaceStruct;
-typedef const SolenoidInterfaceStruct* SolenoidInterface;
-
-extern const SolenoidInterface solenoid;
 
 #endif  // V1_SOLENOID_H_

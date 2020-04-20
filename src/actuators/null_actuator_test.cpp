@@ -8,27 +8,27 @@ extern "C" {
 
 class NullActuatorTest : public ::testing::Test {
  protected:
-  Component c;
+  Actuator actuator;
 
-  virtual void SetUp() { c = nullActuator->GetInstance(); }
+  virtual void SetUp() { actuator = nullActuator->GetInstance(); }
 
-  virtual void TearDown() { actuator->Delete(&c); }
+  virtual void TearDown() { actuator->Delete(&actuator); }
 };
 
-TEST_F(NullActuatorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, actuator->Id(c)); }
+TEST_F(NullActuatorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, actuator->Id(actuator)); }
 
-TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag(c)); }
+TEST_F(NullActuatorTest, TagReturnsEmptyString) { EXPECT_STREQ("", actuator->Tag(actuator)); }
 
-TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(c)); }
+TEST_F(NullActuatorTest, StateReturnsEmptyString) { EXPECT_STREQ("", actuator->State(actuator)); }
 
-TEST_F(NullActuatorTest, IsOffReturnsTrue) { EXPECT_TRUE(actuator->IsOff(c)); }
+TEST_F(NullActuatorTest, IsOffReturnsTrue) { EXPECT_TRUE(actuator->IsOff(actuator)); }
 
 TEST_F(NullActuatorTest, TurnOnHasNoEffect) {
-  actuator->TurnOn(c);
+  actuator->TurnOn(actuator);
 
-  EXPECT_TRUE(actuator->IsOff(c));
+  EXPECT_TRUE(actuator->IsOff(actuator));
 }
 
-TEST_F(NullActuatorTest, TurnOffHasNoEffect) { actuator->TurnOff(c); }
+TEST_F(NullActuatorTest, TurnOffHasNoEffect) { actuator->TurnOff(actuator); }
 
-TEST_F(NullActuatorTest, ForceTurnOffHasNoEffect) { actuator->ForceTurnOff(c); }
+TEST_F(NullActuatorTest, ForceTurnOffHasNoEffect) { actuator->ForceTurnOff(actuator); }

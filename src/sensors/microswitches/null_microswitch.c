@@ -4,30 +4,32 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Microswitch INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Microswitch* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Microswitch self) { return ~0; }
 
-static bool False(Component self) { return false; }
+static const char* EmptyString(Microswitch self) { return ""; }
 
-static const MicroswitchInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsOff = False,
-    .IsOn = False,
-};
+static bool False(Microswitch self) { return false; }
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Microswitch New(void) {
+  Microswitch self = heap->New(sizeof(MicroswitchInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsOff = False;
+  self->IsOn = False;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Microswitch GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullMicroswitchMethodStruct kTheMethod = {

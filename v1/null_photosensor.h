@@ -6,7 +6,7 @@
 #include "photosensor.h"
 
 typedef struct {
-  Component (*GetInstance)(void);  //
+  Photosensor (*GetInstance)(void);  //
 } NullPhotosensorMethodStruct;
 typedef const NullPhotosensorMethodStruct* NullPhotosensorMethod;
 

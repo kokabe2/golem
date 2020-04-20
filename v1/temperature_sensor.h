@@ -3,19 +3,15 @@
 #ifndef V1_TEMPERATURE_SENSOR_H_
 #define V1_TEMPERATURE_SENSOR_H_
 
-#include <stdbool.h>
+#include "sensor.h"
 
-#include "component.h"
-
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsNormal)(Component self);
+typedef struct TemperatureSensorInterfaceStruct* TemperatureSensor;
+typedef struct TemperatureSensorInterfaceStruct {
+  void (*Delete)(TemperatureSensor* self);
+  int (*Id)(TemperatureSensor self);
+  const char* (*Tag)(TemperatureSensor self);
+  const char* (*State)(TemperatureSensor self);
+  bool (*IsNormal)(TemperatureSensor self);
 } TemperatureSensorInterfaceStruct;
-typedef const TemperatureSensorInterfaceStruct* TemperatureSensorInterface;
-
-extern const TemperatureSensorInterface temperatureSensor;
 
 #endif  // V1_TEMPERATURE_SENSOR_H_

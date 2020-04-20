@@ -3,31 +3,27 @@
 #ifndef V1_PULSE_MOTOR_H_
 #define V1_PULSE_MOTOR_H_
 
-#include <stdbool.h>
+#include "motor.h"
 
-#include "component.h"
-
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsStopped)(Component self);
-  void (*Run)(Component self);
-  void (*Stop)(Component self);
-  void (*ForceStop)(Component self);
-  const char* (*GetDirection)(Component self);
-  void (*SetDirection)(Component self, const char* direction);
-  int (*GetSpeed)(Component self);
-  void (*SetSpeed)(Component self, int rpm);
-  const char* (*GetMode)(Component self);
-  void (*SelectMode)(Component self, const char* mode);
-  int (*GetPulseRate)(Component self);
-  void (*SetPulseRate)(Component self, int pps);
-  int (*GetPosition)(Component self);
+typedef struct PulseMotorInterfaceStruct* PulseMotor;
+typedef struct PulseMotorInterfaceStruct {
+  void (*Delete)(PulseMotor* self);
+  int (*Id)(PulseMotor self);
+  const char* (*Tag)(PulseMotor self);
+  const char* (*State)(PulseMotor self);
+  bool (*IsStopped)(PulseMotor self);
+  void (*Run)(PulseMotor self);
+  void (*Stop)(PulseMotor self);
+  void (*ForceStop)(PulseMotor self);
+  const char* (*GetDirection)(PulseMotor self);
+  void (*SetDirection)(PulseMotor self, const char* direction);
+  int (*GetSpeed)(PulseMotor self);
+  void (*SetSpeed)(PulseMotor self, int rpm);
+  const char* (*GetMode)(PulseMotor self);
+  void (*SelectMode)(PulseMotor self, const char* mode);
+  int (*GetPulseRate)(PulseMotor self);
+  void (*SetPulseRate)(PulseMotor self, int pps);
+  int (*GetPosition)(PulseMotor self);
 } PulseMotorInterfaceStruct;
-typedef const PulseMotorInterfaceStruct* PulseMotorInterface;
-
-extern const PulseMotorInterface pulseMotor;
 
 #endif  // V1_PULSE_MOTOR_H_

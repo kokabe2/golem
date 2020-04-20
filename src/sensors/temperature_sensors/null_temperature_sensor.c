@@ -4,29 +4,31 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static TemperatureSensor INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(TemperatureSensor* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(TemperatureSensor self) { return ~0; }
 
-static bool False(Component self) { return false; }
+static const char* EmptyString(TemperatureSensor self) { return ""; }
 
-static const TemperatureSensorInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsNormal = False,
-};
+static bool False(TemperatureSensor self) { return false; }
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static TemperatureSensor New(void) {
+  TemperatureSensor self = heap->New(sizeof(TemperatureSensorInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsNormal = False;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static TemperatureSensor GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullTemperatureSensorMethodStruct kTheMethod = {

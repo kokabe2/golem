@@ -9,8 +9,5 @@ typedef struct ComponentInterfaceStruct {
   int (*Id)(Component self);
   const char* (*Tag)(Component self);
 } ComponentInterfaceStruct;
-typedef const ComponentInterfaceStruct* ComponentInterface;
-
-extern const ComponentInterface component;
 
 #endif  // V1_COMPONENT_H_

@@ -8,61 +8,61 @@ extern "C" {
 
 class NullPulseMotorTest : public ::testing::Test {
  protected:
-  Component c;
+  PulseMotor motor;
 
-  virtual void SetUp() { c = nullPulseMotor->GetInstance(); }
+  virtual void SetUp() { motor = nullPulseMotor->GetInstance(); }
 
-  virtual void TearDown() { pulseMotor->Delete(&c); }
+  virtual void TearDown() { motor->Delete(&motor); }
 };
 
-TEST_F(NullPulseMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, pulseMotor->Id(c)); }
+TEST_F(NullPulseMotorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, motor->Id(motor)); }
 
-TEST_F(NullPulseMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->Tag(c)); }
+TEST_F(NullPulseMotorTest, TagReturnsEmptyString) { EXPECT_STREQ("", motor->Tag(motor)); }
 
-TEST_F(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->State(c)); }
+TEST_F(NullPulseMotorTest, StateReturnsEmptyString) { EXPECT_STREQ("", motor->State(motor)); }
 
-TEST_F(NullPulseMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(pulseMotor->IsStopped(c)); }
+TEST_F(NullPulseMotorTest, IsStoppedReturnsTrue) { EXPECT_TRUE(motor->IsStopped(motor)); }
 
 TEST_F(NullPulseMotorTest, RunHasNoEffect) {
-  pulseMotor->Run(c);
+  motor->Run(motor);
 
-  EXPECT_TRUE(pulseMotor->IsStopped(c));
+  EXPECT_TRUE(motor->IsStopped(motor));
 }
 
-TEST_F(NullPulseMotorTest, StopHasNoEffect) { pulseMotor->Stop(c); }
+TEST_F(NullPulseMotorTest, StopHasNoEffect) { motor->Stop(motor); }
 
-TEST_F(NullPulseMotorTest, ForceStopHasNoEffect) { pulseMotor->ForceStop(c); }
+TEST_F(NullPulseMotorTest, ForceStopHasNoEffect) { motor->ForceStop(motor); }
 
-TEST_F(NullPulseMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetDirection(c)); }
+TEST_F(NullPulseMotorTest, GetDirectionReturnsEmptyString) { EXPECT_STREQ("", motor->GetDirection(motor)); }
 
 TEST_F(NullPulseMotorTest, SetDirectionHasNoEffect) {
-  pulseMotor->SetDirection(c, "CW");
+  motor->SetDirection(motor, "CW");
 
-  EXPECT_STREQ("", pulseMotor->GetDirection(c));
+  EXPECT_STREQ("", motor->GetDirection(motor));
 }
 
-TEST_F(NullPulseMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, pulseMotor->GetSpeed(c)); }
+TEST_F(NullPulseMotorTest, GetSpeedReturnsZero) { EXPECT_EQ(0, motor->GetSpeed(motor)); }
 
 TEST_F(NullPulseMotorTest, SetSpeedHasNoEffect) {
-  pulseMotor->SetSpeed(c, 100);
+  motor->SetSpeed(motor, 100);
 
-  EXPECT_EQ(0, pulseMotor->GetSpeed(c));
+  EXPECT_EQ(0, motor->GetSpeed(motor));
 }
 
-TEST_F(NullPulseMotorTest, GetModeReturnsEmptyString) { EXPECT_STREQ("", pulseMotor->GetMode(c)); }
+TEST_F(NullPulseMotorTest, GetModeReturnsEmptyString) { EXPECT_STREQ("", motor->GetMode(motor)); }
 
 TEST_F(NullPulseMotorTest, SelectModeHasNoEffect) {
-  pulseMotor->SelectMode(c, "CW");
+  motor->SelectMode(motor, "CW");
 
-  EXPECT_STREQ("", pulseMotor->GetMode(c));
+  EXPECT_STREQ("", motor->GetMode(motor));
 }
 
-TEST_F(NullPulseMotorTest, GetPulseRateReturnsZero) { EXPECT_EQ(0, pulseMotor->GetPulseRate(c)); }
+TEST_F(NullPulseMotorTest, GetPulseRateReturnsZero) { EXPECT_EQ(0, motor->GetPulseRate(motor)); }
 
 TEST_F(NullPulseMotorTest, SetPulseRateHasNoEffect) {
-  pulseMotor->SetPulseRate(c, 100);
+  motor->SetPulseRate(motor, 100);
 
-  EXPECT_EQ(0, pulseMotor->GetPulseRate(c));
+  EXPECT_EQ(0, motor->GetPulseRate(motor));
 }
 
-TEST_F(NullPulseMotorTest, GetPositionReturnsZero) { EXPECT_EQ(0, pulseMotor->GetPosition(c)); }
+TEST_F(NullPulseMotorTest, GetPositionReturnsZero) { EXPECT_EQ(0, motor->GetPosition(motor)); }

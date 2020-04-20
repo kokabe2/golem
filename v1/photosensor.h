@@ -3,20 +3,16 @@
 #ifndef V1_PHOTOSENSOR_H_
 #define V1_PHOTOSENSOR_H_
 
-#include <stdbool.h>
+#include "sensor.h"
 
-#include "component.h"
-
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsLight)(Component self);
-  bool (*IsDark)(Component self);
+typedef struct PhotosensorInterfaceStruct* Photosensor;
+typedef struct PhotosensorInterfaceStruct {
+  void (*Delete)(Photosensor* self);
+  int (*Id)(Photosensor self);
+  const char* (*Tag)(Photosensor self);
+  const char* (*State)(Photosensor self);
+  bool (*IsLight)(Photosensor self);
+  bool (*IsDark)(Photosensor self);
 } PhotosensorInterfaceStruct;
-typedef const PhotosensorInterfaceStruct* PhotosensorInterface;
-
-extern const PhotosensorInterface photosensor;
 
 #endif  // V1_PHOTOSENSOR_H_
