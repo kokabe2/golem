@@ -5,19 +5,17 @@
 
 #include <stdbool.h>
 
-#include "component.h"
+#include "display.h"
 
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  void (*TurnOff)(Component self);
-  void (*TurnOn)(Component self);
-  bool (*IsOff)(Component self);
-  bool (*IsOn)(Component self);
+typedef struct LedInterfaceStruct* Led;
+typedef struct LedInterfaceStruct {
+  void (*Delete)(Led* self);
+  int (*Id)(Led self);
+  const char* (*Tag)(Led self);
+  void (*TurnOff)(Led self);
+  void (*TurnOn)(Led self);
+  bool (*IsOff)(Led self);
+  bool (*IsOn)(Led self);
 } LedInterfaceStruct;
-typedef const LedInterfaceStruct* LedInterface;
-
-extern const LedInterface led;
 
 #endif  // V1_LED_H_

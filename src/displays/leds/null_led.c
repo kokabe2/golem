@@ -4,33 +4,35 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Led INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Led* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Led self) { return ~0; }
 
-static void NoEffect(Component self) {}
+static const char* EmptyString(Led self) { return ""; }
 
-static bool False(Component self) { return false; }
+static void NoEffect(Led self) {}
 
-static const LedInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .TurnOff = NoEffect,
-    .TurnOn = NoEffect,
-    .IsOff = False,
-    .IsOn = False,
-};
+static bool False(Led self) { return false; }
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Led New(void) {
+  Led self = heap->New(sizeof(LedInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->TurnOff = NoEffect;
+  self->TurnOn = NoEffect;
+  self->IsOff = False;
+  self->IsOn = False;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Led GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullLedMethodStruct kTheMethod = {

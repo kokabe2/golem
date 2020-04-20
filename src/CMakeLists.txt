@@ -17,7 +17,6 @@ add_library(
     actuators/null_actuator.c
     displays/leds/led_arrays/led_array.c
     displays/leds/led_arrays/null_led_array.c
-    displays/leds/led.c
     displays/leds/null_led.c
     displays/seven_segment_displays/null_seven_segment_display.c
     displays/seven_segment_displays/seven_segment_display.c
