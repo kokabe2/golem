@@ -16,13 +16,6 @@ static const char* EmptyString(Display self) { return ""; }
 
 static void NoEffect(Display self) {}
 
-static const DisplayInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .Reset = NoEffect,
-};
-
 inline static Display New(void) {
   Display self = heap->New(sizeof(DisplayInterfaceStruct));
   self->Delete = Delete;
