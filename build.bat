@@ -18,9 +18,6 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/actuators/solenoids/solenoid.c ^
            src/actuators/actuator.c ^
            src/actuators/null_actuator.c ^
-           src/commands/error_command.c ^
-           src/commands/null_command.c ^
-           src/commands/sleep_command.c ^
            src/displays/leds/led_arrays/null_led_array.c ^
            src/displays/leds/led_arrays/led_array.c ^
            src/displays/leds/led.c ^
@@ -29,10 +26,6 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/displays/seven_segment_displays/seven_segment_display.c ^
            src/displays/display.c ^
            src/displays/null_display.c ^
-           src/scripts/command_script_handle.c ^
-           src/scripts/command_script.c ^
-           src/scripts/script_runner.c ^
-           src/scripts/script.c ^
            src/sensors/microswitches/microswitch.c ^
            src/sensors/microswitches/null_microswitch.c ^
            src/sensors/photosensors/null_photosensor.c ^
@@ -41,11 +34,6 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/temperature_sensors/temperature_sensor.c ^
            src/sensors/null_sensor.c ^
            src/sensors/sensor.c ^
-           src/util/active_object_engine_task.c ^
-           src/util/active_object_engine.c ^
-           src/util/simple_active_object_engine.c ^
-           src/command.c ^
-           src/component_command_factory.c ^
            src/component_factory.c ^
            src/component.c
 if %errorlevel% neq 0 exit /b
