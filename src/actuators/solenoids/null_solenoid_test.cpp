@@ -8,27 +8,27 @@ extern "C" {
 
 class NullSolenoidTest : public ::testing::Test {
  protected:
-  Component c;
+  Solenoid solenoid;
 
-  virtual void SetUp() { c = nullSolenoid->GetInstance(); }
+  virtual void SetUp() { solenoid = nullSolenoid->GetInstance(); }
 
-  virtual void TearDown() { solenoid->Delete(&c); }
+  virtual void TearDown() { solenoid->Delete(&solenoid); }
 };
 
-TEST_F(NullSolenoidTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, solenoid->Id(c)); }
+TEST_F(NullSolenoidTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, solenoid->Id(solenoid)); }
 
-TEST_F(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", solenoid->Tag(c)); }
+TEST_F(NullSolenoidTest, TagReturnsEmptyString) { EXPECT_STREQ("", solenoid->Tag(solenoid)); }
 
-TEST_F(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", solenoid->State(c)); }
+TEST_F(NullSolenoidTest, StateReturnsEmptyString) { EXPECT_STREQ("", solenoid->State(solenoid)); }
 
-TEST_F(NullSolenoidTest, IsUnlockedReturnsTrue) { EXPECT_TRUE(solenoid->IsUnlocked(c)); }
+TEST_F(NullSolenoidTest, IsUnlockedReturnsTrue) { EXPECT_TRUE(solenoid->IsUnlocked(solenoid)); }
 
 TEST_F(NullSolenoidTest, LockHasNoEffect) {
-  solenoid->Lock(c);
+  solenoid->Lock(solenoid);
 
-  EXPECT_TRUE(solenoid->IsUnlocked(c));
+  EXPECT_TRUE(solenoid->IsUnlocked(solenoid));
 }
 
-TEST_F(NullSolenoidTest, UnlockHasNoEffect) { solenoid->Unlock(c); }
+TEST_F(NullSolenoidTest, UnlockHasNoEffect) { solenoid->Unlock(solenoid); }
 
-TEST_F(NullSolenoidTest, ForceUnlockHasNoEffect) { solenoid->ForceUnlock(c); }
+TEST_F(NullSolenoidTest, ForceUnlockHasNoEffect) { solenoid->ForceUnlock(solenoid); }
