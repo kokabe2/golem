@@ -25,7 +25,6 @@ add_library(
     displays/null_display.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
-    sensors/photosensors/photosensor.c
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/temperature_sensors/temperature_sensor.c
     sensors/null_sensor.c

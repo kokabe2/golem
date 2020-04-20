@@ -4,30 +4,32 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Photosensor INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Photosensor* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Photosensor self) { return ~0; }
 
-static bool False(Component self) { return false; }
+static const char* EmptyString(Photosensor self) { return ""; }
 
-static const PhotosensorInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsLight = False,
-    .IsDark = False,
-};
+static bool False(Photosensor self) { return false; }
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Photosensor New(void) {
+  Photosensor self = heap->New(sizeof(PhotosensorInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsLight = False;
+  self->IsDark = False;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Photosensor GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullPhotosensorMethodStruct kTheMethod = {
