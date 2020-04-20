@@ -5,14 +5,12 @@
 
 #include "component.h"
 
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  void (*Reset)(Component self);
+typedef struct DisplayInterfaceStruct* Display;
+typedef struct DisplayInterfaceStruct {
+  void (*Delete)(Display* self);
+  int (*Id)(Display self);
+  const char* (*Tag)(Display self);
+  void (*Reset)(Display self);
 } DisplayInterfaceStruct;
-typedef const DisplayInterfaceStruct* DisplayInterface;
-
-extern const DisplayInterface display;
 
 #endif  // V1_DISPLAY_H_

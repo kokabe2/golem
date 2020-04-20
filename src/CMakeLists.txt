@@ -21,7 +21,6 @@ add_library(
     displays/leds/null_led.c
     displays/seven_segment_displays/null_seven_segment_display.c
     displays/seven_segment_displays/seven_segment_display.c
-    displays/display.c
     displays/null_display.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c

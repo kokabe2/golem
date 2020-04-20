@@ -4,15 +4,17 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Display INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Display* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Display self) { return ~0; }
 
-static void NoEffect(Component self) {}
+static const char* EmptyString(Display self) { return ""; }
+
+static void NoEffect(Display self) {}
 
 static const DisplayInterfaceStruct kTheInterface = {
     .Delete = Delete,
@@ -21,11 +23,18 @@ static const DisplayInterfaceStruct kTheInterface = {
     .Reset = NoEffect,
 };
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Display New(void) {
+  Display self = heap->New(sizeof(DisplayInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->Reset = NoEffect;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Display GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullDisplayMethodStruct kTheMethod = {
