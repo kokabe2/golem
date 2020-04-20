@@ -4,6 +4,3 @@
 [submodule "external/bleu"]
 	path = external/bleu
 	url = https://gitlab.com/kokabe/bleu.git
-[submodule "external/malkt"]
-	path = external/malkt
-	url = https://gitlab.com/kokabe/malkt.git

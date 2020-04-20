@@ -2,6 +2,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/v1
     ${PROJECT_SOURCE_DIR}/external
     ${PROJECT_SOURCE_DIR}/external/bleu/v1
+    ${PROJECT_SOURCE_DIR}/external/bleu/src
     ${PROJECT_SOURCE_DIR}/external/malkt/v1
     )
 
