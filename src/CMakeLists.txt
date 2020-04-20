@@ -13,7 +13,6 @@ add_library(
     actuators/motors/null_motor.c
     actuators/solenoids/null_solenoid.c
     actuators/solenoids/solenoid.c
-    actuators/actuator.c
     actuators/null_actuator.c
     displays/leds/led_arrays/null_led_array.c
     displays/leds/null_led.c

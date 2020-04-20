@@ -16,7 +16,6 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/actuators/motors/null_motor.c ^
            src/actuators/solenoids/null_solenoid.c ^
            src/actuators/solenoids/solenoid.c ^
-           src/actuators/actuator.c ^
            src/actuators/null_actuator.c ^
            src/displays/leds/led_arrays/null_led_array.c ^
            src/displays/leds/null_led.c ^

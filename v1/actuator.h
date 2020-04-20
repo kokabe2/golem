@@ -7,18 +7,16 @@
 
 #include "component.h"
 
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsOff)(Component self);
-  void (*TurnOn)(Component self);
-  void (*TurnOff)(Component self);
-  void (*ForceTurnOff)(Component self);
+typedef struct ActuatorInterfaceStruct* Actuator;
+typedef struct ActuatorInterfaceStruct {
+  void (*Delete)(Actuator* self);
+  int (*Id)(Actuator self);
+  const char* (*Tag)(Actuator self);
+  const char* (*State)(Actuator self);
+  bool (*IsOff)(Actuator self);
+  void (*TurnOn)(Actuator self);
+  void (*TurnOff)(Actuator self);
+  void (*ForceTurnOff)(Actuator self);
 } ActuatorInterfaceStruct;
-typedef const ActuatorInterfaceStruct* ActuatorInterface;
-
-extern const ActuatorInterface actuator;
 
 #endif  // V1_ACTUATOR_H_

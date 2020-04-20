@@ -6,7 +6,7 @@
 #include "actuator.h"
 
 typedef struct {
-  Component (*GetInstance)(void);  //
+  Actuator (*GetInstance)(void);  //
 } NullActuatorMethodStruct;
 typedef const NullActuatorMethodStruct* NullActuatorMethod;
 

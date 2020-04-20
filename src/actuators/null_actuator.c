@@ -4,34 +4,36 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Actuator INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Actuator* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Actuator self) { return ~0; }
 
-static bool True(Component self) { return true; }
+static const char* EmptyString(Actuator self) { return ""; }
 
-static void NoEffect(Component self) {}
+static bool True(Actuator self) { return true; }
 
-static const ActuatorInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsOff = True,
-    .TurnOn = NoEffect,
-    .TurnOff = NoEffect,
-    .ForceTurnOff = NoEffect,
-};
+static void NoEffect(Actuator self) {}
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Actuator New(void) {
+  Actuator self = heap->New(sizeof(ActuatorInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsOff = True;
+  self->TurnOn = NoEffect;
+  self->TurnOff = NoEffect;
+  self->ForceTurnOff = NoEffect;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Actuator GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullActuatorMethodStruct kTheMethod = {
