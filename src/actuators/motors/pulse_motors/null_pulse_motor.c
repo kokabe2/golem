@@ -4,49 +4,51 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static PulseMotor INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(PulseMotor* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(PulseMotor self) { return ~0; }
 
-static bool True(Component self) { return true; }
+static const char* EmptyString(PulseMotor self) { return ""; }
 
-static void NoEffect(Component self) {}
+static bool True(PulseMotor self) { return true; }
 
-static void NoEffectWithString(Component self, const char* direction) {}
+static void NoEffect(PulseMotor self) {}
 
-static int Zero(Component self) { return 0; }
+static void NoEffectWithString(PulseMotor self, const char* direction) {}
 
-static void NoEffectWithInt(Component self, int rpm) {}
+static int Zero(PulseMotor self) { return 0; }
 
-static const PulseMotorInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsStopped = True,
-    .Run = NoEffect,
-    .Stop = NoEffect,
-    .ForceStop = NoEffect,
-    .GetDirection = EmptyString,
-    .SetDirection = NoEffectWithString,
-    .GetSpeed = Zero,
-    .SetSpeed = NoEffectWithInt,
-    .GetMode = EmptyString,
-    .SelectMode = NoEffectWithString,
-    .GetPulseRate = Zero,
-    .SetPulseRate = NoEffectWithInt,
-    .GetPosition = Zero,
-};
+static void NoEffectWithInt(PulseMotor self, int rpm) {}
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static PulseMotor New(void) {
+  PulseMotor self = heap->New(sizeof(PulseMotorInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsStopped = True;
+  self->Run = NoEffect;
+  self->Stop = NoEffect;
+  self->ForceStop = NoEffect;
+  self->GetDirection = EmptyString;
+  self->SetDirection = NoEffectWithString;
+  self->GetSpeed = Zero;
+  self->SetSpeed = NoEffectWithInt;
+  self->GetMode = EmptyString;
+  self->SelectMode = NoEffectWithString;
+  self->GetPulseRate = Zero;
+  self->SetPulseRate = NoEffectWithInt;
+  self->GetPosition = Zero;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static PulseMotor GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullPulseMotorMethodStruct kTheMethod = {
