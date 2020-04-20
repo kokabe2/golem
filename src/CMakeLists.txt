@@ -23,7 +23,6 @@ add_library(
     displays/seven_segment_displays/seven_segment_display.c
     displays/display.c
     displays/null_display.c
-    sensors/microswitches/microswitch.c
     sensors/microswitches/null_microswitch.c
     sensors/photosensors/null_photosensor.c
     sensors/photosensors/photosensor.c

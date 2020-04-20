@@ -7,19 +7,19 @@ extern "C" {
 }
 class NullMicroswitchTest : public ::testing::Test {
  protected:
-  Component c;
+  Microswitch microswitch;
 
-  virtual void SetUp() { c = nullMicroswitch->GetInstance(); }
+  virtual void SetUp() { microswitch = nullMicroswitch->GetInstance(); }
 
-  virtual void TearDown() { microswitch->Delete(&c); }
+  virtual void TearDown() { microswitch->Delete(&microswitch); }
 };
 
-TEST_F(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, microswitch->Id(c)); }
+TEST_F(NullMicroswitchTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, microswitch->Id(microswitch)); }
 
-TEST_F(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", microswitch->Tag(c)); }
+TEST_F(NullMicroswitchTest, TagReturnsEmptyString) { EXPECT_STREQ("", microswitch->Tag(microswitch)); }
 
-TEST_F(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", microswitch->State(c)); }
+TEST_F(NullMicroswitchTest, StateReturnsEmptyString) { EXPECT_STREQ("", microswitch->State(microswitch)); }
 
-TEST_F(NullMicroswitchTest, IsOffStateReturnsFalse) { EXPECT_FALSE(microswitch->IsOff(c)); }
+TEST_F(NullMicroswitchTest, IsOffStateReturnsFalse) { EXPECT_FALSE(microswitch->IsOff(microswitch)); }
 
-TEST_F(NullMicroswitchTest, IsOnStateReturnsFalse) { EXPECT_FALSE(microswitch->IsOn(c)); }
+TEST_F(NullMicroswitchTest, IsOnStateReturnsFalse) { EXPECT_FALSE(microswitch->IsOn(microswitch)); }

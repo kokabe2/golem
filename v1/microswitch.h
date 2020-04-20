@@ -3,20 +3,16 @@
 #ifndef V1_MICROSWITCH_H_
 #define V1_MICROSWITCH_H_
 
-#include <stdbool.h>
+#include "sensor.h"
 
-#include "component.h"
-
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsOff)(Component self);
-  bool (*IsOn)(Component self);
+typedef struct MicroswitchInterfaceStruct* Microswitch;
+typedef struct MicroswitchInterfaceStruct {
+  void (*Delete)(Microswitch* self);
+  int (*Id)(Microswitch self);
+  const char* (*Tag)(Microswitch self);
+  const char* (*State)(Microswitch self);
+  bool (*IsOff)(Microswitch self);
+  bool (*IsOn)(Microswitch self);
 } MicroswitchInterfaceStruct;
-typedef const MicroswitchInterfaceStruct* MicroswitchInterface;
-
-extern const MicroswitchInterface microswitch;
 
 #endif  // V1_MICROSWITCH_H_
