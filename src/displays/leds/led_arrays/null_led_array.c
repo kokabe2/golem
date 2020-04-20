@@ -4,41 +4,43 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static LedArray INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(LedArray* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(LedArray self) { return ~0; }
 
-static void NoEffect(Component self) {}
+static const char* EmptyString(LedArray self) { return ""; }
 
-static bool False(Component self) { return false; }
+static void NoEffect(LedArray self) {}
 
-static void NoEffectWithInt(Component self, int led_id) {}
+static bool False(LedArray self) { return false; }
 
-static bool FalseWithInt(Component self, int led_id) { return false; }
+static void NoEffectWithInt(LedArray self, int led_id) {}
 
-static const LedArrayInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .TurnAllOff = NoEffect,
-    .TurnAllOn = NoEffect,
-    .IsAllOff = False,
-    .IsAllOn = False,
-    .TurnOff = NoEffectWithInt,
-    .TurnOn = NoEffectWithInt,
-    .IsOff = FalseWithInt,
-    .IsOn = FalseWithInt,
-};
+static bool FalseWithInt(LedArray self, int led_id) { return false; }
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static LedArray New(void) {
+  LedArray self = heap->New(sizeof(LedArrayInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->TurnAllOff = NoEffect;
+  self->TurnAllOn = NoEffect;
+  self->IsAllOff = False;
+  self->IsAllOn = False;
+  self->TurnOff = NoEffectWithInt;
+  self->TurnOn = NoEffectWithInt;
+  self->IsOff = FalseWithInt;
+  self->IsOn = FalseWithInt;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static LedArray GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullLedArrayMethodStruct kTheMethod = {
