@@ -5,7 +5,6 @@
 
 #include <stdbool.h>
 
-#include "command.h"
 #include "component.h"
 
 typedef struct {

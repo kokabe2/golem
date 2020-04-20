@@ -45,7 +45,3 @@ Golem is an open source library for electromechanical components.
 #### Sensor
 
 ![sensor class diagram](doc/sensor_class_diagram.svg)
-
-#### Command
-
-![command class diagram](doc/command_class_diagram.svg)
