@@ -4,34 +4,36 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static SevenSegmentDisplay INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(SevenSegmentDisplay* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(SevenSegmentDisplay self) { return ~0; }
 
-static void NoEffect(Component self) {}
+static const char* EmptyString(SevenSegmentDisplay self) { return ""; }
 
-static uint8_t Zero(Component self) { return 0; }
+static void NoEffect(SevenSegmentDisplay self) {}
 
-static void NoEffectWithUint8(Component self, uint8_t encoding) {}
+static uint8_t Zero(SevenSegmentDisplay self) { return 0; }
 
-static const SevenSegmentDisplayInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .Clear = NoEffect,
-    .Get = Zero,
-    .Set = NoEffectWithUint8,
-};
+static void NoEffectWithUint8(SevenSegmentDisplay self, uint8_t encoding) {}
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static SevenSegmentDisplay New(void) {
+  SevenSegmentDisplay self = heap->New(sizeof(SevenSegmentDisplayInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->Clear = NoEffect;
+  self->Get = Zero;
+  self->Set = NoEffectWithUint8;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static SevenSegmentDisplay GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullSevenSegmentDisplayMethodStruct kTheMethod = {

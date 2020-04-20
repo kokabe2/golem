@@ -8,27 +8,27 @@ extern "C" {
 
 class NullSevenSegmentDisplayTest : public ::testing::Test {
  protected:
-  Component c;
+  SevenSegmentDisplay display;
 
-  virtual void SetUp() { c = nullSevenSegmentDisplay->GetInstance(); }
+  virtual void SetUp() { display = nullSevenSegmentDisplay->GetInstance(); }
 
-  virtual void TearDown() { sevenSegmentDisplay->Delete(&c); }
+  virtual void TearDown() { display->Delete(&display); }
 };
 
-TEST_F(NullSevenSegmentDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, sevenSegmentDisplay->Id(c)); }
+TEST_F(NullSevenSegmentDisplayTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, display->Id(display)); }
 
-TEST_F(NullSevenSegmentDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", sevenSegmentDisplay->Tag(c)); }
+TEST_F(NullSevenSegmentDisplayTest, TagReturnsEmptyString) { EXPECT_STREQ("", display->Tag(display)); }
 
 TEST_F(NullSevenSegmentDisplayTest, ClearHasNoEffect) {
-  sevenSegmentDisplay->Clear(c);
+  display->Clear(display);
 
   SUCCEED();
 }
 
-TEST_F(NullSevenSegmentDisplayTest, GetReturnsZero) { EXPECT_EQ(0, sevenSegmentDisplay->Get(c)); }
+TEST_F(NullSevenSegmentDisplayTest, GetReturnsZero) { EXPECT_EQ(0, display->Get(display)); }
 
 TEST_F(NullSevenSegmentDisplayTest, SetHasNoEffect) {
-  sevenSegmentDisplay->Set(c, '1');
+  display->Set(display, '1');
 
-  EXPECT_EQ(0, sevenSegmentDisplay->Get(c));
+  EXPECT_EQ(0, display->Get(display));
 }
