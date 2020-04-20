@@ -7,15 +7,13 @@
 
 #include "component.h"
 
-typedef struct {
-  void (*Delete)(Component* self);
-  int (*Id)(Component self);
-  const char* (*Tag)(Component self);
-  const char* (*State)(Component self);
-  bool (*IsDefaultState)(Component self);
+typedef struct SensorInterfaceStruct* Sensor;
+typedef struct SensorInterfaceStruct {
+  void (*Delete)(Sensor* self);
+  int (*Id)(Sensor self);
+  const char* (*Tag)(Sensor self);
+  const char* (*State)(Sensor self);
+  bool (*IsDefaultState)(Sensor self);
 } SensorInterfaceStruct;
-typedef const SensorInterfaceStruct* SensorInterface;
-
-extern const SensorInterface sensor;
 
 #endif  // V1_SENSOR_H_

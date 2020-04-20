@@ -32,9 +32,7 @@ mkdir %OUTPUT_DIR% > NUL 2>&1
            src/sensors/photosensors/photosensor.c ^
            src/sensors/temperature_sensors/null_temperature_sensor.c ^
            src/sensors/temperature_sensors/temperature_sensor.c ^
-           src/sensors/null_sensor.c ^
-           src/sensors/sensor.c ^
-           src/component_factory.c
+           src/sensors/null_sensor.c
 if %errorlevel% neq 0 exit /b
 
 rlink -form=lib -output=%OUTPUT_DIR%/%PROJECT_NAME%.lib *.obj

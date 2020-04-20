@@ -8,17 +8,17 @@ extern "C" {
 
 class NullSensorTest : public ::testing::Test {
  protected:
-  Component c;
+  Sensor s;
 
-  virtual void SetUp() { c = nullSensor->GetInstance(); }
+  virtual void SetUp() { s = nullSensor->GetInstance(); }
 
-  virtual void TearDown() { sensor->Delete(&c); }
+  virtual void TearDown() { s->Delete(&s); }
 };
 
-TEST_F(NullSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, sensor->Id(c)); }
+TEST_F(NullSensorTest, IdReturnsNonsenseValue) { EXPECT_EQ(~0, s->Id(s)); }
 
-TEST_F(NullSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", sensor->Tag(c)); }
+TEST_F(NullSensorTest, TagReturnsEmptyString) { EXPECT_STREQ("", s->Tag(s)); }
 
-TEST_F(NullSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", sensor->State(c)); }
+TEST_F(NullSensorTest, StateReturnsEmptyString) { EXPECT_STREQ("", s->State(s)); }
 
-TEST_F(NullSensorTest, IsDefaultStateReturnsFalse) { EXPECT_FALSE(sensor->IsDefaultState(c)); }
+TEST_F(NullSensorTest, IsDefaultStateReturnsFalse) { EXPECT_FALSE(s->IsDefaultState(s)); }

@@ -30,8 +30,6 @@ add_library(
     sensors/temperature_sensors/null_temperature_sensor.c
     sensors/temperature_sensors/temperature_sensor.c
     sensors/null_sensor.c
-    sensors/sensor.c
-    component_factory.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/gcc/heap.c
     ${PROJECT_SOURCE_DIR}/external/bleu/src/heap/heap_usage.c
     )
