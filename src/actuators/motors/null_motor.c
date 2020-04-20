@@ -4,44 +4,46 @@
 
 #include <stddef.h>
 
-static Component the_instance = NULL;
+#include "bleu/v1/heap.h"
 
-static void Delete(Component* self) {}
+static Motor INSTANCE = NULL;
 
-static int NonsenseValue(Component self) { return ~0; }
+static void Delete(Motor* self) {}
 
-static const char* EmptyString(Component self) { return ""; }
+static int NonsenseValue(Motor self) { return ~0; }
 
-static bool True(Component self) { return true; }
+static const char* EmptyString(Motor self) { return ""; }
 
-static void NoEffect(Component self) {}
+static bool True(Motor self) { return true; }
 
-static void NoEffectWithString(Component self, const char* direction) {}
+static void NoEffect(Motor self) {}
 
-static int Zero(Component self) { return 0; }
+static void NoEffectWithString(Motor self, const char* direction) {}
 
-static void NoEffectWithInt(Component self, int rpm) {}
+static int Zero(Motor self) { return 0; }
 
-static const MotorInterfaceStruct kTheInterface = {
-    .Delete = Delete,
-    .Id = NonsenseValue,
-    .Tag = EmptyString,
-    .State = EmptyString,
-    .IsStopped = True,
-    .Run = NoEffect,
-    .Stop = NoEffect,
-    .ForceStop = NoEffect,
-    .GetDirection = EmptyString,
-    .SetDirection = NoEffectWithString,
-    .GetSpeed = Zero,
-    .SetSpeed = NoEffectWithInt,
-};
+static void NoEffectWithInt(Motor self, int rpm) {}
 
-inline static Component New(void) { return (Component)&kTheInterface; }
+inline static Motor New(void) {
+  Motor self = heap->New(sizeof(MotorInterfaceStruct));
+  self->Delete = Delete;
+  self->Id = NonsenseValue;
+  self->Tag = EmptyString;
+  self->State = EmptyString;
+  self->IsStopped = True;
+  self->Run = NoEffect;
+  self->Stop = NoEffect;
+  self->ForceStop = NoEffect;
+  self->GetDirection = EmptyString;
+  self->SetDirection = NoEffectWithString;
+  self->GetSpeed = Zero;
+  self->SetSpeed = NoEffectWithInt;
+  return self;
+}
 
-static Component GetInstance(void) {
-  if (the_instance == NULL) the_instance = New();
-  return the_instance;
+static Motor GetInstance(void) {
+  if (INSTANCE == NULL) INSTANCE = New();
+  return INSTANCE;
 }
 
 static const NullMotorMethodStruct kTheMethod = {

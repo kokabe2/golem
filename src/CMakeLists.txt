@@ -9,7 +9,6 @@ add_library(
     golem
     actuators/motors/pulse_motors/null_pulse_motor.c
     actuators/motors/pulse_motors/pulse_motor.c
-    actuators/motors/motor.c
     actuators/motors/null_motor.c
     actuators/solenoids/null_solenoid.c
     actuators/null_actuator.c
